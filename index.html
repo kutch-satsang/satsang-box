@@ -54,7 +54,9 @@ a.game:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .play.soon{background:transparent;color:var(--muted);box-shadow:none;border:1.5px dashed var(--line);font-size:13px;font-weight:600}
 div.game{opacity:.92}
 footer{text-align:center;margin-top:22px;padding:0 16px;font-size:12px;color:var(--fc)}
-@media (prefers-reduced-motion:reduce){.stage .el,a.game{transition:none}}
+@keyframes omsway{0%,100%{transform:perspective(500px) rotateY(-24deg) translateY(0)}50%{transform:perspective(500px) rotateY(24deg) translateY(-.8cqw)}}
+.stage .om{animation:omsway 4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.stage .el,a.game{transition:none}.stage .om{animation:none}}
 </style>
 
 <link rel="stylesheet" href="intro/intro.css">
@@ -105,7 +107,7 @@ function home(t){
   var lg=el("div","lang");lg.setAttribute("role","group");lg.setAttribute("aria-label","ભાષા / Language");
   O.forEach(function(k){var b=el("button",k===L?"on":"",LB[k]);b.type="button";b.addEventListener("click",function(){setLang(k)});lg.appendChild(b)});
   st.appendChild(lg);
-  var om=el("div","el");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
+  var om=el("div","el om");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
   var ti=lab(t.h1,T0.ti[0],T0.ti[1]);ti.className="st ti";st.appendChild(ti);
   ["z1","z2","z3","z4"].forEach(function(z,i){
     var a=el("a","el");a.href="#"+z;a.setAttribute("aria-label",t[z]);box(a,T0.t[i]);

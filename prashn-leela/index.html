@@ -492,6 +492,24 @@ background:radial-gradient(rgba(200,80,30,.08) 1.5px,transparent 1.7px) 0 0/24px
 .tw .go{animation:gp 2s ease-in-out infinite,gg 2.4s ease-in-out infinite}
 @keyframes gg{0%,100%{box-shadow:0 0 0 1.3cqw #FFD66B,0 0 0 2.2cqw #B8650F,0 0 4cqw 1cqw rgba(255,196,80,.5),inset 0 2px 0 rgba(255,255,255,.5)}50%{box-shadow:0 0 0 1.3cqw #FFE9A8,0 0 0 2.2cqw #B8650F,0 0 10cqw 3cqw rgba(255,214,110,.95),inset 0 2px 0 rgba(255,255,255,.5)}}
 .pet .pf{filter:drop-shadow(0 0 5px rgba(255,200,100,.9))}
+
+/* zumar: green-gold chrome (art/box colours kept) */
+:root:root:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
+body{--bg:#0a2e2b;--surface:#14504a;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600;color-scheme:dark;background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%) fixed,#0a2e2b!important;color:#fff6dc}
+#sov{background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%),#0a2e2b;--surface:#14504a;--bg:#0a2e2b;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600;color-scheme:dark}
+#sov .sheet,#setupx{background:transparent;color:#fff6dc;--surface:#14504a;--bg:#0a2e2b;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600}
+#sov .shead h2,#gprep .suh h2,#gprep .sb h3{color:#f6d98b}
+#sov .sx,#sov .sheet .close,#ssave,#gprep .sub,#sov .sgame,#gprep .sgo button,#sov #slang .lgb,#sov #slang button[aria-pressed="true"],#gprep .cats button[aria-pressed="true"]{background:var(--zg)!important;color:#3a2600!important;border:1.5px solid #fff3c4!important;box-shadow:var(--zsh)}
+#sov #slang button,#sov .stabs button,#gprep .cats button{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;color:#fff6dc!important;box-shadow:var(--zsh)}
+#sov .stabs button[aria-selected="true"]{background:var(--zg)!important;color:#3a2600!important;border-color:#fff3c4!important}
+#sov .pane,#gprep .sb{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh);color:#fff6dc}
+#gprep .sb input,.wans{background:rgba(0,0,0,.28);border:1.5px solid var(--zrim);color:#fff6dc}
+#gprep .sgo{background:linear-gradient(180deg,transparent,#0a2e2b 40%);border-top:0}
+.lgb{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;color:#f6d98b!important}
+#hbtn,.tm.add{color:#f6d98b!important}
+.steps button{color:#e0bb62!important}.steps button.ok{color:#9fe0a0!important}
+.steps button[aria-current="step"]{background:var(--zg)!important;color:#3a2600!important}
+.tm.cur{border-bottom-color:#f6d98b!important}.tm .tn{color:#e0bb62!important}.tm .ts{color:#fff6dc}
 </style>
 
 <main class="wrap">
@@ -1231,4 +1249,14 @@ var h=document.getElementById("home");if(h)new MutationObserver(function(){if(h.
 document.addEventListener("visibilitychange",function(){if(document.hidden&&on)stop()});
 })();
 </script>
+<script>/* back system: Chrome/Android back = game's own back; top level -> hub */
+(function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
+try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+function back(){var ov=[$('ov'),$('lov'),$('sov')].filter(vis)[0];
+if(ov){var c=ov.querySelector('#cx,.sx,.close,#lx');if(c){c.click();return true}ov.hidden=true;return true}
+if(vis($('home')))return false;
+if($('hbtn')){$('hbtn').click();return true}
+return false}
+addEventListener('popstate',function(){if(back()===false){leave();return}history.pushState({g:2},'')})})();</script>
 </body></html>

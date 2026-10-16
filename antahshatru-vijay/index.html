@@ -55,6 +55,21 @@ main{position:relative;flex:1;min-height:0;display:flex;justify-content:center}c
 .segwrap{margin-bottom:10px}.seglab{font-size:12px;color:#e0c8f2;margin-bottom:3px}.seg{display:flex;gap:5px}.seg button{flex:1;min-width:0;padding:8px 2px;font-size:12px;border-radius:10px}.seg button.on{background:linear-gradient(120deg,#ff9a4d,#ffd27a);color:#2a1030;border:0}
 .dd{position:relative}.ddb{width:100%;display:flex;justify-content:space-between;align-items:center;padding:8px 10px;font-size:13px;border-radius:10px;text-align:left}.ddl{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:60;display:flex;flex-direction:column;gap:4px;padding:6px;background:#1c0d3a;border:1px solid #b07ad8;border-radius:12px;box-shadow:0 10px 30px #000c}.ddl button{padding:9px 8px;font-size:13px;border-radius:9px;text-align:left}.ddl button.on{background:linear-gradient(120deg,#ff9a4d,#ffd27a);color:#2a1030;border:0}
 .shipbox{margin-top:4px}.row2 .field select{padding:8px;font-size:13px}
+
+/* zumar: green-gold chrome (canvas + curtain art kept) */
+:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
+button{background:var(--zpanel);color:#fff6dc;border:1.5px solid var(--zrim);box-shadow:var(--zsh)}
+#startGame,#resumeGame,#resumeNow,#newGame,#goNext,#shEnter,.primary,button.go{background:var(--zg);color:#3a2600;border-color:#fff3c4}
+#topbar button{background:var(--zpanel);color:#f6d98b}
+.modalwrap{background:#061f1cdb}
+.panel{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;box-shadow:var(--zsh)!important;color:#fff6dc}
+.panel h1,.panel h2,.panel h3{color:#f6d98b}
+.field{color:#f0dfa6}.field select,.field input{background:rgba(0,0,0,.3)!important;color:#fff6dc!important;border:1.5px solid var(--zrim)!important}
+.quizopt.good{background:#1f7a4f}.quizopt.bad{background:#7a3a2c}
+#scoreTable td,#scoreTable th{border-bottom-color:var(--zrim)}
+#shSkip{background:var(--zpanel)}
+.seg button.on,.ddl button.on{background:var(--zg);color:#3a2600;border:0}
+.sel{border:2px solid #f6d98b;background:linear-gradient(145deg,#1b5b52,#0c3733)}
 </style>
 <div id="app">
 <main id="gameBox"><canvas id="canvas"></canvas>
@@ -495,5 +510,16 @@ function toggleFull(){if(document.fullscreenElement)document.exitFullscreen?.();
 $('backBtn').onclick=menu;$('pauseBtn').onclick=()=>{if(S.running)pauseMenu();else menu()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&S.running&&!S.paused)pauseMenu()});
 updateHUD();menu();if(S.intro)ceremony(()=>{});
-})();</script>
+/* back system: Chrome/Android back = game's own back; top level -> hub */
+(function(){var $$=function(i){return document.getElementById(i)};
+try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+addEventListener('popstate',function(){var sh=$$('show');
+ if(sh&&sh.offsetParent&&!sh.classList.contains('gone')&&$$('shSkip')&&$$('shSkip').offsetParent){$$('shSkip').click();history.pushState({g:2},'');return}
+ var ov=$$('overlay'),open=ov&&!ov.classList.contains('hidden');
+ if(open&&$$('startGame')){leave();return}
+ if(open){menu()}else if(S.running){pauseMenu()}else{menu()}
+ history.pushState({g:2},'')})})();
+})();
+</script>
 </body></html>

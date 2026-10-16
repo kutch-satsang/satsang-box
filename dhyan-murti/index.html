@@ -1851,4 +1851,13 @@ body{background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2
 #sheet #sheetOk{background:var(--zg);border:1.5px solid #f6d98b;color:#2a1700;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 5px 12px rgba(0,0,0,.45)}
 .card.set .seg button[aria-pressed="true"]{background:var(--zg);border-color:#f6d98b}
 </style>
+<script>/* back system: Chrome/Android back = game's own back; top level -> hub */
+(function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
+try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+function back(){if(vis($('opw'))&&getComputedStyle($('opw')).display!=='none')return false;
+if(vis($('sheet'))){var sb=$('sback');if(sb&&!sb.hidden)sb.click();else $('sheetOk').click();return true}
+var b=$('back');if(b&&!b.disabled&&!vis($('start'))){b.click();return true}
+return false}
+addEventListener('popstate',function(){if(back()===false){leave();return}history.pushState({g:2},'')})})();</script>
 </body></html>

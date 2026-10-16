@@ -13,3 +13,5 @@
 - [stated] 2026-10-11 21:12 (Sydney): wants no dashed rings on the paper — instead a small red blinking dot at each item's spot that keeps blinking until the item is placed correctly; V2 updated with this
 - (નોંધ) 2026-10-11 ~21:25 પછી આ જ વિચાર આધ્યાત્મિક વર્ઝન તરીકે "ધ્યાન મૂર્તિ ગેમ" બન્યો — જુઓ ../dhyan-murti/SOURCE.md.
 
+
+- 2026-10-17 (Adelaide): લીલા-સોનેરી chrome (zumar CSS) + બેક સિસ્ટમ (popstate shim, પાનાના અંતે).

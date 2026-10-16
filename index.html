@@ -15,117 +15,144 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap">
 <style>
-:root{
-  --cream:#fff6e6;--cream2:#ffe9c7;--saffron:#f08a24;--deep:#7a3410;--ink:#3b2410;--muted:#7b5a3a;
-  --gold:#d9a23a;--card:#fffdf8;
-  color-scheme:light;
-}
+:root{--ink:#4a2c1c;--deep:#5a3524;--muted:#7b5a3a;--card:#fffaf0;--line:#e3c9a4;--accent:#e8845f;--page:#f4e3cc;
+  color-scheme:light}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
-body{
-  min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#ffd9a0 0%,var(--cream) 45%,var(--cream2) 100%);
-  color:var(--ink);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif;
-  padding:max(16px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom));
-}
-.wrap{max-width:520px;margin:0 auto}
-header{text-align:center;padding:10px 0 18px}
-.om{font-size:34px;line-height:1;color:var(--saffron);text-shadow:0 2px 10px rgba(240,138,36,.35)}
-h1{margin:6px 0 2px;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;font-weight:700;font-size:34px;line-height:1.2;color:var(--deep)}
-.sub{margin:0;font-size:14px;color:var(--muted)}
+body{min-height:100vh;background:var(--page);color:var(--ink);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif}
+.wrap{max-width:520px;margin:0 auto;padding:0 0 28px;min-height:100vh}
+/* ---- ઘર (ચિત્ર-થીમ) ---- */
+.stage{position:relative;width:100%;aspect-ratio:853/1844;container-type:inline-size;background:var(--page) var(--bg) center top/100% auto no-repeat;overflow:hidden}
+.stage .el{position:absolute;display:block;text-decoration:none;color:inherit;filter:var(--drop,none);transition:transform .15s}
+.stage a.el:active{transform:scale(.97)}
+.stage a.el:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:30px}
+.stage img{display:block;width:100%;height:100%}
+.st{position:absolute;left:0;width:100%;text-align:center;white-space:nowrap;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;font-weight:700;pointer-events:none;color:var(--lab)}
+.st.ti{color:var(--tc);text-shadow:var(--tsh)}
+.lang{position:absolute;top:3.4cqw;right:3cqw;z-index:5;display:flex;gap:.8cqw;padding:.9cqw;border-radius:99px;background:var(--pillbg);border:var(--pillbd);box-shadow:0 .5cqw 1.4cqw rgba(0,0,0,.28)}
+.lang button{border:0;background:transparent;color:var(--pillc);font:700 2.7cqw 'Baloo Bhai 2',sans-serif;min-width:6.6cqw;height:5.6cqw;border-radius:99px;cursor:pointer;padding:0 1cqw}
+.lang button.on{background:var(--accent);color:#fff;box-shadow:inset 0 -.5cqw .8cqw rgba(0,0,0,.18)}
+.lang button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* ---- અંદરનાં પેજ ---- */
+.inner{padding:max(16px,env(safe-area-inset-top)) 16px 8px;min-height:100vh;background:var(--ibg);background-size:cover}
 .grid{display:grid;gap:14px}
-a.game{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;text-decoration:none;color:inherit;
-  background:var(--card);border:1.5px solid #f0cf94;border-radius:20px;padding:14px 14px 14px 12px;
-  box-shadow:0 6px 18px rgba(122,52,16,.12);transition:transform .15s,box-shadow .15s;
-}
-a.game:active{transform:scale(.98);box-shadow:0 2px 8px rgba(122,52,16,.12)}
-a.game:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
-.no{
-  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;
-  background:linear-gradient(145deg,#ffb04a,var(--saffron));color:#fff;font-family:'Baloo Bhai 2',sans-serif;font-weight:700;font-size:22px;
-  box-shadow:0 0 0 3px #fff6e6,0 0 0 4.5px var(--gold);
-}
+.ihead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
+.back{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:99px;border:var(--cardbd);background:var(--card);color:var(--deep);font:700 15px 'Noto Sans Gujarati',sans-serif;cursor:pointer;box-shadow:var(--cardsh)}
+.back:active{transform:scale(.96)}
+.lang2{display:flex;gap:4px;padding:4px;border-radius:99px;background:var(--card);border:var(--cardbd)}
+.lang2 button{border:0;background:transparent;color:var(--deep);font:700 14px 'Baloo Bhai 2',sans-serif;min-width:40px;height:34px;border-radius:99px;cursor:pointer}
+.lang2 button.on{background:var(--accent);color:#fff}
+.ztitle{margin:0 0 14px;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;font-weight:700;font-size:26px;color:var(--ztc);line-height:1.3}
+a.game,div.game{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;text-decoration:none;color:inherit;background:var(--card);border:var(--cardbd);border-radius:22px;padding:14px 14px 14px 12px;box-shadow:var(--cardsh);transition:transform .15s}
+a.game:active{transform:scale(.98)}
+a.game:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.no{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,#f2a07f,var(--accent));color:#fff;font-family:'Baloo Bhai 2',sans-serif;font-weight:700;font-size:22px;box-shadow:inset 0 -3px 5px rgba(0,0,0,.15),0 2px 5px rgba(0,0,0,.18)}
 .txt{min-width:0}
 .name{font-weight:700;font-size:19px;line-height:1.35;color:var(--deep)}
 .note{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
-.play{
-  flex:none;padding:9px 16px;border-radius:99px;background:var(--saffron);color:#fff;font-weight:700;font-size:15px;
-  box-shadow:0 3px 10px rgba(240,138,36,.4);
-}
-.lang{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:70;min-width:46px;height:46px;padding:0 10px;border-radius:99px;border:2px solid var(--gold);background:var(--card);color:var(--deep);font:700 17px 'Baloo Bhai 2',sans-serif;box-shadow:0 4px 12px rgba(122,52,16,.2);cursor:pointer}
-.lang:active{transform:scale(.94)}
-.lang:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
-.back{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:9px 16px;border-radius:99px;border:2px solid var(--gold);background:var(--card);color:var(--deep);font:700 15px 'Noto Sans Gujarati',sans-serif;cursor:pointer;box-shadow:0 3px 10px rgba(122,52,16,.15)}
-.back:active{transform:scale(.96)}
-.ztitle{margin:0 0 14px;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;font-weight:700;font-size:26px;color:var(--deep);line-height:1.3}
-.no.em{font-size:26px;background:linear-gradient(145deg,#ffd27a,#f4a640)}
-footer{text-align:center;margin-top:22px;font-size:12px;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){a.game{transition:none}}
+.play{flex:none;padding:9px 16px;border-radius:99px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:inset 0 -3px 5px rgba(0,0,0,.15),0 2px 6px rgba(0,0,0,.2)}
+.play.soon{background:transparent;color:var(--muted);box-shadow:none;border:1.5px dashed var(--line);font-size:13px;font-weight:600}
+div.game{opacity:.92}
+footer{text-align:center;margin-top:22px;padding:0 16px;font-size:12px;color:var(--fc)}
+@media (prefers-reduced-motion:reduce){.stage .el,a.game{transition:none}}
 </style>
+
 <link rel="stylesheet" href="intro/intro.css">
 </head>
 <body>
-<button type="button" class="lang" id="lang" aria-label="ભાષા / Language">G</button>
-<main class="wrap">
-  <header>
-    <div class="om" aria-hidden="true">ॐ</div>
-    <h1 id="h1">સત્સંગ બોક્સ</h1>
-    <p class="sub" id="sub">રમો અને શીખો</p>
-  </header>
-
-  <nav class="grid" id="nav" aria-label="ગેમ યાદી"></nav>
-
-  <footer id="foot">નવી ગેમ ઉમેરાતી રહેશે</footer>
-</main>
+<main class="wrap" id="app"></main>
 <script>
 (function(){
 var K="satsangLang",O=["g","e","r"],LB={g:"G",e:"E",r:"G.a"};
-var Z=[
- {id:"z1",em:"🧠",g:["prashn-leela"]},
- {id:"z2",em:"🧘",g:["dhyan-murti"]},
- {id:"z3",em:"🧩",g:["fal-ful-memory"]},
- {id:"z4",em:"🎮",g:["antahshatru-vijay"]}
-];
-var G={"prashn-leela":{no:1,n:"n1",t:"t1"},"dhyan-murti":{no:2,n:"n2",t:"t2"},"antahshatru-vijay":{no:3,n:"n3",t:"t3"},"fal-ful-memory":{no:4,n:"n4",t:"t4"}};
+/* ---- થીમ: LIVE = બધાને દેખાતી થીમ. ખાનગી પ્રિવ્યૂ: ?t=નામ (સેવ થતી નથી) ---- */
+var LIVE="embroidery";
+var TH={
+ clay:{
+  v:{"--page":"#f4e3cc","--deep":"#5a3524","--muted":"#8a6a52","--card":"#fbf1e2","--line":"#e3c9a4","--accent":"#e8845f","--lab":"#5a3524","--tc":"#5a3524","--tsh":"none","--pillbg":"#fbf1e2","--pillbd":"0","--pillc":"#8a6a52","--cardbd":"0","--cardsh":"0 .5rem 1.1rem rgba(120,80,40,.22),inset 0 2px 3px #fff","--ibg":"linear-gradient(#f7e9d3,#efd7b6)","--isz":"cover","--ztc":"#5a3524","--fc":"#8a6a52","--drop":"drop-shadow(0 8px 10px rgba(120,80,40,.28))","--ink":"#4a2c1c"},
+  col:"#f08a24",
+  om:[326,80,201,204],ti:[318,68],ban:[52,1256,750,302,1346,46,[430,330]],
+  t:[[85,454,309,300],[458,454,310,300],[85,854,309,300],[458,854,310,300]],lab:[310,42,764,1164]
+ },
+ embroidery:{
+  v:{"--page":"#1f4f8f","--deep":"#1f3f86","--muted":"#4c5f8d","--card":"#f7edd8","--line":"#e0a860","--accent":"#e8782f","--lab":"#1f3f86","--tc":"#f7edd8","--tsh":"0 2px 0 #cdbd9a,0 5px 8px rgba(0,0,0,.45)","--pillbg":"#f3e8d0","--pillbd":"2px dashed #e0a860","--pillc":"#1f3f86","--cardbd":"2px dashed #e0a860","--cardsh":"0 4px 12px rgba(0,0,0,.35)","--ibg":"url(themes/embroidery/fabric.webp) repeat","--isz":"288px 72px","--ztc":"#f7edd8","--fc":"#d7e0f2","--drop":"drop-shadow(0 6px 8px rgba(0,0,0,.4))","--ink":"#1f3f86"},
+  col:"#1f4f8f",
+  om:[314,68,223,230],ti:[328,70],ban:[40,1240,772,316,1348,46,[430,330]],
+  t:[[62,440,350,371],[444,440,346,371],[62,835,348,371],[444,835,346,371]],lab:[350,38,728-440,1124-835]
+ }
+};
+var Q=(location.search.match(/[?&]t=([a-z0-9-]+)/)||[])[1];
+var TN=TH[Q]?Q:LIVE,T0=TH[TN];
+var Z=[{id:"z1"},{id:"z2"},{id:"z3"},{id:"z4"},{id:"z5"}];
+var ZG={z1:["prashn-leela"],z2:["dhyan-murti"],z3:["fal-ful-memory"],z4:["antahshatru-vijay"]};
+var G={"prashn-leela":{n:"n1",t:"t1"},"dhyan-murti":{n:"n2",t:"t2"},"antahshatru-vijay":{n:"n3",t:"t3"},"fal-ful-memory":{n:"n4",t:"t4"}};
+var OLD=["pg1","pg2","pg3","pg4","pg5"];
 var D={
-g:{h1:"સત્સંગ બોક્સ",sub:"રમો અને શીખો",z1:"જ્ઞાન-પ્રશ્ન",z2:"ધ્યાન-ભક્તિ",z3:"યાદશક્તિ",z4:"મજાની રમત",one:"૧ ગેમ",back:"← પાછા",n1:"સત્સંગ પ્રશ્ન",t1:"નામ પેટી · પાંચ બોક્સ પ્રશ્નોત્તરી",n2:"ધ્યાન દર્શન",t2:"ધ્યાન મૂર્તિ ગેમ · ચિહ્ન અને તિલ યાદ કરી મૂર્તિ પર મૂકો",n3:"અંતઃશત્રુ વિજય",t3:"દિવ્ય તેજ પાંખ · દોષોને હરાવો",n4:"ફળ ફૂલ મેમરી ગેમ",t4:"કાગળ પર જોયેલું યાદ રાખી જગ્યાએ મૂકો",play:"રમો",foot:"નવી ગેમ ઉમેરાતી રહેશે"},
-e:{h1:"Satsang Box",sub:"Play and learn",z1:"Knowledge Quiz",z2:"Meditation & Devotion",z3:"Memory",z4:"Fun Games",one:"1 game",back:"← Back",n1:"Satsang Prashn",t1:"Naam Peti · five-box quiz",n2:"Dhyan Darshan",t2:"Dhyan Murti game · remember the marks and place them on the murti",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · defeat the faults",n4:"Fruit Flower Memory Game",t4:"Remember what you saw on the paper and put it back in place",play:"Play",foot:"New games will keep being added"},
-r:{h1:"Satsang Box",sub:"Ramo ane shikho",z1:"Gnan Prashn",z2:"Dhyan Bhakti",z3:"Yaadshakti",z4:"Majani Ramat",one:"1 game",back:"← Pachha",n1:"Satsang Prashn",t1:"Naam Peti · panch box prashnottari",n2:"Dhyan Darshan",t2:"Dhyan Murti game · chihna ane til yaad rakhi murti par mukho",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · doshone harawo",n4:"Fal Ful Memory Game",t4:"Kagal par joyelu yaad rakhi jagyae mukho",play:"Ramo",foot:"Navi game umerati raheshe"}
+g:{h1:"સત્સંગ બોક્સ",sub:"રમો અને શીખો",z1:"જ્ઞાન-પ્રશ્ન",z2:"ધ્યાન-ભક્તિ",z3:"યાદશક્તિ",z4:"મજાની રમત",z5:"રમો અને શીખો",one:"૧ ગેમ",back:"← પાછા",n1:"સત્સંગ પ્રશ્ન",t1:"નામ પેટી · પાંચ બોક્સ પ્રશ્નોત્તરી",n2:"ધ્યાન દર્શન",t2:"ધ્યાન મૂર્તિ ગેમ · ચિહ્ન અને તિલ યાદ કરી મૂર્તિ પર મૂકો",n3:"અંતઃશત્રુ વિજય",t3:"દિવ્ય તેજ પાંખ · દોષોને હરાવો",n4:"ફળ ફૂલ મેમરી ગેમ",t4:"કાગળ પર જોયેલું યાદ રાખી જગ્યાએ મૂકો",play:"રમો",soon:"ટૂંક સમયમાં",pg1:"કબડ્ડી",pg2:"ખો-ખો",pg3:"લંગડી",pg4:"ગિલ્લી-દંડા",pg5:"સાતોડિયું",pnote:"જૂની રમતની માહિતી અને ચિત્ર",foot:"નવી ગેમ ઉમેરાતી રહેશે"},
+e:{h1:"Satsang Box",sub:"Play and learn",z1:"Knowledge Quiz",z2:"Meditation & Devotion",z3:"Memory",z4:"Fun Games",z5:"Play and learn",one:"1 game",back:"← Back",n1:"Satsang Prashn",t1:"Naam Peti · five-box quiz",n2:"Dhyan Darshan",t2:"Dhyan Murti game · remember the marks and place them on the murti",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · defeat the faults",n4:"Fruit Flower Memory Game",t4:"Remember what you saw on the paper and put it back in place",play:"Play",soon:"Coming soon",pg1:"Kabaddi",pg2:"Kho-Kho",pg3:"Langdi (hopping tag)",pg4:"Gilli-Danda",pg5:"Satodiyu (seven stones)",pnote:"How the old game was played, with a picture",foot:"New games will keep being added"},
+r:{h1:"Satsang Box",sub:"Ramo ane shikho",z1:"Gnan Prashn",z2:"Dhyan Bhakti",z3:"Yaadshakti",z4:"Majani Ramat",z5:"Ramo ane shikho",one:"1 game",back:"← Pachha",n1:"Satsang Prashn",t1:"Naam Peti · panch box prashnottari",n2:"Dhyan Darshan",t2:"Dhyan Murti game · chihna ane til yaad rakhi murti par mukho",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · doshone harawo",n4:"Fal Ful Memory Game",t4:"Kagal par joyelu yaad rakhi jagyae mukho",play:"Ramo",soon:"Tunk samay ma",pg1:"Kabaddi",pg2:"Kho-Kho",pg3:"Langdi",pg4:"Gilli-Danda",pg5:"Satodiyu",pnote:"Juni ramat ni mahiti ane chitra",foot:"Navi game umerati raheshe"}
 };
 var L="g";try{var s0=localStorage.getItem(K);if(D[s0])L=s0}catch(e){}
-function $(i){return document.getElementById(i)}
+var app=document.getElementById("app");
 function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n}
-function card(href,noTxt,isEm,name,note,playTxt){
-  var a=el("a","game");a.href=href;
-  var no=el("span","no"+(isEm?" em":""),noTxt);
+function px(v){return(v/853*100).toFixed(3)+"cqw"}
+function box(n,b){n.style.left=px(b[0]);n.style.top=px(b[1]);n.style.width=px(b[2]);n.style.height=px(b[3])}
+function setLang(l){L=l;try{localStorage.setItem(K,l)}catch(e){}render();if(window.satsangIntro)window.satsangIntro.lang(L)}
+function themeVars(n){for(var k in T0.v)n.style.setProperty(k,T0.v[k]);n.style.setProperty("--bg","url(themes/"+TN+"/bg.webp)")}
+function img(src){var i=new Image();i.src=src;i.alt="";i.decoding="async";i.draggable=false;return i}
+function lab(txt,top,size,left,w){var s=el("span","st",txt);s.style.top=px(top);s.style.fontSize=px(size);if(left!=null){s.style.left=px(left);s.style.width=px(w)}return s}
+function home(t){
+  var st=el("div","stage");themeVars(st);
+  var lg=el("div","lang");lg.setAttribute("role","group");lg.setAttribute("aria-label","ભાષા / Language");
+  O.forEach(function(k){var b=el("button",k===L?"on":"",LB[k]);b.type="button";b.addEventListener("click",function(){setLang(k)});lg.appendChild(b)});
+  st.appendChild(lg);
+  var om=el("div","el");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
+  var ti=lab(t.h1,T0.ti[0],T0.ti[1]);ti.className="st ti";st.appendChild(ti);
+  ["z1","z2","z3","z4"].forEach(function(z,i){
+    var a=el("a","el");a.href="#"+z;a.setAttribute("aria-label",t[z]);box(a,T0.t[i]);
+    a.appendChild(img("themes/"+TN+"/t"+(i+1)+".webp"));
+    var lt=i<2?T0.lab[2]:T0.lab[3];
+    var s=lab(t[z],lt,T0.lab[1]);
+    if(TN==="clay"){s.style.top=px(T0.t[i][3]+10);}else{s.style.top=px(T0.lab[i<2?2:3])}
+    s.style.left="0";s.style.width="100%";a.appendChild(s);st.appendChild(a)});
+  var bn=el("a","el");bn.href="#z5";bn.setAttribute("aria-label",t.z5);box(bn,[T0.ban[0],T0.ban[1],T0.ban[2],T0.ban[3]]);
+  bn.appendChild(img("themes/"+TN+"/banner.webp"));
+  var bs=lab(t.z5,T0.ban[4]-T0.ban[1],T0.ban[5]);bs.style.left=px(T0.ban[6][0]-T0.ban[0]);bs.style.width=px(T0.ban[6][1]);bn.appendChild(bs);
+  st.appendChild(bn);
+  return st;
+}
+function card(href,noTxt,name,note,playTxt,soon){
+  var a=el(href?"a":"div","game");if(href)a.href=href;
+  a.appendChild(el("span","no",noTxt));
   var tx=el("span","txt");tx.appendChild(el("span","name",name));tx.appendChild(el("div","note",note));
-  a.appendChild(no);a.appendChild(tx);a.appendChild(el("span","play",playTxt));
+  a.appendChild(tx);a.appendChild(el("span","play"+(soon?" soon":""),playTxt));
   return a;
 }
+function inner(t,zid){
+  var w=el("div","inner");themeVars(w);w.style.backgroundSize=T0.v["--isz"];
+  var hd=el("div","ihead");
+  var b=el("button","back",t.back);b.type="button";b.addEventListener("click",function(){location.hash=""});
+  hd.appendChild(b);
+  var l2=el("div","lang2");O.forEach(function(k){var x=el("button",k===L?"on":"",LB[k]);x.type="button";x.addEventListener("click",function(){setLang(k)});l2.appendChild(x)});
+  hd.appendChild(l2);w.appendChild(hd);
+  w.appendChild(el("h2","ztitle",t[zid]));
+  var g=el("nav","grid");g.setAttribute("aria-label",t[zid]);
+  if(zid==="z5"){OLD.forEach(function(k,i){g.appendChild(card(null,String(i+1),t[k],t.pnote,t.soon,true))})}
+  else ZG[zid].forEach(function(k,i){var gg=G[k];g.appendChild(card(k+"/",String(i+1),t[gg.n],t[gg.t],t.play))});
+  w.appendChild(g);return w;
+}
 function render(){
-  var t=D[L],nav=$("nav"),h=(location.hash||"").slice(1),zone=null,i;
-  for(i=0;i<Z.length;i++)if(Z[i].id===h)zone=Z[i];
-  nav.innerHTML="";
-  if(zone){
-    var b=el("button","back",t.back);b.type="button";
-    b.addEventListener("click",function(){location.hash="";});
-    nav.appendChild(b);
-    nav.appendChild(el("h2","ztitle",zone.em+" "+t[zone.id]));
-    zone.g.forEach(function(k){var g=G[k];nav.appendChild(card(k+"/",String(zone.g.indexOf(k)+1),false,t[g.n],t[g.t],t.play))});
-  }else{
-    Z.forEach(function(z){nav.appendChild(card("#"+z.id,z.em,true,t[z.id],t.one,t.play))});
-  }
-  $("h1").textContent=t.h1;$("sub").textContent=t.sub;$("foot").textContent=t.foot;
-  $("lang").textContent=LB[L];
+  var t=D[L],h=(location.hash||"").slice(1),zid=null,i;
+  for(i=0;i<Z.length;i++)if(Z[i].id===h)zid=h;
+  app.innerHTML="";
+  app.appendChild(zid?inner(t,zid):home(t));
+  var f=el("footer",null,t.foot);f.id="foot";app.appendChild(f);
+  f.style.setProperty("--fc",T0.v["--fc"]);
+  var pg=zid?T0.v["--page"]:T0.v["--page"];
+  document.body.style.background=T0.v["--ibg"];document.body.style.backgroundSize=T0.v["--isz"];document.body.style.backgroundColor=pg;
   document.documentElement.lang=L==="g"?"gu":"en";
   document.title=t.h1;
+  var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",T0.col);
 }
-$("lang").addEventListener("click",function(){
-  L=O[(O.indexOf(L)+1)%3];
-  try{localStorage.setItem(K,L)}catch(e){}
-  render();
-  if(window.satsangIntro)window.satsangIntro.lang(L);
-});
 window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
 render();
 })();

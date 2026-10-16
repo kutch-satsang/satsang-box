@@ -1820,4 +1820,31 @@ document.getElementById('ph').addEventListener('click',function(){wake();if(!AC|
   window.addEventListener('message',function(ev){ if(ev.data && ev.data.dmOpen==='enter') close(); });
 })();
 </script>
+<style id="zumar">
+/* ધ્યાન દર્શન — નવી ડિઝાઇન: ઘેરો પન્ના-લીલો + સોનેરી કિનારી (2026-10-17) */
+:root{--gold:#e0bb62;--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38);--line:#3c8076;--muted:#b6d8d1}
+body{background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%) fixed,#0a2e2b}
+.ib{border:1.5px solid var(--zrim);background:var(--zpanel);box-shadow:var(--zsh)}
+.ib:active{transform:scale(.94)}
+.pill{border:1.5px solid var(--zrim);background:var(--zpanel);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 3px 7px rgba(0,0,0,.3)}
+.pill.clock{background:var(--zg);border-color:#f6d98b;color:#2a1700;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 3px 8px rgba(0,0,0,.35)}
+.msg{color:#d4ebe6;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.stage{border:1.5px solid var(--zrim);box-shadow:inset 0 0 40px rgba(0,0,0,.28),0 8px 20px rgba(0,0,0,.4)}
+.tray{border:1.5px solid var(--zrim);background:linear-gradient(170deg,rgba(255,255,255,.1),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 6px 14px rgba(0,0,0,.3);border-radius:calc(14*var(--u))}
+.bh{color:#f0cf7c;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.chip{--hx:inset(0 round calc(11*var(--u)));background:var(--zg)}
+.chip::before{inset:calc(1.4*var(--u));background:linear-gradient(170deg,#1e655b,#10443e);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.chip .no{color:#f6d98b;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.hintbtn,.ready,.sbtn.ok{background:var(--zg);color:#2a1700;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 4px 10px rgba(0,0,0,.4)}
+.ready{border-radius:16px;letter-spacing:.01em}
+/* સેટિંગ્સ */
+#sheet .card.set{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Cg fill='none' stroke='%23d9b25a' stroke-width='2' opacity='.55'%3E%3Cpath d='M60 58C60 40 60 26 60 8'/%3E%3Cpath d='M60 44C44 44 34 34 30 20C46 20 58 28 60 44Z'/%3E%3Cpath d='M60 44C76 44 86 34 90 20C74 20 62 28 60 44Z'/%3E%3Cpath d='M60 52C40 54 24 48 14 36C32 34 52 40 60 52Z'/%3E%3Cpath d='M60 52C80 54 96 48 106 36C88 34 68 40 60 52Z'/%3E%3C/g%3E%3C/svg%3E") bottom 18px center/120px 60px no-repeat,radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%)}
+#sheet .card.set h2{color:#fff6dc;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+#sheet .tile{border:1.5px solid var(--zrim);background:var(--zpanel);box-shadow:var(--zsh);color:#f4fbf8}
+#sheet .tile:active{transform:scale(.97)}
+#sheet .tile .ic{filter:drop-shadow(0 4px 5px rgba(0,0,0,.45)) saturate(1.15)}
+#sheet .tile small{color:#b6d8d1}
+#sheet #sheetOk{background:var(--zg);border:1.5px solid #f6d98b;color:#2a1700;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 5px 12px rgba(0,0,0,.45)}
+.card.set .seg button[aria-pressed="true"]{background:var(--zg);border-color:#f6d98b}
+</style>
 </body></html>

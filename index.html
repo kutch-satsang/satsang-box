@@ -52,43 +52,71 @@ a.game:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
   flex:none;padding:9px 16px;border-radius:99px;background:var(--saffron);color:#fff;font-weight:700;font-size:15px;
   box-shadow:0 3px 10px rgba(240,138,36,.4);
 }
+.lang{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:10;min-width:46px;height:46px;padding:0 10px;border-radius:99px;border:2px solid var(--gold);background:var(--card);color:var(--deep);font:700 17px 'Baloo Bhai 2',sans-serif;box-shadow:0 4px 12px rgba(122,52,16,.2);cursor:pointer}
+.lang:active{transform:scale(.94)}
+.lang:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
 footer{text-align:center;margin-top:22px;font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){a.game{transition:none}}
 </style>
 </head>
 <body>
+<button type="button" class="lang" id="lang" aria-label="ભાષા / Language">G</button>
 <main class="wrap">
   <header>
     <div class="om" aria-hidden="true">ॐ</div>
-    <h1>સત્સંગ બોક્સ</h1>
-    <p class="sub">રમો અને શીખો</p>
+    <h1 data-k="h1">સત્સંગ બોક્સ</h1>
+    <p class="sub" data-k="sub">રમો અને શીખો</p>
   </header>
 
   <nav class="grid" aria-label="ગેમ યાદી">
     <a class="game" href="prashn-leela/">
       <span class="no">1</span>
-      <span class="txt"><span class="name">સત્સંગ પ્રશ્ન</span><div class="note">નામ પેટી · પાંચ બોક્સ પ્રશ્નોત્તરી</div></span>
-      <span class="play">રમો</span>
+      <span class="txt"><span class="name" data-k="n1">સત્સંગ પ્રશ્ન</span><div class="note" data-k="t1">નામ પેટી · પાંચ બોક્સ પ્રશ્નોત્તરી</div></span>
+      <span class="play" data-k="play">રમો</span>
     </a>
     <a class="game" href="dhyan-murti/">
       <span class="no">2</span>
-      <span class="txt"><span class="name">ધ્યાન દર્શન</span><div class="note">ધ્યાન મૂર્તિ ગેમ · ચિહ્ન અને તિલ યાદ કરી મૂર્તિ પર મૂકો</div></span>
-      <span class="play">રમો</span>
+      <span class="txt"><span class="name" data-k="n2">ધ્યાન દર્શન</span><div class="note" data-k="t2">ધ્યાન મૂર્તિ ગેમ · ચિહ્ન અને તિલ યાદ કરી મૂર્તિ પર મૂકો</div></span>
+      <span class="play" data-k="play">રમો</span>
     </a>
     <a class="game" href="antahshatru-vijay/">
       <span class="no">3</span>
-      <span class="txt"><span class="name">અંતઃશત્રુ વિજય</span><div class="note">દિવ્ય તેજ પાંખ · દોષોને હરાવો</div></span>
-      <span class="play">રમો</span>
+      <span class="txt"><span class="name" data-k="n3">અંતઃશત્રુ વિજય</span><div class="note" data-k="t3">દિવ્ય તેજ પાંખ · દોષોને હરાવો</div></span>
+      <span class="play" data-k="play">રમો</span>
     </a>
     <a class="game" href="fal-ful-memory/">
       <span class="no">4</span>
-      <span class="txt"><span class="name">ફળ ફૂલ મેમરી ગેમ</span><div class="note">કાગળ પર જોયેલું યાદ રાખી જગ્યાએ મૂકો</div></span>
-      <span class="play">રમો</span>
+      <span class="txt"><span class="name" data-k="n4">ફળ ફૂલ મેમરી ગેમ</span><div class="note" data-k="t4">કાગળ પર જોયેલું યાદ રાખી જગ્યાએ મૂકો</div></span>
+      <span class="play" data-k="play">રમો</span>
     </a>
   </nav>
 
-  <footer>નવી ગેમ ઉમેરાતી રહેશે</footer>
+  <footer data-k="foot">નવી ગેમ ઉમેરાતી રહેશે</footer>
 </main>
+<script>
+(function(){
+var K="satsangLang",O=["g","e","r"],LB={g:"G",e:"E",r:"G.a"};
+var D={
+g:{h1:"સત્સંગ બોક્સ",sub:"રમો અને શીખો",n1:"સત્સંગ પ્રશ્ન",t1:"નામ પેટી · પાંચ બોક્સ પ્રશ્નોત્તરી",n2:"ધ્યાન દર્શન",t2:"ધ્યાન મૂર્તિ ગેમ · ચિહ્ન અને તિલ યાદ કરી મૂર્તિ પર મૂકો",n3:"અંતઃશત્રુ વિજય",t3:"દિવ્ય તેજ પાંખ · દોષોને હરાવો",n4:"ફળ ફૂલ મેમરી ગેમ",t4:"કાગળ પર જોયેલું યાદ રાખી જગ્યાએ મૂકો",play:"રમો",foot:"નવી ગેમ ઉમેરાતી રહેશે"},
+e:{h1:"Satsang Box",sub:"Play and learn",n1:"Satsang Prashn",t1:"Naam Peti \u00b7 five-box quiz",n2:"Dhyan Darshan",t2:"Dhyan Murti game \u00b7 remember the marks and place them on the murti",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh \u00b7 defeat the faults",n4:"Fruit Flower Memory Game",t4:"Remember what you saw on the paper and put it back in place",play:"Play",foot:"New games will keep being added"},
+r:{h1:"Satsang Box",sub:"Ramo ane shikho",n1:"Satsang Prashn",t1:"Naam Peti \u00b7 panch box prashnottari",n2:"Dhyan Darshan",t2:"Dhyan Murti game \u00b7 chihna ane til yaad rakhi murti par mukho",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh \u00b7 doshone harawo",n4:"Fal Ful Memory Game",t4:"Kagal par joyelu yaad rakhi jagyae mukho",play:"Ramo",foot:"Navi game umerati raheshe"}
+};
+var L="g";try{var s=localStorage.getItem(K);if(D[s])L=s}catch(e){}
+function paint(){
+  var t=D[L];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-k]"),function(n){var v=t[n.getAttribute("data-k")];if(v)n.textContent=v});
+  document.getElementById("lang").textContent=LB[L];
+  document.documentElement.lang=L==="g"?"gu":"en";
+  document.title=t.h1;
+}
+document.getElementById("lang").addEventListener("click",function(){
+  L=O[(O.indexOf(L)+1)%3];
+  try{localStorage.setItem(K,L)}catch(e){}
+  paint();
+});
+paint();
+})();
+</script>
 <script>if("serviceWorker"in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
 </body>
 </html>

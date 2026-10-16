@@ -44,7 +44,7 @@ body{padding-bottom:90px!important;margin:0;background:var(--bg);color:var(--ink
 .eyebrow{margin:0;font-size:14px;color:var(--muted);font-weight:500}
 h1{margin:2px 0 0;font-family:var(--font-display);font-weight:700;font-size:clamp(34px,9vw,48px);line-height:1.15}
 .top{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:12px}
-.ld,.lb.fab{display:none!important}
+.ld,.lb.fab,#slang,#slang2{display:none!important}
 .tools{display:flex;gap:8px;align-items:center}
 .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);gap:2px}
 .lang button{font:inherit;font-size:15px;font-weight:500;border:0;background:transparent;color:var(--muted);min-width:44px;height:38px;padding:0 10px;border-radius:999px;cursor:pointer}
@@ -846,7 +846,7 @@ function speedOf(){if(!TIME||!TT0)return {sec:null,mult:1,stars:1};var sec=Math.
 var NEGS=[-50,-70,-100,-150,-200];
 var L="g",DEP="ram",CAT="adh",STEP=0,PROG={},TEAMS=[],TURN=0;
 for(var ti=0;ti<2;ti++)TEAMS.push(mk(""));
-try{var s=localStorage.getItem("naamPetiLang");if(s&&T[s])L=s;var d0=localStorage.getItem("naamPetiDept");if(d0)DEP=d0;var c0=localStorage.getItem("naamPetiCat");if(c0)CAT=c0;PROG=JSON.parse(localStorage.getItem("naamPetiProg")||"{}")||{};var tm0=JSON.parse(localStorage.getItem("naamPetiTimer")||"null");if(tm0){if([0,10,15,20,30,60].indexOf(tm0.time)>=0)TIME=tm0.time;if(tm0.style)STYLE=tm0.style;SOUND=tm0.sound!==false;WRITE=(localStorage.getItem("naamPetiW2")?tm0.write===true:(localStorage.setItem("naamPetiW2","1"),true));MINUS=tm0.minus!==false;if(["easy","written","rand"].indexOf(tm0.ord)>=0)ORD=tm0.ord;if(tm0.round===10||tm0.round===25)ROUND=tm0.round;if(tm0.give==="pick"||tm0.give==="own")GIVEM=tm0.give;if(Array.isArray(tm0.prizes)&&tm0.prizes.length)PRIZES=tm0.prizes;if(Array.isArray(tm0.negs)&&tm0.negs.length)NEGS=tm0.negs}var tn0=JSON.parse(localStorage.getItem("naamPetiTeams")||"null");if(tn0&&tn0.length>2&&!localStorage.getItem("naamPetiT2")){localStorage.setItem("naamPetiT2","1");if(!tn0.some(function(n){return String(n||"").trim()}))tn0=tn0.slice(0,2)}if(tn0&&tn0.length>=1)TEAMS=tn0.map(function(n){return mk(String(n||""))})}catch(e){}
+try{var s=localStorage.getItem("naamPetiLang");var sl0=localStorage.getItem("satsangLang");if(sl0&&T[sl0])s=sl0;if(s&&T[s])L=s;var d0=localStorage.getItem("naamPetiDept");if(d0)DEP=d0;var c0=localStorage.getItem("naamPetiCat");if(c0)CAT=c0;PROG=JSON.parse(localStorage.getItem("naamPetiProg")||"{}")||{};var tm0=JSON.parse(localStorage.getItem("naamPetiTimer")||"null");if(tm0){if([0,10,15,20,30,60].indexOf(tm0.time)>=0)TIME=tm0.time;if(tm0.style)STYLE=tm0.style;SOUND=tm0.sound!==false;WRITE=(localStorage.getItem("naamPetiW2")?tm0.write===true:(localStorage.setItem("naamPetiW2","1"),true));MINUS=tm0.minus!==false;if(["easy","written","rand"].indexOf(tm0.ord)>=0)ORD=tm0.ord;if(tm0.round===10||tm0.round===25)ROUND=tm0.round;if(tm0.give==="pick"||tm0.give==="own")GIVEM=tm0.give;if(Array.isArray(tm0.prizes)&&tm0.prizes.length)PRIZES=tm0.prizes;if(Array.isArray(tm0.negs)&&tm0.negs.length)NEGS=tm0.negs}var tn0=JSON.parse(localStorage.getItem("naamPetiTeams")||"null");if(tn0&&tn0.length>2&&!localStorage.getItem("naamPetiT2")){localStorage.setItem("naamPetiT2","1");if(!tn0.some(function(n){return String(n||"").trim()}))tn0=tn0.slice(0,2)}if(tn0&&tn0.length>=1)TEAMS=tn0.map(function(n){return mk(String(n||""))})}catch(e){}
 
 function sgn(v){return v<0?"−"+num(-v):"+"+num(v)}
 function scr(v){return v<0?"−"+num(-v):num(v)}

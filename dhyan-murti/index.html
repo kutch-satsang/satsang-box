@@ -1806,7 +1806,11 @@ function d(t){x.clearRect(0,0,W,H);
  P.forEach(function(p){x.globalAlpha=p.a;x.fillStyle='#ffd98a';x.shadowColor='#ffb347';x.shadowBlur=8;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();x.shadowBlur=0});
  requestAnimationFrame(d)}
 requestAnimationFrame(d);
-document.getElementById('ph').addEventListener('click',function(){wake();if(!AC||AC.state!=='running'||Date.now()<entryAt)return;var v=document.getElementById('veil');v.classList.add('on');try{window.__g.gain.cancelScheduledValues(AC.currentTime);window.__g.gain.setValueAtTime(window.__g.gain.value,AC.currentTime);window.__g.gain.linearRampToValueAtTime(0,AC.currentTime+1.3)}catch(e){}setTimeout(function(){try{parent.postMessage({dmOpen:'enter'},'*')}catch(e){}setTimeout(function(){try{AC.close()}catch(e){}},1500)},1000)});
+var pend=false,t0=Date.now(),entered=false;
+function enter(){if(entered)return;entered=true;var v=document.getElementById('veil');v.classList.add('on');try{window.__g.gain.cancelScheduledValues(AC.currentTime);window.__g.gain.setValueAtTime(window.__g.gain.value,AC.currentTime);window.__g.gain.linearRampToValueAtTime(0,AC.currentTime+1.3)}catch(e){}setTimeout(function(){try{parent.postMessage({dmOpen:'enter'},'*')}catch(e){}setTimeout(function(){try{AC.close()}catch(e){}},1500)},1000)}
+function can(){return (AC&&AC.state==='running'&&Date.now()>=entryAt)||Date.now()-t0>9000}
+document.getElementById('ph').addEventListener('click',function(){wake();pend=true;if(can())enter()});
+setInterval(function(){if(pend&&can())enter()},200);
 })();
 @@/script@@</body></html>
 

@@ -117,3 +117,7 @@
 ## 2026-10-17 08:40 Adelaide — નવી લીલી-સોનેરી ડિઝાઇન (સ્થાનિક, push નથી)
 - User sent a 6-screen green-gold mockup and asked for ધ્યાન દર્શન ONLY in that design. Added `<style id="zumar">` override block at end of index.html: gold-rim gradient panels (pills, round buttons, trays, settings tiles), rounded capsule chips (was hexagon, `--hx` now `inset(0 round …)`), gold gradient hint/ready/play buttons, lotus ornament on Settings. Game logic, images, languages untouched; drag-and-drop retested OK.
 - Not done: the two hub-level screens of the mockup (zone page "Meditation & Devotion" with big Play card, zone list) — these are hub pages; bottom Marks/Moles segmented drawer; Gemini 3D icons for settings tiles (currently emoji with shadow).
+
+## 2026-10-17 08:55 Adelaide — ઓપનિંગ ટેપ બગ (સ્થાનિક, push નથી)
+- User: "ઓપન થવામાં જે બટન છે તે બરોબર કામ નથી કરતા". Found: opening ignored taps until ~7 s after audio started running (and a first tap was lost if the phone blocked autoplay), no feedback → felt broken.
+- Fix (opsrc script): a tap now is remembered (`pend`) and the opening enters automatically as soon as allowed (audio running + 7 s, or at most 9 s after load even if audio is blocked). Tested: audio ok → enters 7.3 s after tap; audio blocked → 9.5 s. Animation/music design unchanged.

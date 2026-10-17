@@ -198,7 +198,7 @@ function go(h){
   var cur=(location.hash||"").slice(1);if(cur===h)return;
   var url=h?"#"+h:location.pathname+location.search,st=history.state;
   try{
-    if(h===""){ if(st&&st.p){history.back();return} history.replaceState(null,"",url) }
+    if(h===""){ if(st&&st.p){history.back();setTimeout(function(){if((location.hash||"").slice(1)===cur){try{history.replaceState(null,"",url)}catch(e){location.hash=""}render();window.scrollTo(0,0)}},350);return} history.replaceState(null,"",url) }
     else if(cur===""){ history.pushState({p:1},"",url) }
     else{ history.replaceState({p:1},"",url) }
   }catch(e){location.hash=h;return}

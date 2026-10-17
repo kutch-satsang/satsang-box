@@ -196,8 +196,12 @@ function inner(t,zid){
 }
 function go(h){
   var cur=(location.hash||"").slice(1);if(cur===h)return;
-  var url=h?"#"+h:location.pathname+location.search;
-  try{if(cur===""||h==="")history.pushState(null,"",url);else history.replaceState(null,"",url)}catch(e){location.hash=h;return}
+  var url=h?"#"+h:location.pathname+location.search,st=history.state;
+  try{
+    if(h===""){ if(st&&st.p){history.back();return} history.replaceState(null,"",url) }
+    else if(cur===""){ history.pushState({p:1},"",url) }
+    else{ history.replaceState({p:1},"",url) }
+  }catch(e){location.hash=h;return}
   render();window.scrollTo(0,0)
 }
 function hook(a,h){a.addEventListener("click",function(e){e.preventDefault();go(h)})}
@@ -215,7 +219,7 @@ function render(){
   document.title=t.h1;
   var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",T0.col);
 }
-window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
+window.addEventListener("popstate",function(){render();window.scrollTo(0,0)});window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
 render();
 })();
 </script>

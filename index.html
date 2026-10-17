@@ -22,7 +22,8 @@ html,body{margin:0}
 body{min-height:100vh;background:var(--page);color:var(--ink);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif}
 .wrap{max-width:520px;margin:0 auto;padding:0 0 28px;min-height:100vh}
 /* ---- ઘર (ચિત્ર-થીમ) ---- */
-.stage{position:relative;width:min(100%,calc((100dvh - 84px - env(safe-area-inset-bottom,0px))*853/1600));margin:0 auto;aspect-ratio:853/1600;container-type:inline-size;background:none;overflow:hidden}
+.stage{position:relative;--av:calc(100dvh - 84px - env(safe-area-inset-bottom,0px));width:100%;height:var(--av);margin:0 auto;container-type:inline-size;background:none;overflow:hidden}
+.sc{position:absolute;left:0;right:0;top:min(0px,calc(var(--av) - 187.6cqw));height:187.6cqw}
 .stage .el{position:absolute;display:block;text-decoration:none;color:inherit;filter:var(--drop,none);transition:transform .15s}
 .stage a.el:active{transform:scale(.97)}
 .stage a.el:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:30px}
@@ -141,6 +142,7 @@ function home(t){
   var lg=el("div","lang");lg.setAttribute("role","group");lg.setAttribute("aria-label","ભાષા / Language");
   O.forEach(function(k){var b=el("button",k===L?"on":"",LB[k]);b.type="button";b.addEventListener("click",function(){setLang(k)});lg.appendChild(b)});
   st.appendChild(lg);
+  var sc=el("div","sc");st.appendChild(sc);var stm=st;st=sc;
   var om=el("div","el om");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
   var ti=lab(t.h1,T0.ti[0],T0.ti[1]);ti.className="st ti";st.appendChild(ti);
   ["z1","z2","z3","z4"].forEach(function(z,i){
@@ -154,7 +156,7 @@ function home(t){
   bn.appendChild(img("themes/"+TN+"/banner.webp"));
   var bs=lab(t.z5,T0.ban[4]-T0.ban[1],T0.ban[5]);bs.style.left=px(T0.ban[6][0]-T0.ban[0]);bs.style.width=px(T0.ban[6][1]);bn.appendChild(bs);
   st.appendChild(bn);
-  return st;
+  return stm;
 }
 function card(href,noTxt,name,note,playTxt,soon){
   var a=el(href?"a":"div","game");if(href)a.href=href;

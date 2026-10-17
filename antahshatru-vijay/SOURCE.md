@@ -40,3 +40,5 @@
 - [stated] 2026-10-16 17:40 (Adelaide) ભાષા હવે હબ (મુખ્ય પેજ) ના G / E / G.a બટનથી આપમેળે લેવાય છે (`satsangLang`; G→ગુજરાતી, E અને G.a→English, કારણ કે આ ગેમમાં G.a નથી); સેટિંગ્સમાંથી "Language / ભાષા" વિકલ્પ કાઢ્યો. હજી push નથી.
 
 - 2026-10-17 (Adelaide): લીલા-સોનેરી chrome (zumar CSS) + બેક સિસ્ટમ (popstate shim, પાનાના અંતે).
+
+- 2026-10-17 18:3x (Adelaide): ઉપર ડાબે ✕ બટન (#exitHub) → હબ પર (location.replace); ગેમ ચાલુ હોય તો પૂછે.

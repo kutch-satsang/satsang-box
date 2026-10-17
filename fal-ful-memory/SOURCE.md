@@ -15,3 +15,5 @@
 
 
 - 2026-10-17 (Adelaide): લીલા-સોનેરી chrome (zumar CSS) + બેક સિસ્ટમ (popstate shim, પાનાના અંતે).
+
+- 2026-10-17 18:3x (Adelaide): ઉપર ડાબે ✕ બટન (#exitHub) → હબ પર (location.replace); ગેમ ચાલુ હોય તો પૂછે.

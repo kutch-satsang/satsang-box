@@ -1259,4 +1259,12 @@ if(vis($('home')))return false;
 if($('hbtn')){$('hbtn').click();return true}
 return false}
 addEventListener('popstate',function(){if(back()===false){leave();return}history.pushState({g:2},'')})})();</script>
+<script>/* ✕ exit to hub */
+(function(){var gu=(function(){try{var l=localStorage.getItem('satsangLang');return !l||l==='g'}catch(e){return true}})();
+var x=document.createElement('button');x.type='button';x.id='exitHub';x.setAttribute('aria-label',gu?'હબ પર જાઓ':'Back to hub');
+x.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+function running(){var h=document.getElementById('home');return !!h&&h.hidden}
+x.addEventListener('click',function(){if(running()&&!confirm(gu?'ગેમ બંધ કરીને હબ પર જવું છે?':'Close the game and go to the hub?'))return;location.replace('../')});
+document.body.appendChild(x)})();</script>
+<style>#exitHub{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:8px;z-index:9999;width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;padding:0;cursor:pointer;background:#fbf1e2;color:#5a3524;box-shadow:0 3px 8px rgba(90,53,36,.35)}.wrap .top{padding-left:42px}</style>
 </body></html>

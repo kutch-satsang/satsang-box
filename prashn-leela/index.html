@@ -2,6 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;700&family=Noto+Sans+Gujarati:wght@400;500&display=swap">
+<link rel="stylesheet" href="../clay.css">
 <style>
 /* layout: title row with language switch and settings gear, category and department chip, step buttons for stepped sections, team score cards with a + card, then a 5x5 grid of coloured boxes; a tapped box opens a large card overlay (question, answer, prize). */
 :root{
@@ -493,23 +494,22 @@ background:radial-gradient(rgba(200,80,30,.08) 1.5px,transparent 1.7px) 0 0/24px
 @keyframes gg{0%,100%{box-shadow:0 0 0 1.3cqw #FFD66B,0 0 0 2.2cqw #B8650F,0 0 4cqw 1cqw rgba(255,196,80,.5),inset 0 2px 0 rgba(255,255,255,.5)}50%{box-shadow:0 0 0 1.3cqw #FFE9A8,0 0 0 2.2cqw #B8650F,0 0 10cqw 3cqw rgba(255,214,110,.95),inset 0 2px 0 rgba(255,255,255,.5)}}
 .pet .pf{filter:drop-shadow(0 0 5px rgba(255,200,100,.9))}
 
-/* zumar: green-gold chrome (art/box colours kept) */
-:root:root:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
-body{--bg:#0a2e2b;--surface:#14504a;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600;color-scheme:dark;background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%) fixed,#0a2e2b!important;color:#fff6dc}
-#sov{background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%),#0a2e2b;--surface:#14504a;--bg:#0a2e2b;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600;color-scheme:dark}
-#sov .sheet,#setupx{background:transparent;color:#fff6dc;--surface:#14504a;--bg:#0a2e2b;--ink:#fff6dc;--muted:#e0bb62;--line:rgba(224,187,98,.55);--accent:#d9a838;--on-accent:#3a2600}
-#sov .shead h2,#gprep .suh h2,#gprep .sb h3{color:#f6d98b}
-#sov .sx,#sov .sheet .close,#ssave,#gprep .sub,#sov .sgame,#gprep .sgo button,#sov #slang .lgb,#sov #slang button[aria-pressed="true"],#gprep .cats button[aria-pressed="true"]{background:var(--zg)!important;color:#3a2600!important;border:1.5px solid #fff3c4!important;box-shadow:var(--zsh)}
-#sov #slang button,#sov .stabs button,#gprep .cats button{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;color:#fff6dc!important;box-shadow:var(--zsh)}
-#sov .stabs button[aria-selected="true"]{background:var(--zg)!important;color:#3a2600!important;border-color:#fff3c4!important}
-#sov .pane,#gprep .sb{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh);color:#fff6dc}
-#gprep .sb input,.wans{background:rgba(0,0,0,.28);border:1.5px solid var(--zrim);color:#fff6dc}
-#gprep .sgo{background:linear-gradient(180deg,transparent,#0a2e2b 40%);border-top:0}
-.lgb{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;color:#f6d98b!important}
-#hbtn,.tm.add{color:#f6d98b!important}
-.steps button{color:#e0bb62!important}.steps button.ok{color:#9fe0a0!important}
-.steps button[aria-current="step"]{background:var(--zg)!important;color:#3a2600!important}
-.tm.cur{border-bottom-color:#f6d98b!important}.tm .tn{color:#e0bb62!important}.tm .ts{color:#fff6dc}
+/* zumar: માટી (ક્લે) સ્ટાઇલ — મંદિર/બોક્સનું ચિત્ર એમ જ; રંગ ../clay.css માંથી */
+body{--bg:#f4e3cc;--surface:#fbf1e2;--ink:#4a2c1c;--muted:#8a6a52;--line:#e3c9a4;--accent:#e8845f;--on-accent:#fff;color-scheme:light;background:linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(../themes/clay/bg.webp) center top/cover fixed!important;color:#4a2c1c}
+#sov{background:linear-gradient(rgba(248,235,214,.9),rgba(240,218,186,.94)),#f4e3cc url(../themes/clay/bg.webp) center top/cover;--surface:#fbf1e2;--bg:#f4e3cc;--ink:#4a2c1c;--muted:#8a6a52;--line:#e3c9a4;--accent:#e8845f;--on-accent:#fff;color-scheme:light}
+#sov .sheet,#setupx{background:transparent;color:#4a2c1c;--surface:#fbf1e2;--bg:#f4e3cc;--ink:#4a2c1c;--muted:#8a6a52;--line:#e3c9a4;--accent:#e8845f;--on-accent:#fff}
+#sov .shead h2,#gprep .suh h2,#gprep .sb h3{color:#5a3524}
+#sov .sx,#sov .sheet .close,#ssave,#gprep .sub,#sov .sgame,#gprep .sgo button,#sov #slang .lgb,#sov #slang button[aria-pressed="true"],#gprep .cats button[aria-pressed="true"]{background:var(--cl-terra)!important;color:#fff!important;border:0!important;box-shadow:var(--cl-btn-sh)}
+#sov #slang button,#sov .stabs button,#gprep .cats button{background:var(--cl-card2)!important;border:0!important;color:#5a3524!important;box-shadow:var(--cl-sh-s)}
+#sov .stabs button[aria-selected="true"]{background:var(--cl-terra)!important;color:#fff!important;box-shadow:var(--cl-btn-sh)}
+#sov .pane,#gprep .sb{background:var(--cl-card);border:0;box-shadow:var(--cl-sh);border-radius:24px;color:#4a2c1c}
+#gprep .sb input,.wans{background:#fffaf0;border:1.5px solid var(--cl-line);color:#4a2c1c}
+#gprep .sgo{background:linear-gradient(180deg,transparent,#f1dcbc 40%);border-top:0}
+.lgb{background:var(--cl-card)!important;border:0!important;color:#5a3524!important;box-shadow:var(--cl-sh-s)}
+#hbtn,.tm.add{color:#b5532f!important}
+.steps button{color:#8a6a52!important}.steps button.ok{color:#5f7d3a!important}
+.steps button[aria-current="step"]{background:var(--cl-terra)!important;color:#fff!important}
+.tm.cur{border-bottom-color:#e8845f!important}.tm .tn{color:#b5532f!important}.tm .ts{color:#4a2c1c}
 </style>
 
 <main class="wrap">

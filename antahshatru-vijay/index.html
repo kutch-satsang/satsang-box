@@ -1,4 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="../clay.css">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>અંતઃશત્રુ વિજય</title>
 <style>
 :root{color-scheme:dark;--gold:#ffd27a;--teal:#5fe8d0;--rose:#ff8fb8;--ink:#14082a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0%,#4a1f5e,#120824 75%);color:#fbf3ff;font-family:system-ui,'Noto Sans Gujarati','Shruti',sans-serif;overflow:hidden}button,select,input{font:inherit}
@@ -56,20 +57,32 @@ main{position:relative;flex:1;min-height:0;display:flex;justify-content:center}c
 .dd{position:relative}.ddb{width:100%;display:flex;justify-content:space-between;align-items:center;padding:8px 10px;font-size:13px;border-radius:10px;text-align:left}.ddl{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:60;display:flex;flex-direction:column;gap:4px;padding:6px;background:#1c0d3a;border:1px solid #b07ad8;border-radius:12px;box-shadow:0 10px 30px #000c}.ddl button{padding:9px 8px;font-size:13px;border-radius:9px;text-align:left}.ddl button.on{background:linear-gradient(120deg,#ff9a4d,#ffd27a);color:#2a1030;border:0}
 .shipbox{margin-top:4px}.row2 .field select{padding:8px;font-size:13px}
 
-/* zumar: green-gold chrome (canvas + curtain art kept) */
-:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
-button{background:var(--zpanel);color:#fff6dc;border:1.5px solid var(--zrim);box-shadow:var(--zsh)}
-#startGame,#resumeGame,#resumeNow,#newGame,#goNext,#shEnter,.primary,button.go{background:var(--zg);color:#3a2600;border-color:#fff3c4}
-#topbar button{background:var(--zpanel);color:#f6d98b}
-.modalwrap{background:#061f1cdb}
-.panel{background:var(--zpanel)!important;border:1.5px solid var(--zrim)!important;box-shadow:var(--zsh)!important;color:#fff6dc}
-.panel h1,.panel h2,.panel h3{color:#f6d98b}
-.field{color:#f0dfa6}.field select,.field input{background:rgba(0,0,0,.3)!important;color:#fff6dc!important;border:1.5px solid var(--zrim)!important}
-.quizopt.good{background:#1f7a4f}.quizopt.bad{background:#7a3a2c}
-#scoreTable td,#scoreTable th{border-bottom-color:var(--zrim)}
-#shSkip{background:var(--zpanel)}
-.seg button.on,.ddl button.on{background:var(--zg);color:#3a2600;border:0}
-.sel{border:2px solid #f6d98b;background:linear-gradient(145deg,#1b5b52,#0c3733)}
+/* zumar: માટી (ક્લે) સ્ટાઇલ — કેનવાસ અને પડદાનું ચિત્ર એમ જ; રંગ ../clay.css માંથી */
+button{background:var(--cl-card);color:var(--cl-deep);border:0;box-shadow:var(--cl-sh-s)}
+button:hover{filter:none}
+#startGame,#resumeGame,#resumeNow,#newGame,#goNext,#shEnter,.primary,button.go{background:var(--cl-terra);color:#fff;box-shadow:var(--cl-btn-sh)}
+#topbar button{background:var(--cl-card);color:var(--cl-deep);box-shadow:var(--cl-sh)}
+#gemBox{background:var(--cl-card);border:0;color:#b5532f;box-shadow:var(--cl-sh-s)}
+#healthBar{background:rgba(255,250,240,.35);border:0;box-shadow:inset 0 1px 3px rgba(60,30,10,.35)}
+.modalwrap{background:rgba(90,53,36,.6)}
+.panel{background:var(--cl-card)!important;border:0!important;box-shadow:0 14px 34px rgba(90,53,36,.4)!important;border-radius:28px!important;color:var(--cl-ink)}
+.panel{--gold:#b5532f}#wInfo{color:var(--cl-muted)!important}
+.panel h1,.panel h2,.panel h3{color:var(--cl-deep)}
+.panel p,.panel .hint,.panel li,.panel td,.panel th{color:var(--cl-muted)}
+.panel .buttons button{color:var(--cl-deep)}.panel .buttons button.primary{color:#fff}
+.field,.seglab,.fieldlabel,#shipInfo{color:var(--cl-muted)}
+.field select,.field input{background:#fffaf0!important;color:var(--cl-deep)!important;border:1.5px solid var(--cl-line)!important}
+.tile{background:rgba(255,255,255,.55);border:0;box-shadow:var(--cl-sh-s)}
+.tile small{color:var(--cl-muted)}.tile b{color:#b5532f}
+.bars i{background:#e8d4b4}
+#shipPrev{border:0;box-shadow:var(--cl-sh-s)}
+.quizopt{background:var(--cl-card2);color:var(--cl-deep)}
+.quizopt.good{background:#a9bd7a;color:#2f3d12}.quizopt.bad{background:#efae96;color:#5a1f0d}
+#scoreTable td,#scoreTable th{border-bottom-color:var(--cl-line)}
+#shSkip{background:var(--cl-card);color:var(--cl-deep)}
+.seg button.on,.ddl button.on{background:var(--cl-terra);color:#fff;border:0}
+.ddl{background:var(--cl-card)!important;border:0!important;box-shadow:var(--cl-sh)!important}
+.sel{border:2px solid #e8845f;background:rgba(232,132,95,.15)}
 </style>
 <div id="app">
 <main id="gameBox"><canvas id="canvas"></canvas>

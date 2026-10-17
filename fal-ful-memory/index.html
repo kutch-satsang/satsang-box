@@ -90,21 +90,29 @@ button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.it,.ring,.t{transition:none}.paper:not(.play) .it{animation:none}}
 </style>
 
+<link rel="stylesheet" href="../clay.css">
 <style id="zumar">
-/* સહિયારી ડિઝાઇન (લીલો-સોનેરી) — design 2026-10-17 */
-:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
-body{background:radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%) fixed,#0a2e2b}
-h1{color:#fff6dc;text-shadow:0 2px 6px rgba(0,0,0,.5)}
-.panel{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh);border-radius:18px}
-.seg button{border:1.5px solid var(--zrim);background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
-.seg button[aria-pressed="true"],.go,.clock{background:var(--zg);border-color:#f6d98b;color:#2a1700;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 4px 10px rgba(0,0,0,.4)}
-.go{border-radius:16px}
-.ghost{border:1.5px solid var(--zrim);background:var(--zpanel);box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
-.bar i{background:var(--zg)}
-.paper{border:1.5px solid var(--zrim)}
-.t b{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh)}
-.card{border:2px solid #d9a838;box-shadow:0 12px 30px rgba(0,0,0,.5)}
-.stars{color:#d9a838;text-shadow:0 2px 4px rgba(0,0,0,.25)}
+/* ફળ ફૂલ મેમરી — માટી (ક્લે) સ્ટાઇલ, રંગ ../clay.css માંથી */
+:root{--bg:#f4e3cc;--panel:#fbf1e2;--line:#e3c9a4;--fg:#5a3524;--muted:#8a6a52;--paper:#fffdf6;--ink:#4a2c1c;--accent:#e8845f;--accent-ink:#fff;--good:#6f8a4a;--bad:#d9573b;--ring:#c9b08f;color-scheme:light}
+body{background:linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(../themes/clay/bg.webp) center top/cover fixed;background-attachment:fixed}
+h1{color:var(--cl-deep)}
+.panel{background:var(--cl-card);border:0;box-shadow:var(--cl-sh);border-radius:26px}
+.seg button{border:0;background:var(--cl-card2);color:var(--cl-deep);border-radius:16px;box-shadow:var(--cl-sh-s)}
+.seg button[aria-pressed="true"],.go,.clock{background:var(--cl-terra);color:#fff;border:0;box-shadow:var(--cl-btn-sh)}
+.go{border-radius:18px}
+.ghost{border:0;background:var(--cl-card2);color:var(--cl-deep);box-shadow:var(--cl-sh-s);border-radius:16px}
+.bar{background:rgba(120,80,40,.15)}
+.bar i{background:var(--cl-olive)}
+.paper{border:0;border-radius:10px;box-shadow:var(--cl-sh)}
+.paper::after{color:#b9a58a}
+.note{color:#8a6a52}
+.t b{background:var(--cl-card);border:0;box-shadow:var(--cl-sh)}
+.msg.good{color:#5f7d3a}.msg.bad{color:#c0452a}
+.win{background:rgba(90,53,36,.55)}
+.card{border:0;box-shadow:0 14px 34px rgba(90,53,36,.4);border-radius:28px;background:var(--cl-card)}
+.card .ghost{color:var(--cl-deep)}
+.stars{color:#e8a53a;text-shadow:0 2px 3px rgba(120,80,40,.25)}
+button:focus-visible{outline:3px solid #e8845f}
 </style>
 <main class="app">
   <header>

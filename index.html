@@ -56,24 +56,26 @@ div.game{opacity:.92}
 footer{text-align:center;margin-top:22px;padding:0 16px;font-size:12px;color:var(--fc)}
 
 /* ---- લીલો-સોનેરી: અંદરનાં પેજ + નીચેનું મેનુ (ઘર માટીનું જ રહે) ---- */
-:root{--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
+:root{--ca:linear-gradient(180deg,#f2a07f,#e8845f);--csh:0 .5rem 1.1rem rgba(120,80,40,.22),inset 0 2px 3px #fff,inset 0 -6px 10px rgba(180,130,80,.1);--zg:linear-gradient(180deg,#f6d98b,#d9a838);--zpanel:linear-gradient(165deg,#1b5b52 0%,#0f423c 60%,#0c3733 100%);--zrim:rgba(224,187,98,.55);--zsh:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -10px 18px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.38)}
 .wrap{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-.inner.gg{background:none;color:#fff6dc}
-.gg .back,.gg .lang2{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh);color:#f6d98b}
-.gg .lang2 button{color:#f6d98b}.gg .lang2 button.on{background:var(--zg);color:#3a2600}
-.gg .ztitle{color:#f6d98b}
-.gg a.game,.gg div.game,.gg .sbox{background:var(--zpanel);border:1.5px solid var(--zrim);box-shadow:var(--zsh);color:#fff6dc}
-.gg .name{color:#f6d98b}.gg .note{color:#ead9a6}
-.gg .no,.gg .play{background:var(--zg);color:#3a2600;box-shadow:inset 0 1px 0 #fff8,0 3px 6px rgba(0,0,0,.35)}
-.gg .play.soon{background:transparent;color:#e0bb62;border:1.5px dashed var(--zrim);box-shadow:none}
-.sbox{border-radius:22px;padding:16px;margin:0 0 14px}
-.sbox h3{margin:0 0 10px;font:700 18px 'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;color:#f6d98b}
-.sbox p{margin:0;font-size:14px;line-height:1.6;color:#ead9a6}
+/* અંદરનાં પેજ: માટી (ક્લે) સ્ટાઇલ — ક્રીમ ટાઇલ, ટેરાકોટા બટન, ઓલિવ લીલો */
+.inner.gg{background:none;color:var(--ink)}
+.gg .back,.gg .lang2{background:linear-gradient(160deg,#fdf5e8,#f3e3cb);border:0;box-shadow:var(--csh);color:var(--deep)}
+.gg .lang2 button{color:var(--muted)}.gg .lang2 button.on{background:var(--ca);color:#fff;box-shadow:inset 0 -3px 5px rgba(0,0,0,.15)}
+.gg .ztitle{color:var(--deep)}
+.gg a.game,.gg div.game,.gg .sbox{background:linear-gradient(160deg,#fdf5e8,#f3e3cb);border:0;box-shadow:var(--csh);border-radius:26px;color:var(--ink)}
+.gg .name{color:var(--deep)}.gg .note{color:var(--muted)}
+.gg .no{background:var(--ca);color:#fff;box-shadow:inset 0 -3px 5px rgba(0,0,0,.15),0 3px 6px rgba(120,80,40,.3)}
+.gg .play{background:var(--ca);color:#fff;box-shadow:inset 0 -3px 5px rgba(0,0,0,.15),0 3px 6px rgba(120,80,40,.3)}
+.gg .play.soon{background:transparent;color:var(--muted);border:1.5px dashed #d9bb90;box-shadow:none}
+.sbox{border-radius:26px;padding:16px;margin:0 0 14px}
+.sbox h3{margin:0 0 10px;font:700 18px 'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;color:var(--deep)}
+.sbox p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
 .sseg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sseg button,.sbtn{border:1.5px solid var(--zrim);background:var(--zpanel);color:#fff6dc;border-radius:14px;min-height:50px;font:700 17px 'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;cursor:pointer;box-shadow:var(--zsh)}
-.sseg button.on,.sbtn.gold{background:var(--zg);color:#3a2600;border-color:#fff3c4}
+.sseg button,.sbtn{border:0;background:linear-gradient(160deg,#fdf5e8,#efdcc0);color:var(--deep);border-radius:18px;min-height:50px;font:700 17px 'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;cursor:pointer;box-shadow:var(--csh)}
+.sseg button.on,.sbtn.gold{background:var(--ca);color:#fff;box-shadow:inset 0 -3px 6px rgba(0,0,0,.15),0 4px 8px rgba(120,80,40,.3)}
 .sbtn{width:100%;padding:0 14px}
-.gg footer{color:#cdbb85}
+.gg footer{color:#8a6a52}
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
 .bnav nav{pointer-events:auto;width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--zpanel);border-top:1.5px solid var(--zrim);box-shadow:0 -6px 18px rgba(0,0,0,.35)}
 .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;text-decoration:none;color:#e0bb62;font:700 12px 'Noto Sans Gujarati',sans-serif;line-height:1.3;text-align:center}
@@ -196,12 +198,12 @@ function render(){
   var f=el("footer",null,t.foot);f.id="foot";app.appendChild(f);
   f.style.setProperty("--fc",T0.v["--fc"]);
   var pg=T0.v["--page"];
-  if(zid){document.body.style.background="radial-gradient(130% 55% at 50% 0%,#1a5a52 0%,#0f403a 45%,#0a2e2b 100%) fixed,#0a2e2b";document.body.style.backgroundSize="";f.style.setProperty("--fc","#cdbd85")}
+  if(zid){document.body.style.background="linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/clay/bg.webp) center top/cover fixed";f.style.setProperty("--fc","#8a6a52")}
   else{document.body.style.background=T0.v["--ibg"];document.body.style.backgroundSize=T0.v["--isz"];document.body.style.backgroundColor=pg}
   app.appendChild(nav(t,zid||""));
   document.documentElement.lang=L==="g"?"gu":"en";
   document.title=t.h1;
-  var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",zid?"#0f403a":T0.col);
+  var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",T0.col);
 }
 window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
 render();

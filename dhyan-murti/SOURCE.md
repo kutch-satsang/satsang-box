@@ -121,3 +121,8 @@
 ## 2026-10-17 08:55 Adelaide — ઓપનિંગ ટેપ બગ (સ્થાનિક, push નથી)
 - User: "ઓપન થવામાં જે બટન છે તે બરોબર કામ નથી કરતા". Found: opening ignored taps until ~7 s after audio started running (and a first tap was lost if the phone blocked autoplay), no feedback → felt broken.
 - Fix (opsrc script): a tap now is remembered (`pend`) and the opening enters automatically as soon as allowed (audio running + 7 s, or at most 9 s after load even if audio is blocked). Tested: audio ok → enters 7.3 s after tap; audio blocked → 9.5 s. Animation/music design unchanged.
+
+## 2026-10-17 ~11:20 Adelaide — નવું ઓપનિંગ ચિત્ર (push બાકી)
+- તેણે લખાણ વગરનું લીલું-સોનેરી ચિત્ર આપ્યું (વર્તુળમાં સોનેરી આકૃતિ, બે ઝાડ, સોનેરી રસ્તો); `assets/opening-bg.webp` તરીકે મૂક્યું
+- ઓપનિંગ (opsrc iframe): જૂનું આકાશ/ચંદ્ર/વાદળ/પક્ષી/ટેકરી/ઝાડ અને જૂની મૂર્તિ-રેખા કાઢી; ચિત્ર પાછળ, સંગીત સાથે ઝળકતું તેજ (`--lv`) ચિત્રની આકૃતિ+વર્તુળ પર (`.pulse`, ઉપરથી નીચે પ્રકાશ ફેલાય), રિંગ-ગ્લો, ચમકતા કણ, ટેપ-થી-શરૂ એમ જ
+- નામ HTML માં ચળકતા સોનેરી 3D સ્ટાઇલમાં, 3 ભાષા (Playfair Display + Noto Serif Gujarati)

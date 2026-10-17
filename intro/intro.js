@@ -196,6 +196,7 @@ function launch(){
 }
 
 function addReplay(){
+  return; /* ઓપનિંગ ફરી જુઓ બટન કાઢ્યું (2026-10-17) */
   var f=document.getElementById("foot");if(!f||document.querySelector(".ireplay"))return;
   var b=btn("ireplay");b.addEventListener("click",function(){launch()});
   f.parentNode.insertBefore(b,f.nextSibling);setReplay();

@@ -1252,7 +1252,7 @@ document.addEventListener("visibilitychange",function(){if(document.hidden&&on)s
 <script>/* back system: Chrome/Android back = game's own back; top level -> hub */
 (function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
 try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
-function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.replace('../')}
 function back(){var ov=[$('ov'),$('lov'),$('sov')].filter(vis)[0];
 if(ov){var c=ov.querySelector('#cx,.sx,.close,#lx');if(c){c.click();return true}ov.hidden=true;return true}
 if(vis($('home')))return false;

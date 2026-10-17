@@ -1889,7 +1889,7 @@ $('clock').addEventListener('click',function(){$('ready').click()});
 <script>/* back system: Chrome/Android back = game's own back; top level -> hub */
 (function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
 try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
-function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.replace('../')}
 function back(){if(vis($('opw'))&&getComputedStyle($('opw')).display!=='none')return false;
 if(vis($('sheet'))){var sb=$('sback');if(sb&&!sb.hidden)sb.click();else $('sheetOk').click();return true}
 var b=$('back');if(b&&!b.disabled&&!vis($('start'))){b.click();return true}

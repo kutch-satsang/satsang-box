@@ -404,7 +404,7 @@ button:focus-visible{outline:3px solid #e8845f}
 <script>/* back system: Chrome/Android back = game's own back; top level -> hub */
 (function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
 try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
-function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.href='../'}
+function leave(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.back();else location.replace('../')}
 function back(){if(vis($('win'))){$('back').click();return true}
 if(vis($('hud'))){$('quit').click();return true}
 return false}

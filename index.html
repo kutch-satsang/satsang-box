@@ -22,7 +22,7 @@ html,body{margin:0}
 body{min-height:100vh;background:var(--page);color:var(--ink);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif}
 .wrap{max-width:520px;margin:0 auto;padding:0 0 28px;min-height:100vh}
 /* ---- ઘર (ચિત્ર-થીમ) ---- */
-.stage{position:relative;height:calc(100dvh - 84px - env(safe-area-inset-bottom,0px));width:auto;max-width:100%;margin:0 auto;aspect-ratio:853/1844;container-type:inline-size;background:none;overflow:hidden}
+.stage{position:relative;width:min(100%,calc((100dvh - 84px - env(safe-area-inset-bottom,0px))*853/1600));margin:0 auto;aspect-ratio:853/1600;container-type:inline-size;background:none;overflow:hidden}
 .stage .el{position:absolute;display:block;text-decoration:none;color:inherit;filter:var(--drop,none);transition:transform .15s}
 .stage a.el:active{transform:scale(.97)}
 .stage a.el:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:30px}

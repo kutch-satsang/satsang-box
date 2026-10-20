@@ -1444,7 +1444,6 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
   function dhyanKaro(){
     if(dhBusy) return; dhBusy = true;
     $('#sheet').hidden = true;
-    if(!mus.on && !mus.off) mPlay();   /* પસંદ કરેલી ધૂન આપમેળે ચાલુ (જો હાથે બંધ ન કરી હોય) */
     var app = document.querySelector('main.app');
     if(!reduce){ app.classList.remove('fadein'); void app.offsetWidth; app.classList.add('fadein'); }
     setTimeout(function(){ app.classList.remove('fadein'); dhBusy = false; }, reduce ? 200 : 2000);

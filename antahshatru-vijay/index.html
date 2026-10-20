@@ -540,7 +540,16 @@ addEventListener('popstate',function(){var sh=$$('show');
 var x=document.createElement('button');x.type='button';x.id='exitHub';x.setAttribute('aria-label',gu?'હબ પર જાઓ':'Back to hub');
 x.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 function running(){return !document.getElementById('startGame')&&!document.getElementById('overlay').classList.contains('hidden')===false}
-x.addEventListener('click',function(){if(running()&&!confirm(gu?'ગેમ બંધ કરીને હબ પર જવું છે?':'Close the game and go to the hub?'))return;if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.go(-2);else location.replace('../')});
+function goHub(){if(document.referrer&&document.referrer.indexOf(location.origin)==0)history.go(-2);else location.replace('../')}
+function askLeave(){if(document.getElementById('exitAsk'))return;var lg='g';try{lg=localStorage.getItem('satsangLang')||'g'}catch(e){}
+var T={g:['ગેમ બંધ કરીને હબ પર જવું છે?','હા, હબ પર જાઓ','ના, રમતા રહો'],e:['Close the game and go to the hub?','Yes, go to hub','No, keep playing'],r:['Game band karine hub par javu chhe?','Ha, hub par jao','Na, ramta raho']}[lg]||['Close the game and go to the hub?','Yes, go to hub','No, keep playing'];
+var o=document.createElement('div');o.id='exitAsk';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
+o.style.cssText='position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:rgba(60,35,20,.55)';
+var c=document.createElement('div');c.style.cssText='width:min(320px,100%);background:#fbf1e2;color:#5a3524;border-radius:22px;padding:22px 18px 18px;box-shadow:0 10px 28px rgba(60,35,20,.5);display:flex;flex-direction:column;gap:12px;text-align:center;font:700 18px/1.4 system-ui,sans-serif';
+var p=document.createElement('div');p.textContent=T[0];
+function b(t,pri,fn){var e=document.createElement('button');e.type='button';e.textContent=t;e.style.cssText='border:0;border-radius:99px;padding:13px 10px;font:700 16px system-ui,sans-serif;cursor:pointer;'+(pri?'background:#d0693a;color:#fff;box-shadow:0 3px 0 #9c4a22':'background:#efdcc0;color:#5a3524;box-shadow:0 3px 0 #cdb592');e.addEventListener('click',fn);return e}
+c.appendChild(p);c.appendChild(b(T[1],1,function(){o.remove();goHub()}));c.appendChild(b(T[2],0,function(){o.remove()}));o.appendChild(c);document.body.appendChild(o)}
+x.addEventListener('click',function(){if(running()){askLeave();return}goHub()});
 document.body.appendChild(x)})();</script>
 <style>#exitHub{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:8px;z-index:9999;width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;padding:0;cursor:pointer;background:#fbf1e2;color:#5a3524;box-shadow:0 3px 8px rgba(90,53,36,.35)}#topbar{left:52px!important}</style>
 </body></html>

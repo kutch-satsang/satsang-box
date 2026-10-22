@@ -104,6 +104,22 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 
 <link rel="stylesheet" href="intro/intro.css">
 <script src="analytics.js" defer></script>
+<style>/* V48 ક્લે 3D મંદિર (હોમપેજ → જ્ઞાન-પ્રશ્ન વચ્ચે) */
+.mand{height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:calc(10px + env(safe-area-inset-top,0px)) 16px calc(20px + env(safe-area-inset-bottom,0px));box-sizing:border-box;background:radial-gradient(120% 70% at 50% 35%,rgba(251,241,227,.9),rgba(241,220,192,.6) 70%,rgba(233,207,172,.4))}
+.mand .ihead{width:100%;max-width:560px}
+.mbox{width:min(100%,600px);flex:1;display:flex;align-items:flex-end;justify-content:center;margin-top:6px}
+.msvg{width:100%;height:auto;max-height:calc(100vh - 290px);max-height:calc(100dvh - 290px);cursor:pointer}
+.mplay{flex:none;margin:36px auto 22px;width:118px;height:118px;border-radius:50%;border:0;display:grid;place-items:center;padding-left:8px;cursor:pointer;background:radial-gradient(circle at 50% 40%,#f6b393,#e5845f 70%);box-shadow:0 8px 0 #b9583a,0 14px 24px rgba(120,80,40,.35),inset 0 3px 6px rgba(255,255,255,.4);transition:transform .1s}.mplay:active{transform:translateY(5px);box-shadow:0 3px 0 #b9583a,0 6px 12px rgba(120,80,40,.3)}
+
+.mtl{text-align:center;color:#5a3524;margin-top:4px}.mtl b{display:block;font:800 clamp(30px,9vw,40px)/1.2 "Baloo Bhai 2","Noto Sans Gujarati",sans-serif;text-shadow:0 2px 0 #fff}.mtl small{color:#8a6a52;font-size:15px}
+</style>
+<style>/* V50 જ્ઞાન-પ્રશ્ન: મોટાં નામ, રમો/લખાણ નહીં, 3D */
+.gz1 .note{display:none!important}.gz1 .play:not(.soon){display:none!important}
+.gz1 .name{font-size:clamp(25px,7.4vw,32px)!important;line-height:1.2}
+.gz1 .game{padding-top:24px!important;padding-bottom:24px!important;box-shadow:0 7px 0 #dfc39c,0 12px 20px rgba(120,80,40,.22),inset 0 2px 3px #fff!important}
+.gz1 .game:active{transform:translateY(4px)}
+</style>
+<style>html.nosc,html.nosc body{overflow:hidden!important;height:100%;overscroll-behavior:none;touch-action:none}html.nosc .mand{touch-action:manipulation}</style>
 </head>
 <body>
 <main class="wrap" id="app"></main>
@@ -128,7 +144,7 @@ var TH={
 };
 var Q=(location.search.match(/[?&]t=([a-z0-9-]+)/)||[])[1];
 var TN=TH[Q]?Q:LIVE,T0=TH[TN];
-var Z=[{id:"z1"},{id:"z2"},{id:"z3"},{id:"z4"},{id:"z5"},{id:"stats"},{id:"set"}];
+var Z=[{id:"m1"},{id:"z1"},{id:"z2"},{id:"z3"},{id:"z4"},{id:"z5"},{id:"stats"},{id:"set"}];
 var ZG={z1:["prashn-leela"],z2:["dhyan-murti"],z3:["fal-ful-memory"],z4:["antahshatru-vijay"]};
 var G={"prashn-leela":{n:"n1",t:"t1"},"dhyan-murti":{n:"n2",t:"t2"},"antahshatru-vijay":{n:"n3",t:"t3"},"fal-ful-memory":{n:"n4",t:"t4"}};
 var OLD=["pg1","pg2","pg3","pg4","pg5"];
@@ -163,7 +179,7 @@ function home(t){
   var om=el("div","el om");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
   var ti=lab(t.h1,T0.ti[0],T0.ti[1]);ti.className="st ti";st.appendChild(ti);
   ["z1","z2","z3","z4"].forEach(function(z,i){
-    var a=el("a","el");a.href="#"+z;hook(a,z);a.setAttribute("aria-label",t[z]);box(a,T0.t[i]);
+    var zz=z==="z1"?"m1":z;var a=el("a","el");a.href="#"+zz;hook(a,zz);a.setAttribute("aria-label",t[z]);box(a,T0.t[i]);
     a.appendChild(img("themes/"+TN+"/t"+(i+1)+".webp"));
     var lt=i<2?T0.lab[2]:T0.lab[3];
     var s=lab(t[z],lt,T0.lab[1]);
@@ -202,11 +218,95 @@ function inner(t,zid){
   hd.appendChild(mkLang("hd"));w.appendChild(hd);
   if(zid==="stats"||zid==="set"){return special(w,t,zid)}
   w.appendChild(el("h2","ztitle",t[zid]));
-  var g=el("nav","grid");g.setAttribute("aria-label",t[zid]);
+  var g=el("nav","grid");if(zid==="z1")g.classList.add("gz1");g.setAttribute("aria-label",t[zid]);
   if(zid==="z5"){OLD.forEach(function(k,i){g.appendChild(card(null,String(i+1),t[k],t.pnote,t.soon,true))})}
   else ZG[zid].forEach(function(k,i){var gg=G[k];g.appendChild(card(k+"/",String(i+1),t[gg.n],t[gg.t],t.play))});
+  if(zid==="z1"){var vv={g:["📜 વચનામૃત","વચનામૃત પર અલગ અલગ રમતો"],e:["📜 Vachanamrut","Different games on the Vachanamrut"],r:["📜 Vachanamrut","Vachanamrut par alag alag ramato"]}[L]||["📜 વચનામૃત",""];g.appendChild(card(null,String(ZG.z1.length+1),vv[0],vv[1],t.soon,true))}
   w.appendChild(g);return w;
 }
+function mandir(t){
+  var w=el("div","mand");
+  var hd=el("div","ihead");var b=el("button","back",t.back);b.type="button";b.addEventListener("click",function(){go("")});hd.appendChild(b);hd.appendChild(mkLang("hd"));w.appendChild(hd);
+  var box=el("div","mbox");var pb=el("button","mplay");pb.type="button";pb.id="mgo";pb.setAttribute("aria-label","▶");pb.innerHTML='<svg viewBox="0 0 40 40" width="46" height="46"><path d="M13 8 L33 20 L13 32 Z" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>';box.innerHTML=`<svg class="msvg" viewBox="6 8 378 512" role="img" aria-label="મંદિર">
+<defs><filter id="clay" x="-25%" y="-25%" width="150%" height="160%">
+ <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+ <feOffset in="b" dx="-4" dy="-5" result="o1"/><feComposite in="o1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shade"/>
+ <feFlood flood-color="#7a4520" flood-opacity=".42"/><feComposite in2="shade" operator="in" result="shadeC"/>
+ <feOffset in="b" dx="4" dy="5" result="o2"/><feComposite in="o2" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="hi"/>
+ <feFlood flood-color="#ffffff" flood-opacity=".85"/><feComposite in2="hi" operator="in" result="hiC"/>
+ <feMerge result="body"><feMergeNode in="SourceGraphic"/><feMergeNode in="shadeC"/><feMergeNode in="hiC"/></feMerge>
+ <feComposite in="body" in2="SourceAlpha" operator="in" result="clip"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="ds"/><feOffset in="ds" dx="0" dy="9" result="dso"/>
+ <feFlood flood-color="#8a5a2c" flood-opacity=".38"/><feComposite in2="dso" operator="in" result="dsc"/>
+ <feMerge><feMergeNode in="dsc"/><feMergeNode in="clip"/></feMerge>
+</filter>
+<radialGradient id="gsh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9a6a3c" stop-opacity=".45"/><stop offset="1" stop-color="#9a6a3c" stop-opacity="0"/></radialGradient>
+ <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#8a5a2c" flood-opacity=".32"/></filter>
+ <filter id="in"><feGaussianBlur stdDeviation="2"/></filter>
+ <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf1"/><stop offset="1" stop-color="#efdcc0"/></linearGradient>
+ <linearGradient id="peach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b393"/><stop offset="1" stop-color="#e5845f"/></linearGradient>
+ <linearGradient id="terra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8875f"/><stop offset="1" stop-color="#c9643f"/></linearGradient>
+ <linearGradient id="olive" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3c286"/><stop offset="1" stop-color="#7f9150"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#e2a83a"/></linearGradient>
+ <radialGradient id="door" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#ffe2b0"/><stop offset=".55" stop-color="#f3b884"/><stop offset="1" stop-color="#d98a5c"/></radialGradient>
+</defs>
+<!-- flag -->
+<g filter="url(#clay)"><rect x="193" y="18" width="5" height="70" rx="2.5" fill="#9a5a34"/>
+<path d="M198 22 C230 14,250 30,282 22 L270 42 L284 60 C252 68,232 52,198 60 Z" fill="url(#terra)"/>
+<path d="M200 26 C228 20,246 32,272 27" stroke="#f6b393" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/></g>
+<!-- kalash -->
+<g filter="url(#clay)"><ellipse cx="195" cy="98" rx="11" ry="12" fill="url(#gold)"/><rect x="186" y="106" width="18" height="8" rx="4" fill="url(#gold)"/></g>
+<path d="M195 120 C232 158,252 198,256 240 L134 240 C138 198,158 158,195 120 Z" fill="#c9653f"/>
+<path d="M92 256 C108 228,124 220,136 212 C148 220,164 228,180 256 Z" fill="#c9653f"/><path d="M210 256 C226 228,242 220,254 212 C266 220,282 228,298 256 Z" fill="#c9653f"/>
+<!-- shikhar tiers -->
+<g filter="url(#clay)">
+ <path d="M195 112 C232 150,252 190,256 232 L134 232 C138 190,158 150,195 112 Z" fill="url(#peach)"/>
+ <path d="M195 122 C222 150,236 182,240 220" stroke="#fbd2bb" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+ <path d="M150 196 Q195 186 240 196" stroke="#d9754f" stroke-width="3" fill="none" opacity=".6"/>
+ <path d="M142 216 Q195 206 248 216" stroke="#d9754f" stroke-width="3" fill="none" opacity=".6"/>
+</g>
+<!-- side small shikhars -->
+<g filter="url(#clay)">
+ <path d="M92 250 C108 222,124 214,136 206 C148 214,164 222,180 250 Z" fill="url(#peach)"/><circle cx="136" cy="202" r="6" fill="url(#gold)"/>
+ <path d="M210 250 C226 222,242 214,254 206 C266 214,282 222,298 250 Z" fill="url(#peach)"/><circle cx="254" cy="202" r="6" fill="url(#gold)"/>
+</g>
+<rect x="94" y="257" width="202" height="190" rx="22" fill="#d8b98f"/><rect x="80" y="237" width="230" height="22" rx="10" fill="#d8b98f"/>
+<!-- body -->
+<g filter="url(#clay)">
+ <rect x="80" y="232" width="230" height="22" rx="10" fill="url(#cream)"/>
+ <rect x="94" y="250" width="202" height="190" rx="22" fill="url(#cream)"/>
+ <rect x="102" y="258" width="186" height="10" rx="5" fill="#f6e4c8"/>
+ <!-- pillars -->
+ <rect x="108" y="276" width="22" height="156" rx="11" fill="url(#cream)" stroke="#e8cfa8" stroke-width="2"/>
+ <rect x="260" y="276" width="22" height="156" rx="11" fill="url(#cream)" stroke="#e8cfa8" stroke-width="2"/>
+ <circle cx="119" cy="282" r="6" fill="url(#olive)"/><circle cx="271" cy="282" r="6" fill="url(#olive)"/>
+ <!-- arch door -->
+ <path d="M140 436 L140 330 Q140 280 195 278 Q250 280 250 330 L250 436 Z" fill="url(#terra)"/>
+ <path d="M150 436 L150 334 Q150 292 195 290 Q240 292 240 334 L240 436 Z" fill="url(#door)"/>
+ <!-- om medallion -->
+ <circle cx="195" cy="345" r="30" fill="url(#cream)" filter="url(#clay)"/>
+ <text x="195" y="360" text-anchor="middle" font-size="38" font-weight="800" fill="#d9754f" font-family="Noto Sans Gujarati,sans-serif">ૐ</text>
+ <!-- bells -->
+ <g fill="url(#gold)"><path d="M160 300 q8 -16 16 0 v6 h-16z"/><circle cx="168" cy="309" r="3"/><path d="M214 300 q8 -16 16 0 v6 h-16z"/><circle cx="222" cy="309" r="3"/></g>
+ <!-- diyas -->
+ <g><ellipse cx="166" cy="426" rx="12" ry="6" fill="url(#terra)"/><path d="M166 406 q7 8 0 16 q-7 -8 0 -16z" fill="#ffc857"/>
+ <ellipse cx="224" cy="426" rx="12" ry="6" fill="url(#terra)"/><path d="M224 406 q7 8 0 16 q-7 -8 0 -16z" fill="#ffc857"/></g>
+</g>
+<ellipse cx="195" cy="500" rx="185" ry="22" fill="url(#gsh)"/>
+<!-- steps -->
+<g filter="url(#clay)">
+ <rect x="74" y="438" width="242" height="18" rx="9" fill="url(#cream)"/>
+ <rect x="58" y="454" width="274" height="20" rx="10" fill="#f3e3cb"/>
+ <rect x="42" y="472" width="306" height="22" rx="11" fill="url(#olive)"/>
+</g>
+<!-- play button -->
+
+<!-- leaves -->
+<g filter="url(#clay)"><path d="M30 500 q30 -60 70 -40 q-20 50 -70 40z" fill="url(#olive)"/><path d="M360 500 q-30 -60 -70 -40 q20 50 70 40z" fill="url(#olive)"/>
+<path d="M20 470 q8 -40 40 -36 q-6 34 -40 36z" fill="url(#peach)" opacity=".9"/><path d="M370 470 q-8 -40 -40 -36 q6 34 40 36z" fill="url(#peach)" opacity=".9"/></g>
+</svg>`;w.appendChild(box);w.appendChild(pb);
+  var g=pb;function enter(){go("z1")}if(g)g.addEventListener("click",enter);box.querySelector("svg").addEventListener("click",enter);
+  return w}
 function go(h){
   var cur=(location.hash||"").slice(1);if(cur===h)return;
   var url=h?"#"+h:location.pathname+location.search,st=history.state;
@@ -222,11 +322,11 @@ function render(){
   var t=D[L],h=(location.hash||"").slice(1),zid=null,i;
   for(i=0;i<Z.length;i++)if(Z[i].id===h)zid=h;
   app.innerHTML="";
-  app.appendChild(zid?inner(t,zid):home(t));
+  app.appendChild(zid==="m1"?mandir(t):zid?inner(t,zid):home(t));
   var pg=T0.v["--page"];
   if(zid){document.body.style.background="linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/clay/bg.webp) center top/cover fixed"}
   else{document.body.style.background=pg+" url(themes/"+TN+"/bg.webp) center top/cover no-repeat fixed"}
-  app.classList.toggle("home",!zid);document.documentElement.classList.toggle("homef",!zid);
+  app.classList.toggle("home",!zid);document.documentElement.classList.toggle("nosc",zid==="m1");document.documentElement.classList.toggle("homef",!zid);
   /* નીચેનું મેનુ હાલ બંધ (જરૂર પડશે ત્યારે પાછું) */
   //app.appendChild(nav(t,zid||""));
   document.documentElement.lang=L==="g"?"gu":"en";

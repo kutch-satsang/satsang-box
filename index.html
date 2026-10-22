@@ -103,6 +103,7 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 </style>
 
 <link rel="stylesheet" href="intro/intro.css">
+<script src="analytics.js" defer></script>
 </head>
 <body>
 <main class="wrap" id="app"></main>
@@ -136,9 +137,9 @@ g:{h1:"સત્સંગ બોક્સ",sub:"રમો અને શીખો
 e:{h1:"Satsang Box",sub:"Play and learn",z1:"Knowledge Quiz",z2:"Meditation & Devotion",z3:"Memory",z4:"Fun Games",z5:"Play and learn",one:"1 game",back:"← Back",n1:"Satsang Prashn",t1:"Naam Peti · five-box quiz",n2:"Dhyan Darshan",t2:"Dhyan Murti game · remember the marks and place them on the murti",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · defeat the faults",n4:"Fruit Flower Memory Game",t4:"Remember what you saw on the paper and put it back in place",play:"Play",soon:"Coming soon",pg1:"Kabaddi",pg2:"Kho-Kho",pg3:"Langdi (hopping tag)",pg4:"Gilli-Danda",pg5:"Satodiyu (seven stones)",pnote:"How the old game was played, with a picture",foot:"New games will keep being added"},
 r:{h1:"Satsang Box",sub:"Ramo ane shikho",z1:"Gnan Prashn",z2:"Dhyan Bhakti",z3:"Yaadshakti",z4:"Majani Ramat",z5:"Ramo ane shikho",one:"1 game",back:"← Pachha",n1:"Satsang Prashn",t1:"Naam Peti · panch box prashnottari",n2:"Dhyan Darshan",t2:"Dhyan Murti game · chihna ane til yaad rakhi murti par mukho",n3:"Antahshatru Vijay",t3:"Divya Teja Pankh · doshone harawo",n4:"Fal Ful Memory Game",t4:"Kagal par joyelu yaad rakhi jagyae mukho",play:"Ramo",soon:"Tunk samay ma",pg1:"Kabaddi",pg2:"Kho-Kho",pg3:"Langdi",pg4:"Gilli-Danda",pg5:"Satodiyu",pnote:"Juni ramat ni mahiti ane chitra",foot:"Navi game umerati raheshe"}
 };
-var X={g:{nh:"ઘર",nl:"રમો અને શીખો",ns:"આંકડા",nt:"સેટિંગ્સ",stT:"આંકડા",stN:"ટૂંક સમયમાં — તમારા સ્કોર અને રમેલી ગેમ અહીં દેખાશે.",seT:"સેટિંગ્સ",lgT:"ભાષા",inT:"ઓપનિંગ",inB:"✦ ઓપનિંગ ફરી જુઓ",abT:"માહિતી",abN:"સત્સંગ બોક્સ — રમતાં રમતાં શીખવા માટે. દરેક ગેમના પોતાના સેટિંગ્સ ગેમની અંદર છે."},
-e:{nh:"Home",nl:"Play & learn",ns:"Stats",nt:"Settings",stT:"Stats",stN:"Coming soon — your scores and games played will show here.",seT:"Settings",lgT:"Language",inT:"Opening",inB:"✦ Watch the opening again",abT:"About",abN:"Satsang Box — learn while you play. Each game keeps its own settings inside the game."},
-r:{nh:"Ghar",nl:"Ramo ane shikho",ns:"Aankda",nt:"Settings",stT:"Aankda",stN:"Tunk samay ma — tamara score ane ramel game ahin dekhashe.",seT:"Settings",lgT:"Bhasha",inT:"Opening",inB:"✦ Opening fari juo",abT:"Mahiti",abN:"Satsang Box — ramta ramta shikhva mate. Darek game na potana settings game ni andar chhe."}};
+var X={g:{nh:"હોમ",nl:"રમો અને શીખો",ns:"આંકડા",nt:"સેટિંગ્સ",stT:"આંકડા",stN:"ટૂંક સમયમાં — તમારા સ્કોર અને રમેલી ગેમ અહીં દેખાશે.",seT:"સેટિંગ્સ",lgT:"ભાષા",inT:"ઓપનિંગ",inB:"✦ ઓપનિંગ ફરી જુઓ",abT:"માહિતી",abN:"સત્સંગ બોક્સ — રમતાં રમતાં શીખવા માટે. દરેક ગેમના પોતાના સેટિંગ્સ ગેમની અંદર છે. ગેમ સુધારવા અનામી આંકડા લેવાય છે."},
+e:{nh:"Home",nl:"Play & learn",ns:"Stats",nt:"Settings",stT:"Stats",stN:"Coming soon — your scores and games played will show here.",seT:"Settings",lgT:"Language",inT:"Opening",inB:"✦ Watch the opening again",abT:"About",abN:"Satsang Box — learn while you play. Each game keeps its own settings inside the game. Anonymous stats are collected to improve the games."},
+r:{nh:"Home",nl:"Ramo ane shikho",ns:"Aankda",nt:"Settings",stT:"Aankda",stN:"Tunk samay ma — tamara score ane ramel game ahin dekhashe.",seT:"Settings",lgT:"Bhasha",inT:"Opening",inB:"✦ Opening fari juo",abT:"Mahiti",abN:"Satsang Box — ramta ramta shikhva mate. Darek game na potana settings game ni andar chhe. Game sudharva anami aankda levay chhe."}};
 for(var xk in X)for(var xj in X[xk])D[xk][xj]=X[xk][xj];
 var L="g";try{var s0=localStorage.getItem(K);if(D[s0])L=s0}catch(e){}
 var app=document.getElementById("app");

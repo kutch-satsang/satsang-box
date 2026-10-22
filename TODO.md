@@ -62,3 +62,9 @@
 
 ## 2026-10-21 (Adelaide)
 - ધ્યાન દર્શન V35 પુશ થયું. બાકી: iPhone અવાજ ટેસ્ટ, ઓનલાઈન લીડરબોર્ડ, ઓફલાઈન, ટીમ/પ્રોજેક્ટર મોડ, પિંચ-ઝૂમ, ફાઈલ-ચેક પાનું, 🔄 રમતની લીટીમાં, C24, ડાબા કાનનું તિલ A/B, ફોન પર ચકાસણી.
+
+## 2026-10-22 (16:40 Adelaide) — push થયું
+- ✅ નં. 48 અનામી આંકડા: analytics.js (GA4 G-4G2T8EMR6V), બધી ગેમ + હોમપેજ. બાળકને પૂછવાનું નહીં; "માહિતી" માં એક લીટી. ઇવેન્ટ: hub_open, game_open, game_start, game_finish, game_quit, hint_used, game_error. ફક્ત *.github.io પરથી.
+- ✅ નં. 51 ધ્યાન દર્શન મિશ્ર ક્રમ. ✅ નં. 52 "હબ" શબ્દ કાઢ્યો (🏠 હોમપેજ / 🎮 ગેમ પેજ / નીચે "હોમ").
+- નવી ગેમ ચેકલિસ્ટ: (1) `<script src="../analytics.js" defer></script>` (2) `window.sbTrack&&sbTrack.start({...})` શરૂમાં (3) `sbTrack.finish({punya,mistakes})` અંતે (4) "હબ" નહીં, "🏠 હોમપેજ" (5) sw.js cache +1.
+- બાકી: GA Realtime માં તપાસ (તમે); GA માં game/lang Custom dimension; નં. 49 Login (Gmail, Supabase) + Profile + Rank + Private Admin; નં. 50 દર્શન પોસ્ટ/પૂજા/શણગાર; સત્સંગ પ્રશ્ન 📱 ઓપ્શન મોડ (Excel ની રાહ).

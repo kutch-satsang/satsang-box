@@ -8,6 +8,7 @@ Gujarati satsang games, one link (hub page `index.html`), each game in its own f
 | 2 | `dhyan-murti/` | ધ્યાન દર્શન (ધ્યાન મૂર્તિ ગેમ) |
 | 3 | `antahshatru-vijay/` | અંતઃશત્રુ વિજય |
 | 4 | `fal-ful-memory/` | ફળ ફૂલ મેમરી ગેમ |
+| 5 | `ekadashi/` | એકાદશી (52 પ્રશ્ન, 26 એકાદશી નામ અને તિથિ) |
 
 દરેક ફોલ્ડરમાં `index.html` (ગેમ) અને `SOURCE.md` (ચર્ચા, નિર્ણયો, બાકી કામ, તારીખ-સમય સાથે).
 ફેરફાર કરવા: ગેમનો નંબર કે નામ આપો, ગેમ ફાઇલ અને SOURCE.md સાથે અપડેટ થશે.

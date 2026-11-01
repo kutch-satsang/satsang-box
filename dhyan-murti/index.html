@@ -397,7 +397,7 @@ button:focus-visible,summary:focus-visible{outline:3px solid #fff;outline-offset
       <details class="sdet"><summary>🌌 આકાશ</summary><div class="sdb">
       <div class="themes" id="skyPick"></div>
       <div class="srow"><span class="sl"><i class="em">✨</i>હાલતું આકાશ</span><div class="seg" data-key="skyanim"><button type="button" data-val="on" aria-pressed="true">ચાલુ</button><button type="button" data-val="off" aria-pressed="false">બંધ</button></div></div>
-      <p class="note">🎲 દર વખતે નવું = શરૂઆતમાં દરેક વખતે બદલાય.</p>
+      <p class="note">🎲 દર વખતે નવું = દરેક રમતે નવું આકાશ.</p>
       </div></details>
       <details class="sdet"><summary>🎨 થીમ</summary><div class="sdb">
       <div class="pv"><span class="pvchip"><span>નમૂનો નામ</span></span><i class="pvring"></i></div>
@@ -2771,14 +2771,14 @@ if(sb)sb.addEventListener('click',function(){
   var box=document.getElementById('skyPick'); if(!box) return;
   function mk(v,label){
     var b=document.createElement('button'); b.type='button'; b.className='th'; b.dataset.s=v;
-    var im=document.createElement('i');
-    if(v!=='random'){ im.style.backgroundImage='url("assets/sky/sky'+('0'+v).slice(-2)+'.webp")'; im.style.backgroundSize='cover'; }
-    else { im.textContent='🎲'; im.style.display='grid'; im.style.placeItems='center'; }
+    var im=document.createElement('i'); im.className='skth';
+    if(v!=='random'){ im.style.backgroundImage='url("assets/sky/sky'+('0'+v).slice(-2)+'.webp")'; }
+    else { im.textContent='🎲'; }
     b.appendChild(im); b.appendChild(document.createTextNode(label));
     b.addEventListener('click',function(){ window.dmSky.set(v); mark(); });
     box.appendChild(b);
   }
-  mk('random','🎲 દર વખતે નવું');
+  mk('random','દર વખતે નવું');
   for(var i=1;i<=12;i++) mk(String(i),'આકાશ '+i);
   function mark(){ var cur=window.dmSky.get(); box.querySelectorAll('.th').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.s===cur?'true':'false'); }); }
   mark();
@@ -2786,4 +2786,5 @@ if(sb)sb.addEventListener('click',function(){
   if(seg){ seg.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed', (b.dataset.val==='on')===window.dmSky.anim()?'true':'false'); b.addEventListener('click',function(){ window.dmSky.setAnim(b.dataset.val==='on'); seg.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed', x===b?'true':'false');}); }); }); }
 })();
 </script>
+<style>.th i.skth{display:grid;place-items:center;width:100%;aspect-ratio:16/10;border-radius:10px;background:#1b1240 center/cover no-repeat;font-size:26px;font-style:normal;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}</style>
 </body></html>

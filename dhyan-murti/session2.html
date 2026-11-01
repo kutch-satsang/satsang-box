@@ -172,7 +172,6 @@ main{gap:0!important}
 <div id="app">
   <div class="s2top">
     <button type="button" class="s2ib" id="s2X" aria-label="ક્યાં જવું છે?" title="ક્યાં જવું છે?"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <button type="button" class="s2ib" id="s2Sky" aria-label="આકાશ" title="આકાશ">🌌</button>
     <button type="button" class="s2ib" id="s2Mus" aria-label="ધૂન ચાલુ / બંધ" aria-pressed="false">🎵</button>
     <span class="sp"></span>
     <button type="button" class="s2ib" id="s2Flip" aria-label="આગળ / પાછળ / ચરણ" title="આગળ / પાછળ / ચરણ">🔄</button>
@@ -214,7 +213,6 @@ main{gap:0!important}
   </div>
 </div>
 
-<div class="sheet" id="skySheet" hidden><div class="card" role="dialog" aria-label="આકાશ"><h2>🌌 આકાશ</h2><div class="themes" id="skyPick" style="grid-template-columns:repeat(3,1fr)"></div><div class="srow"><span class="sl">✨ હાલતું આકાશ</span><div class="seg" data-key="skyanim"><button type="button" data-val="on" aria-pressed="true">ચાલુ</button><button type="button" data-val="off" aria-pressed="false">બંધ</button></div></div><button class="btn" id="skyOk">બરાબર</button></div></div>
 <div id="s2cd" hidden><b id="s2cdn">3</b></div>
 
 <div class="sheet" id="doneSheet" hidden>
@@ -644,5 +642,4 @@ $('s2X').onclick=function(){
   if(seg){ seg.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed', (b.dataset.val==='on')===window.dmSky.anim()?'true':'false'); b.addEventListener('click',function(){ window.dmSky.setAnim(b.dataset.val==='on'); seg.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed', x===b?'true':'false');}); }); }); }
 })();
 </script>
-<script>document.getElementById('s2Sky').addEventListener('click',function(){document.getElementById('skySheet').hidden=false});document.getElementById('skyOk').addEventListener('click',function(){document.getElementById('skySheet').hidden=true});</script>
 </body></html>

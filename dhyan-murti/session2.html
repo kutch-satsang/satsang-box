@@ -256,7 +256,10 @@ function dotEl(k){var d=document.createElement('span');d.className='dot '+k;retu
 /* view: zoom the picture to a part, never leaving the picture */
 function viewFor(key,sd){
   var b=sd.regs[key]||sd.regs.all,W=stage.clientWidth,H=stage.clientHeight,bw=b[2]-b[0],bh=b[3]-b[1];
-  var s=Math.min(W/bw,H/bh),tx=W/2-(b[0]+b[2])/2*s,ty=H/2-(b[1]+b[3])/2*s;
+  if(key==='all'){/* આખી મૂર્તિ: સેશન ૧ જેટલી જ મોટી અને એ જ જગ્યાએ */
+    var sa=Math.min((0.961*H-19.7)/sd.FH,W/sd.FW);return{s:sa,tx:(W-sd.FW*sa)/2,ty:Math.round(H*0.018)}}
+  var m=(key==='all')?Math.round(H*.03)+8:0;/* આખી મૂર્તિ: માથા ઉપર અને નીચે થોડી જગ્યા (સેશન ૧ જેવી) */
+  var s=Math.min(W/bw,(H-2*m)/bh),tx=W/2-(b[0]+b[2])/2*s,ty=H/2-(b[1]+b[3])/2*s;
   var pad=24;tx=Math.min(pad,Math.max(W-sd.FW*s-pad,tx));ty=Math.min(pad,Math.max(H-sd.FH*s-pad,ty));
   if(sd.FW*s<W-2*pad)tx=(W-sd.FW*s)/2;if(sd.FH*s<H-2*pad)ty=(H-sd.FH*s)/2;
   return{s:s,tx:tx,ty:ty};
@@ -702,6 +705,18 @@ $('s2X').onclick=function(){
 #laneC .row2::before{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:36px;font:800 12px/1 'Noto Sans Gujarati',sans-serif;color:#8a5a2a;text-align:center}
 #laneC .row2::before{content:attr(data-lb)}
 #laneC .row2>*:not(:first-child){display:none!important}
+
+/* નીચેની પટ્ટી સેશન ૧ જેવી: બહારનું બોક્સ નહીં, બે અંદર દબાયેલાં બોક્સ (ચિહ્ન / તિલ) */
+#laneC{background:none!important;box-shadow:none!important;border:0!important;padding:0!important;gap:6px!important}
+#laneC .row2{background:linear-gradient(180deg,#ead6b6,#f6e8d0)!important;border:1px solid rgba(255,255,255,.35)!important;border-radius:18px!important;box-shadow:inset 0 3px 6px rgba(120,72,32,.28),inset 0 -2px 0 rgba(255,255,255,.65),0 1px 0 rgba(255,255,255,.8)!important}
+#laneC .row2::before{color:#7a4a26!important}
+body{background:linear-gradient(180deg,#f8ebd6,#f0daba)!important}
+/* નીચેની પટ્ટી પાતળી: ઉપર-નીચે વધારાની જગ્યા નહીં, મૂર્તિ મોટી */
+.lanes{box-sizing:border-box;padding:8px 0 calc(6px + env(safe-area-inset-bottom,0px))!important;height:calc(14px + 38*(min(100vw,460px) - 32px)/360 + env(safe-area-inset-bottom,0px))!important}
+#laneC{height:100%!important}
+#laneC .row2{height:100%!important;box-sizing:border-box}
+.s2top{box-sizing:border-box;height:min(74px,calc(7px + 67*(min(100vw,460px) - 32px)/360))!important}
+#laneC .row2{padding:0 8px 0 46px!important}
 </style>
 <script>(function(){var T={gu:['ચિહ્ન','તિલ'],en:['Marks','Moles'],gl:['Chihna','Til']};function set(){var l='gu';try{l=localStorage.getItem('dm_lang')||'gu'}catch(e){}var t=T[l]||T.gu,c=document.getElementById('rowC'),d=document.getElementById('rowT');if(c)c.setAttribute('data-lb',t[0]);if(d)d.setAttribute('data-lb',t[1])}set();document.addEventListener('click',function(){setTimeout(set,60)},true)})();</script>
 </body></html>

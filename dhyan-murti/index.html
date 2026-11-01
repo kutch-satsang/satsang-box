@@ -2787,4 +2787,98 @@ if(sb)sb.addEventListener('click',function(){
 })();
 </script>
 <style>.th i.skth{display:grid;place-items:center;width:100%;aspect-ratio:16/10;border-radius:10px;background:#1b1240 center/cover no-repeat;font-size:26px;font-style:normal;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}</style>
+<style id="dmSetUI">
+#pg-set.nu{display:block!important}
+#pg-set.nu[hidden]{display:none!important}
+#pg-set.nu .nutop{display:grid;grid-template-columns:44% 1fr;gap:10px;align-items:start}
+#pg-set.nu .nupv{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:360/520;background:#1b1240 center/cover no-repeat;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3),0 4px 10px rgba(90,53,36,.25)}
+#pg-set.nu .nupv::before{content:"";position:absolute;inset:0;background:rgba(5,20,30,.42)}
+#pg-set.nu .nupv img{position:absolute;left:50%;bottom:4%;height:90%;transform:translateX(-50%);pointer-events:none}
+#pg-set.nu .nupv .ps{position:absolute;font-size:10px;line-height:1;animation:nups 1.6s ease-in-out infinite}
+@keyframes nups{0%,100%{opacity:.25}50%{opacity:1}}
+#pg-set.nu .nupv .pf{position:absolute;top:-6%;width:46px;height:1.5px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(35deg);opacity:0;animation:nupf 3.2s linear infinite}
+#pg-set.nu .nupv.still .pf{display:none}
+@keyframes nupf{0%{opacity:0;transform:translate(0,0) rotate(35deg)}10%{opacity:.9}80%{opacity:0}100%{opacity:0;transform:translate(-70px,120px) rotate(35deg)}}
+#pg-set.nu .nupv .pc{position:absolute;left:8%;right:8%;bottom:6px;height:22px;border-radius:8px;background:var(--chipbg);color:var(--chipfg);border:1.5px solid var(--gold);display:grid;place-items:center;font-size:10.5px;font-weight:700}
+#pg-set.nu .nucol{display:grid;gap:2px;min-width:0}
+#pg-set.nu .nul{font-size:12px;font-weight:700;color:var(--cl-muted,#8a6a52);margin:7px 0 3px;display:block;text-align:left}
+#pg-set.nu .nucol .nul:first-child{margin-top:0}
+#pg-set.nu .srow{all:unset;display:block;min-width:0}
+#pg-set.nu .srow .sl{display:none}
+#pg-set.nu .seg{display:flex!important;gap:5px!important;width:100%}
+#pg-set.nu .seg button{flex:1 1 0;min-width:0;min-height:30px!important;padding:4px 3px!important;font-size:12px!important;border-radius:10px!important;line-height:1.2}
+#pg-set.nu .nu2{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:4px}
+#pg-set.nu .nudd{position:relative;min-width:0}
+#pg-set.nu .nuh{width:100%;display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:12px;border:0;background:linear-gradient(180deg,#fffaf0,#f1e2c8);box-shadow:0 2px 0 #d9c3a0;color:#4a2c1c;font:700 13px/1.2 var(--font-body);cursor:pointer;text-align:left}
+#pg-set.nu .nuh .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pg-set.nu .nuh .ar{font-size:10px;color:#8a6a52;transition:transform .2s}
+#pg-set.nu .nudd.open .nuh .ar{transform:rotate(180deg)}
+#pg-set.nu .sw{flex:none;width:30px;height:18px;border-radius:5px;background:#1b1240 center/cover no-repeat;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);display:grid;place-items:center;font-size:12px}
+#pg-set.nu .nuls{display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;max-height:300px;overflow:auto;padding:6px;border-radius:14px;background:#fbf2e2;box-shadow:0 8px 20px rgba(90,53,36,.35)}
+#pg-set.nu .nudd.open .nuls{display:grid;gap:5px}
+#pg-set.nu .nuls button{display:flex;align-items:center;gap:8px;padding:6px 8px;border:0;border-radius:9px;background:linear-gradient(180deg,#fffaf0,#f1e2c8);color:#4a2c1c;font:700 12.5px/1.2 var(--font-body);cursor:pointer;text-align:left}
+#pg-set.nu .nuls button .sw{width:40px;height:24px}
+#pg-set.nu .nuls button.on{background:linear-gradient(180deg,#f2a07f,#e8845f);color:#fff}
+#pg-set.nu .nusub{display:flex;gap:6px;margin-top:5px}
+#pg-set.nu .nusub button{flex:1;min-height:28px;padding:3px 6px!important;font-size:11.5px!important;border-radius:10px!important}
+#pg-set.nu > details.sdet{display:none!important}
+#pg-set.nu .nunote{font-size:11px;color:#a78bce;margin:8px 0 0;text-align:left}
+</style>
+<script>
+(function(){
+  var pg=document.getElementById('pg-set'); if(!pg) return;
+  function row(key){ var s=pg.querySelector('.seg[data-key="'+key+'"]'); return s ? (s.closest('.srow')||s) : null; }
+  function lab(t){ var e=document.createElement('span'); e.className='nul'; e.textContent=t; return e; }
+  pg.classList.add('nu');
+  /* preview */
+  var top=document.createElement('div'); top.className='nutop';
+  var pv=document.createElement('div'); pv.className='nupv';
+  pv.innerHTML='<img src="assets/front.webp" alt="">'+
+    '<span class="ps" style="left:47%;top:15%;color:#ffe08a">★</span><span class="ps" style="left:30%;top:33%;color:#c9a7ff;animation-delay:.4s">★</span>'+
+    '<span class="ps" style="left:63%;top:42%;color:#8ef0ff;animation-delay:.9s">★</span><span class="ps" style="left:42%;top:58%;color:#ffb3d1;animation-delay:1.2s">★</span>'+
+    '<span class="ps" style="left:56%;top:86%;color:#b8ffb0;animation-delay:.6s">★</span>'+
+    '<i class="pf" style="left:70%"></i><i class="pf" style="left:40%;animation-delay:1.5s"></i><i class="pf" style="left:95%;animation-delay:2.4s"></i>'+
+    '<div class="pc">ચિહ્ન · તિલ</div>';
+  var col=document.createElement('div'); col.className='nucol';
+  [['zoom','🔍 ઝૂમ'],['snd','🔊 અવાજ'],['prac','🎓 અભ્યાસ'],['skyanim','✨ હાલતું આકાશ']].forEach(function(k){ var r=row(k[0]); if(r){ col.appendChild(lab(k[1])); col.appendChild(r); } });
+  top.appendChild(pv); top.appendChild(col);
+  pg.insertBefore(top, pg.firstChild);
+  /* dropdowns */
+  var grid=document.createElement('div'); grid.className='nu2';
+  top.after(grid);
+  var all=[];
+  function dd(title, items, extra){
+    var w=document.createElement('div'); w.className='nudd';
+    var h=document.createElement('button'); h.type='button'; h.className='nuh';
+    var ls=document.createElement('div'); ls.className='nuls';
+    w.appendChild(h); w.appendChild(ls);
+    function head(){ var its=items(), cur=its.filter(function(x){return x.on;})[0]||its[0]; h.innerHTML=''; if(cur){ if(cur.sw) h.appendChild(cur.sw()); var t=document.createElement('span'); t.className='t'; t.textContent=cur.label; h.appendChild(t); } var a=document.createElement('span'); a.className='ar'; a.textContent='▼'; h.appendChild(a); }
+    function fill(){ ls.innerHTML=''; items().forEach(function(it){ var b=document.createElement('button'); b.type='button'; if(it.on) b.className='on'; if(it.sw) b.appendChild(it.sw()); b.appendChild(document.createTextNode(it.label)); b.addEventListener('click',function(e){ e.stopPropagation(); it.el.click(); w.classList.remove('open'); setTimeout(refresh,30); }); ls.appendChild(b); }); }
+    h.addEventListener('click',function(e){ e.stopPropagation(); var o=!w.classList.contains('open'); all.forEach(function(x){x.w.classList.remove('open');}); if(o){ fill(); w.classList.add('open'); var on=ls.querySelector('.on'); if(on) on.scrollIntoView({block:'nearest'}); } });
+    var cell=document.createElement('div'); cell.style.minWidth='0'; cell.appendChild(lab(title)); cell.appendChild(w); if(extra) cell.appendChild(extra);
+    grid.appendChild(cell);
+    var o={w:w,head:head}; all.push(o); head(); return o;
+  }
+  document.addEventListener('click',function(){ all.forEach(function(x){x.w.classList.remove('open');}); });
+  function swImg(u){ return function(){ var s=document.createElement('span'); s.className='sw'; if(u) s.style.backgroundImage=u; else s.textContent='🎲'; return s; }; }
+  dd('🌌 આકાશ', function(){ return Array.prototype.map.call(document.querySelectorAll('#skyPick .th'), function(b){ var i=b.querySelector('i'); return {el:b, on:b.getAttribute('aria-pressed')==='true', label:b.textContent.replace('🎲','').trim(), sw:swImg(b.dataset.s==='random'?'':i.style.backgroundImage)}; }); });
+  dd('🎨 થીમ', function(){ return Array.prototype.map.call(document.querySelectorAll('#themes .th'), function(b){ var cs=Array.prototype.map.call(b.querySelectorAll('i b'),function(x){return x.style.background;}); return {el:b, on:b.getAttribute('aria-pressed')==='true', label:b.textContent.trim(), sw:function(){ var s=document.createElement('span'); s.className='sw'; s.style.background='linear-gradient(90deg,'+cs.join(',')+')'; return s; }}; }); });
+  var msub=document.createElement('div'); msub.className='nusub seg';
+  var mp=document.getElementById('mplay'); if(mp){ msub.appendChild(mp); }
+  dd('🎵 સંગીત', function(){ var a=Array.prototype.map.call(document.querySelectorAll('#mgrid .mt'), function(b){ return {el:b, on:b.getAttribute('aria-pressed')==='true', label:(b.querySelector('span')||b).textContent.trim()}; }); if(!a.some(function(x){return x.on;})) a.unshift({el:document.createElement('i'),on:true,label:'પસંદ કરો'}); return a; }, msub);
+  var lay=pg.querySelector('.seg[data-key="layout"]'), fs=document.getElementById('fsBtn2'), fsub=document.createElement('div'); fsub.className='nusub';
+  if(fs){ fs.textContent='⛶ પૂર્ણ સ્ક્રીન'; fsub.appendChild(fs); }
+  if(lay){ var lr=lay.closest('.srow'); dd('📺 સ્ક્રીન', function(){ return Array.prototype.map.call(lay.querySelectorAll('button'), function(b){ return {el:b,on:b.getAttribute('aria-pressed')==='true',label:b.textContent.trim()}; }); }, fsub); if(lr) lr.style.display='none'; }
+  /* bottom rows */
+  var bot=document.createElement('div'); grid.after(bot);
+  [['vol','🔉 જોર'],['mvol','🎶 સંગીતનો અવાજ'],['txt','🔠 અક્ષર']].forEach(function(k){ var r=pg.querySelector('.seg[data-key="'+k[0]+'"]'); if(r){ var holder=r.closest('.srow')||r; bot.appendChild(lab(k[1])); bot.appendChild(holder===r?r:holder); } });
+  var n=document.createElement('p'); n.className='nunote'; n.textContent='નાનું ચિત્ર તરત બદલાય: આકાશ, થીમ, ⭐ બધું અહીં દેખાય.'; bot.appendChild(n);
+  /* keep preview in sync */
+  function refresh(){ all.forEach(function(x){x.head();}); var st=document.querySelector('.stage.sky,#stage.sky'); var u=st?getComputedStyle(st).getPropertyValue('--skyurl'):''; if(!u&&window.dmSky){ var v=window.dmSky.get(); u='url("'+window.dmSky.url(v==='random'?1:+v)+'")'; } pv.style.backgroundImage=u; pv.classList.toggle('still', !(window.dmSky&&window.dmSky.anim())); }
+  pg.addEventListener('click',function(){ setTimeout(refresh,40); });
+  if(window.dmSky){ var ap=window.dmSky.apply; window.dmSky.apply=function(){ ap.apply(this,arguments); setTimeout(refresh,10); }; }
+  new MutationObserver(function(){ if(!pg.hidden) refresh(); }).observe(pg,{attributes:true,attributeFilter:['hidden']});
+  refresh();
+})();
+</script>
 </body></html>

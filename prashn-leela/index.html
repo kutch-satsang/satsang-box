@@ -45,9 +45,7 @@ background:linear-gradient(160deg,#fdf5e8,#f3e3cb);box-shadow:0 .4rem .9rem rgba
 .frows{gap:14px!important}.fno{width:42px!important;height:42px!important;font-size:20px!important}
 </style>
 </head><body>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;700&family=Noto+Sans+Gujarati:wght@400;500&display=swap">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../clay.css">
 <style>
 /* layout: title row with language switch and settings gear, category and department chip, step buttons for stepped sections, team score cards with a + card, then a 5x5 grid of coloured boxes; a tapped box opens a large card overlay (question, answer, prize). */
@@ -1236,7 +1234,7 @@ x.addEventListener("click",function(){BANK.depts=BANK.depts.filter(function(y){r
 function changed(){saveBank();fixDep();BR=true;paintSettings()}
 /* ---------- Excel import ---------- */
 var XLP=null;
-function loadXLSX(){return new Promise(function(res,rej){if(window.XLSX)return res(window.XLSX);var s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=function(){window.XLSX?res(window.XLSX):rej()};s.onerror=rej;document.head.appendChild(s)})}
+function loadXLSX(){return new Promise(function(res,rej){if(window.XLSX)return res(window.XLSX);var s=document.createElement("script");s.src="../lib/xlsx.full.min.js";s.onload=function(){window.XLSX?res(window.XLSX):rej()};s.onerror=rej;document.head.appendChild(s)})}
 function cellS(v){return v==null?"":String(v).trim()}
 function gdig(s){return String(s).replace(/[૦-૯]/g,function(c){return String("૦૧૨૩૪૫૬૭૮૯".indexOf(c))})}
 function sameName(n,s){s=s.toLowerCase();return [n.g,n.e,n.r].some(function(x){return String(x||"").trim().toLowerCase()===s})}

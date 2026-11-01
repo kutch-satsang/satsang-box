@@ -541,7 +541,8 @@ $('bRe').onclick=resetAll;$('bAgain').onclick=resetAll;
 $('bLook').onclick=function(){$('doneSheet').hidden=true};
 window.addEventListener('resize',layout);
 if(window.ResizeObserver)new ResizeObserver(layout).observe(wrap);
-window.__dd={land:function(id){land(id,true)},reset:resetAll,get N(){return N},set N(v){N=v},sides:sides,items:items,placed:function(){return placed},counts:counts,phase:function(){return phase},side:function(){return side},view:function(){return view},S:function(){return S},TX:function(){return TX},TY:function(){return TY},build:buildSide,apply:applyView,byId:byId};
+function hintNow(){var c=document.querySelector('#rowC .chip')||document.querySelector('#rowT .chip');if(!c)return false;var it=byId[c.dataset.id];if(!it)return false;var t=targetsFor(it.id)[0]||it;window.__s2whole=false;var dl=0;if(t.reg&&view!==t.reg){applyView(t.reg);dl=650}setTimeout(function(){hint(t)},dl);return true}
+window.__dd={hint:hintNow,land:function(id){land(id,true)},reset:resetAll,get N(){return N},set N(v){N=v},sides:sides,items:items,placed:function(){return placed},counts:counts,phase:function(){return phase},side:function(){return side},view:function(){return view},S:function(){return S},TX:function(){return TX},TY:function(){return TY},build:buildSide,apply:applyView,byId:byId};
 buildTabs();resetAll();
 })();
 </script>
@@ -568,7 +569,7 @@ $('s2Mus').onclick=function(){
 mUI();
 document.addEventListener('visibilitychange',function(){if(!mus.au||!mus.on)return;if(document.hidden)mus.au.pause();else mus.au.play().catch(function(){})});
 /* 🌐 = same language as Session 1 (dm_lang: gu / en / gl); Session 2's own words only */
-var TR={'ચિહ્ન બાકી':['Chihna left','Chihna baki'],'તિલ બાકી':['Til left','Til baki'],
+var TR={'▶ ચાલુ રાખો':['▶ Continue','▶ Chalu rakho'],'હિન્ટ':['Hint','Hint'],'ચિહ્ન બાકી':['Chihna left','Chihna baki'],'તિલ બાકી':['Til left','Til baki'],
  'ભાગ પૂરો ✓':['Part done ✓','Bhag puro ✓'],'હવે બાકીનાં આકાશમાંથી આવશે ✨':['Now the rest come from the sky ✨','Have bakina aakashmathi aavshe ✨'],
  'બધાં ચિહ્ન અને તિલ ગોઠવાઈ ગયાં.':['All chihna and til are in place.','Badha chihna ane til gothvai gaya.'],
  'ફરી રમો':['Play again','Fari ramo'],'મૂર્તિ જુઓ':['See the murti','Murti juo'],'✓ પૂરું':['✓ Done','✓ Puru'],'આ ભાગમાં કંઈ નથી':['Nothing in this part','Aa bhagma kai nathi'],
@@ -717,6 +718,49 @@ body{background:linear-gradient(180deg,#f8ebd6,#f0daba)!important}
 #laneC .row2{height:100%!important;box-sizing:border-box}
 .s2top{box-sizing:border-box;height:min(74px,calc(7px + 67*(min(100vw,460px) - 32px)/360))!important}
 #laneC .row2{padding:0 8px 0 46px!important}
+
+/* રમતી વખતે ઉપરની પટ્ટી સેશન ૧ જેવી: ✕ 🎵 💡 ⏱ ⏸ */
+.s2top .s2play{display:none}
+body.s2on .s2top{justify-content:space-between;padding-left:12px;padding-right:12px}
+body.s2on .s2top .sp,body.s2on #s2Flip,body.s2on #s2Lang{display:none!important}
+body.s2on .s2top .s2play{display:grid}
+#s2Hint{width:48px;height:48px;min-width:48px;border-radius:50%;border:1px solid #fff3c4;background:linear-gradient(180deg,#f6d98b,#d9a838);color:#3a2600;font:800 24px/1 system-ui,sans-serif;box-shadow:0 3px 8px rgba(0,0,0,.4);place-items:center;position:relative;cursor:pointer;padding:0}
+#s2Hint .hb{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:#c4682c;color:#fff;font:800 12px/20px system-ui,sans-serif;text-align:center;font-style:normal;box-shadow:0 0 0 2px #fbf1e2}
+#s2Hint[disabled]{opacity:.5}
+body.s2on .s2top .s2ib{width:44px;height:44px;min-width:44px}
+#s2Sw{height:36px;min-width:66px;padding:0 10px;border-radius:99px;background:rgba(251,241,226,.92);color:#3a2600;font:800 15px/36px system-ui,sans-serif;box-shadow:0 3px 8px rgba(0,0,0,.25);place-items:center;white-space:nowrap}
+#s2Pause svg{display:block}
+#s2PauseOv{position:fixed;inset:0;z-index:9500;display:flex;align-items:flex-end;justify-content:center;padding:0 16px calc(28px + env(safe-area-inset-bottom,0px));background:transparent}
+#s2PauseOv[hidden]{display:none!important}
+#s2Resume{border:1.5px solid #fff3c4;border-radius:99px;padding:15px 34px;font:800 19px system-ui,sans-serif;color:#3a2600;background:linear-gradient(180deg,#f6d98b,#d9a838);box-shadow:0 5px 14px rgba(0,0,0,.35);cursor:pointer}
 </style>
 <script>(function(){var T={gu:['ચિહ્ન','તિલ'],en:['Marks','Moles'],gl:['Chihna','Til']};function set(){var l='gu';try{l=localStorage.getItem('dm_lang')||'gu'}catch(e){}var t=T[l]||T.gu,c=document.getElementById('rowC'),d=document.getElementById('rowT');if(c)c.setAttribute('data-lb',t[0]);if(d)d.setAttribute('data-lb',t[1])}set();document.addEventListener('click',function(){setTimeout(set,60)},true)})();</script>
+<script>
+/* સેશન ૧ જેવું: 💡 હિન્ટ (૩), ⏱ ઘડિયાળ, ⏸ થોભો */
+(function(){
+  var top=document.querySelector('.s2top'),mus=document.getElementById('s2Mus');if(!top||!window.__dd)return;
+  function mk(h){var t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild}
+  var hb=mk('<button type="button" class="s2play" id="s2Hint" aria-label="હિન્ટ">💡<i class="hb">3</i></button>');
+  var sw=mk('<span class="s2play" id="s2Sw">⏱ 0:00</span>');
+  var pb=mk('<button type="button" class="s2ib s2play" id="s2Pause" aria-label="થોભો"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg></button>');
+  mus.after(hb);hb.after(sw);sw.after(pb);
+  var ov=mk('<div id="s2PauseOv" hidden><button type="button" id="s2Resume">▶ ચાલુ રાખો</button></div>');document.body.appendChild(ov);
+  var MAX=3,left=MAX,t0=0,paused=0,pAt=0,on=false;
+  function mmss(ms){var s=Math.floor(ms/1000);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+  function el(){return t0?(pAt||Date.now())-t0-paused:0}
+  function upd(){hb.querySelector('.hb').textContent=left;hb.disabled=left<=0}
+  setInterval(function(){
+    var ph=window.__dd.phase(),wait=!!window.__s2wait;
+    if(wait&&t0){t0=0;paused=0;pAt=0;left=MAX;upd();sw.textContent='⏱ 0:00'}
+    var play=!wait&&(ph==='drag'||ph==='move');
+    if(play&&!t0){t0=Date.now();paused=0;pAt=0}
+    if(play!==on){on=play;document.body.classList.toggle('s2on',play);if(!play&&!ov.hidden){ov.hidden=true}}
+    if(t0&&play)sw.textContent='⏱ '+mmss(el());
+  },400);
+  hb.onclick=function(){if(!on||left<=0)return;if(window.__dd.hint()){left--;upd()}};
+  pb.onclick=function(){if(!on)return;pAt=Date.now();ov.hidden=false};
+  ov.querySelector('button').onclick=function(){if(pAt){paused+=Date.now()-pAt;pAt=0}ov.hidden=true};
+  upd();
+})();
+</script>
 </body></html>

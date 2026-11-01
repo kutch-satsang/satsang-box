@@ -414,9 +414,13 @@ function mv(e){
   }
   place(e);
 }
+function sameGrp(o){var n=o.n||'';return n.indexOf('રોમ')>=0?'rom':(n.indexOf('ચાખડી')>=0?'chakhdi':'')}
 function targetsFor(id){
   var it=byId[id];
-  if(it.k==='png'){if(it.dot)return it.side.items.filter(function(o){return o.dot&&!placed[o.id]});return placed[id]?[]:[it]}
+  /* એકસરખાં દેખાતાં ચિહ્ન (પગના રોમ, ચાખડીના ઘસારા): જૂથની કોઈ પણ ખાલી જગ્યા ચાલે */
+  if(it.k==='png'){if(it.dot)return it.side.items.filter(function(o){return o.dot&&!placed[o.id]});
+    var gk=sameGrp(it);if(gk)return it.side.items.filter(function(o){return sameGrp(o)===gk&&!placed[o.id]});
+    return placed[id]?[]:[it]}
   return it.side.items.filter(function(o){return o.k===it.k&&!placed[o.id]});
 }
 function up(e){

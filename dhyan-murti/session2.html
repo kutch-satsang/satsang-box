@@ -763,4 +763,17 @@ body.s2on .s2top .s2ib{width:44px;height:44px;min-width:44px}
   upd();
 })();
 </script>
+<script>
+/* ફોનનું પાછળ (back) બટન: સેશન ૧ જેવું */
+(function(){var $=function(i){return document.getElementById(i)},vis=function(e){return !!e&&!e.hidden&&e.getClientRects().length>0};
+try{history.replaceState({g:1},'');history.pushState({g:2},'')}catch(e){}
+function back(){
+  var ea=$('exitAsk');if(ea){ea.remove();return true}
+  if(vis($('s2PauseOv'))){$('s2Resume').click();return true}
+  if(vis($('s2cd')))return true;
+  if(window.__s2wait&&!(window.__dd&&window.__dd.phase()==='done')){location.replace('index.html#sess');return 'gone'}
+  $('s2X').click();return true}
+addEventListener('popstate',function(){var r=back();if(r==='gone')return;history.pushState({g:2},'')});
+})();
+</script>
 </body></html>

@@ -776,4 +776,14 @@ function back(){
 addEventListener('popstate',function(){var r=back();if(r==='gone')return;history.pushState({g:2},'')});
 })();
 </script>
+<style id="s2Name">
+#laneC .row2::after{content:attr(data-nm);flex:1;min-width:0;padding-left:4px;font:800 12px/1.25 'Noto Sans Gujarati',sans-serif;color:#5a3a12;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;pointer-events:none}
+</style>
+<script>(function(){var M={};try{DATA.sides.forEach(function(s){s.items.forEach(function(i){M[i.id]=i})})}catch(e){}
+var TT={gu:['મોટું તિલ','નાનું તિલ'],en:['Big mole','Small mole'],gl:['Motu til','Nanu til']};
+function upd(){var l='gu';try{l=localStorage.getItem('dm_lang')||'gu'}catch(e){}var a=TT[l]||TT.gu;
+['rowC','rowT'].forEach(function(id){var r=document.getElementById(id);if(!r)return;var c=r.querySelector('.chip'),it=c&&M[c.getAttribute('data-id')],t='';
+if(it){if(it.k==='png')t=(it.n||'').replace(/[0-9\u0AE6-\u0AEF]+/g,'').replace(/\s+/g,' ').trim();else t=(it.k==='big'?a[0]:a[1]);}
+if(r.getAttribute('data-nm')!==t)r.setAttribute('data-nm',t);});}
+setInterval(upd,250);upd();})();</script>
 </body></html>

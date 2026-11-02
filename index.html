@@ -361,7 +361,8 @@ function openEk(){try{history.pushState({p:1,ek:1},"","#ek")}catch(e){location.h
 function closeEk(){var st=history.state;if(st&&st.ek){history.back();return}try{history.replaceState({p:1},"","#z1")}catch(e){location.hash="z1";return}render()}
 window.addEventListener("message",function(e){if(!ekF||e.source!==ekF.contentWindow)return;var d=e.data||{};
   if(d.satsangBox==="ready"){ekReady=true;if(ekOn())ekF.classList.add("rd")}
-  else if(d.satsangBox==="close")closeEk()});
+  else if(d.satsangBox==="close")closeEk()
+  else if(d.satsangBox==="settings"){try{history.replaceState({p:1},"","#set")}catch(x){location.hash="set";return}render()}});
 var curKey=null,bgT=0;
 function render(force){
   var h=(location.hash||"").slice(1),zid=null,i,ek=(h==="ek");

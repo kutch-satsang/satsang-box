@@ -1,0 +1,756 @@
+<!doctype html><html lang="gu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style></head><body><title>નીલકંઠ યાત્રા ૪ Admin</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700;800&family=Noto+Serif+Gujarati:wght@700;800&display=swap">
+<style>
+/* Layout: one-screen app. Header, one main panel that swaps by bottom button, bottom bar of 5 buttons. Sheets slide over for detail and editing. */
+:root{
+  --bg:#f8efe8; --surf:#ffffff; --surf2:#fbe9d3; --ink:#2a1720; --mute:#7d6068; --line:#ead6c6;
+  --mar:#5b0f2e; --mar2:#843158; --saf:#e8821a; --gold:#c9992f; --ok:#1f7a4d; --bad:#b3261e; --onmar:#fff3df;
+  --f-disp:"Noto Serif Gujarati","Noto Serif",serif; --f-body:"Noto Sans Gujarati","Noto Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a0c13; --surf:#291420; --surf2:#3a1c2a; --ink:#f6e8dc; --mute:#b99aa3; --line:#47263a;
+  --mar:#7a1d44; --mar2:#a24068; --saf:#f19a3c; --gold:#e0b552; --ok:#5ed39b; --bad:#ff8a80; --onmar:#fff3df; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a0c13; --surf:#291420; --surf2:#3a1c2a; --ink:#f6e8dc; --mute:#b99aa3; --line:#47263a;
+  --mar:#7a1d44; --mar2:#a24068; --saf:#f19a3c; --gold:#e0b552; --ok:#5ed39b; --bad:#ff8a80; --onmar:#fff3df; color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea,select{font:inherit;color:inherit}
+#app{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;position:relative}
+.pad{padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+header{background:linear-gradient(135deg,var(--mar),var(--mar2));color:var(--onmar);padding-block:10px 12px;border-bottom:4px solid var(--gold)}
+.hrow{display:flex;align-items:center;gap:10px}
+.hrow h1{font-family:var(--f-disp);font-size:21px;line-height:1.3;flex:1;min-width:0}
+.hrow h1 small{display:block;font-family:var(--f-body);font-weight:600;font-size:12px;opacity:.85}
+.hbtn{background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);border-radius:22px;padding:6px 13px;font-size:15px;font-weight:700;color:var(--onmar)}
+.hbtn.on{background:var(--saf);border-color:var(--saf);color:#2a1720}
+.live{margin-top:8px;display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;background:rgba(0,0,0,.22);border-radius:14px;padding:6px 12px}
+.live b{color:#ffd98a}
+.dot{width:9px;height:9px;border-radius:50%;background:#ff5a4d;flex:none;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.cloud{font-size:12px;padding:3px 14px;background:var(--surf2);color:var(--mute);text-align:center}
+.cloud.warn{color:var(--bad)}
+main{flex:1;min-height:0;overflow:auto;padding-block:12px}
+nav{display:grid;grid-template-columns:repeat(5,1fr);background:var(--surf);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{padding:8px 2px 7px;font-size:12.5px;font-weight:700;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:1px}
+nav button i{font-style:normal;font-size:22px;line-height:1.2}
+nav button.on{color:var(--mar);box-shadow:inset 0 3px 0 var(--saf)}
+@media (prefers-color-scheme:dark){nav button.on{color:var(--saf)}}
+.daybar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.arrow{width:46px;height:46px;border-radius:50%;background:var(--mar);color:var(--onmar);font-size:20px;flex:none}
+.arrow:disabled{opacity:.3}
+.dtitle{flex:1;text-align:center;font-family:var(--f-disp);font-size:22px;line-height:1.3;color:var(--mar)}
+@media (prefers-color-scheme:dark){.dtitle{color:var(--gold)}}
+.dtitle small{display:block;font-family:var(--f-body);font-weight:600;font-size:14px;color:var(--mute)}
+.today{display:inline-block;background:var(--saf);color:#2a1720;font-size:12px;font-weight:800;border-radius:10px;padding:0 8px;margin-left:6px}
+.hero{background:linear-gradient(135deg,var(--saf),#b5471a 55%,var(--mar));color:#fff;border-radius:20px;padding:12px 14px;margin-bottom:10px}
+.hero h2{font-family:var(--f-disp);font-size:19px;line-height:1.45}
+.hero .stay{font-size:14px;opacity:.95;margin-top:2px}
+.qrow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.q{flex:1;min-width:92px;text-align:center;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.5);border-radius:14px;padding:7px 6px;font-size:14px;font-weight:700;color:#fff;text-decoration:none}
+.tl{display:flex;flex-direction:column;gap:6px}
+.ev{display:grid;grid-template-columns:78px 1fr auto;gap:8px;align-items:center;background:var(--surf);border:1.5px solid var(--line);border-radius:16px;padding:8px 8px 8px 10px;position:relative}
+.ev.cur{border-color:var(--saf);box-shadow:0 0 0 3px color-mix(in srgb,var(--saf) 30%,transparent)}
+.ev.nxt{border-style:dashed;border-color:var(--gold)}
+.ev.past{opacity:.55}
+.tm{font-weight:800;color:var(--mar);font-size:14px;line-height:1.3}
+@media (prefers-color-scheme:dark){.tm{color:var(--gold)}}
+.tx{font-size:15.5px;line-height:1.4;min-width:0;overflow-wrap:anywhere}
+.tx .nt{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:8px;padding:0 7px;margin-right:4px}
+.tag.c{background:var(--saf);color:#2a1720}.tag.n{background:var(--gold);color:#2a1720}
+.acts{display:flex;gap:4px}
+.ib{width:38px;height:38px;border-radius:12px;background:var(--surf2);font-size:18px}
+.ib.pri{background:var(--mar);color:var(--onmar)}
+.add{width:100%;margin-top:8px;border:2px dashed var(--gold);border-radius:16px;padding:10px;font-weight:700;color:var(--mar)}
+@media (prefers-color-scheme:dark){.add{color:var(--gold)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--surf);border:1.5px solid var(--line);border-radius:16px;padding:8px 6px;text-align:center;min-width:0}
+.tile b{display:block;font-family:var(--f-disp);font-size:24px;color:var(--mar);line-height:1.2}
+@media (prefers-color-scheme:dark){.tile b{color:var(--gold)}}
+.tile span{display:block;font-size:12.5px;color:var(--mute);line-height:1.35;overflow-wrap:anywhere}
+.tile small{font-size:12px;font-weight:700}
+.tile.now{border-color:var(--saf);background:var(--surf2)}
+.tile.sel{border-color:var(--mar);box-shadow:0 0 0 2px var(--mar) inset}
+.sec{font-family:var(--f-disp);font-size:20px;color:var(--mar);margin:2px 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+@media (prefers-color-scheme:dark){.sec{color:var(--gold)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{border:1.5px solid var(--line);background:var(--surf);border-radius:20px;padding:4px 12px;font-size:14px;font-weight:700}
+.chip.on{background:var(--mar);color:var(--onmar);border-color:var(--mar)}
+.list{display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:38px 1fr auto;gap:8px;align-items:center;background:var(--surf);border:1.5px solid var(--line);border-radius:16px;padding:8px 8px 8px 8px}
+.num{width:34px;height:34px;border-radius:50%;background:var(--saf);color:#2a1720;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.num.s{background:var(--mar);color:var(--onmar)}
+.nm{font-weight:700;overflow-wrap:anywhere;line-height:1.35}
+.nm small{display:block;font-weight:600;color:var(--mute);font-size:13px}
+.row.x .nm{text-decoration:line-through;color:var(--mute)}.row.x{background:var(--surf2);opacity:.75}
+.pager{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:8px}
+.pager .arrow{width:42px;height:42px}
+.pager span{font-weight:700;color:var(--mute);font-size:14px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mbtn{background:var(--surf);border:1.5px solid var(--line);border-radius:18px;padding:18px 8px;font-weight:800;font-size:16px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.mbtn i{font-style:normal;font-size:30px}
+.note{font-size:13px;color:var(--mute);margin-top:10px;line-height:1.55}
+
+/* live box + date strip (v6, merged against live 1793624307-1c0c) */
+header{padding-block:10px 12px}
+.lv{display:flex;gap:12px;align-items:center}
+.wx{position:relative;width:92px;height:92px;border-radius:22px;overflow:hidden;flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.35) inset}
+.wx.day{background:linear-gradient(#3f9bf5,#bfe6ff)}.wx.dawn{background:linear-gradient(#ff9a5a,#ffe0a8)}.wx.dusk{background:linear-gradient(#5b3a8a,#ff8f5a)}.wx.night{background:linear-gradient(#0b1030,#2b3577)}
+.sun{position:absolute;width:34px;height:34px;border-radius:50%;background:radial-gradient(#fff7b8,#ffc83a);box-shadow:0 0 22px 8px rgba(255,214,90,.6);animation:glow 3s ease-in-out infinite}
+.moon{position:absolute;width:28px;height:28px;border-radius:50%;box-shadow:inset -9px 0 0 0 #fff6d8;transform:rotate(-20deg)}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:tw 2.2s ease-in-out infinite}
+.cl{position:absolute;height:13px;width:38px;border-radius:13px;background:rgba(255,255,255,.9);animation:drift linear infinite}
+.cl::before{content:"";position:absolute;left:7px;top:-8px;width:19px;height:19px;border-radius:50%;background:inherit}
+.wx.night .cl{background:rgba(190,200,240,.55)}
+@keyframes glow{50%{box-shadow:0 0 30px 12px rgba(255,214,90,.8)}}
+@keyframes tw{50%{opacity:.2}}
+@keyframes drift{from{transform:translateX(-50px)}to{transform:translateX(110px)}}
+@media (prefers-reduced-motion:reduce){.sun,.star,.cl{animation:none}}
+.lt{flex:1;min-width:0}
+.lt .l1{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.lclk{font-family:var(--f-disp);font-size:26px;line-height:1.25;color:#ffd98a;font-variant-numeric:tabular-nums}
+.lclk small{font-family:var(--f-body);font-size:12.5px;font-weight:700;color:#fff;opacity:.85}
+.lt .l3{font-size:13.5px;font-weight:600;line-height:1.4}.lt .l3 b{color:#ffd98a}
+.lnow{margin-top:8px;background:rgba(0,0,0,.24);border-radius:14px;padding:6px 12px;font-size:14.5px;line-height:1.45}
+.lnow .nx{font-size:13px;opacity:.9}.lnow b{color:#ffd98a}
+.lq{display:inline-block;margin-top:8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);border-radius:18px;padding:3px 12px;font-size:13px;font-weight:700;color:var(--onmar);text-decoration:none}
+.dstrip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;position:relative;margin:0 -14px 10px;padding:2px 14px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.dstrip::-webkit-scrollbar{display:none}
+.dc{flex:none;width:62px;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;background:var(--surf);border:1.5px solid var(--line);border-radius:18px;padding:6px 0 7px;line-height:1.3}
+.dc small,.dc span{font-size:12px;font-weight:700;color:var(--mute)}
+.dc b{font-family:var(--f-disp);font-size:24px;color:var(--mar)}
+@media (prefers-color-scheme:dark){.dc b{color:var(--gold)}}
+.dc.now{border-color:var(--saf);box-shadow:0 0 0 2px color-mix(in srgb,var(--saf) 35%,transparent)}
+.dc.sel{background:var(--mar);border-color:var(--mar)}
+.dc.sel small,.dc.sel b,.dc.sel span{color:var(--onmar)}
+.hero .dn{font-size:13px;font-weight:700;opacity:.92}
+
+/* v7: whole header is the live sky; smaller date strip below the orange box */
+header.hw{position:relative;overflow:hidden;color:#fff;border-bottom:4px solid var(--gold);padding-block:12px 14px;min-height:178px}
+header.hw.day{background:linear-gradient(#2f7fd6,#8fd0f7)}
+header.hw.dawn{background:linear-gradient(#5d4a9a,#ff9a5a 72%,#ffd89a)}
+header.hw.dusk{background:linear-gradient(#3a2a6a,#c8507a 62%,#ff9a5a)}
+header.hw.night{background:linear-gradient(#070b24,#1d2760 78%,#2b3577)}
+.sky{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lc{position:relative;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.sun{width:64px;height:64px;box-shadow:0 0 36px 14px rgba(255,214,90,.65)}
+.moon{width:50px;height:50px;box-shadow:inset -16px 0 0 0 #fff6d8;transform:rotate(-20deg)}
+.cl{height:22px;width:74px;border-radius:22px}
+.cl::before{left:12px;top:-13px;width:34px;height:34px}
+.cl::after{content:"";position:absolute;left:34px;top:-8px;width:26px;height:26px;border-radius:50%;background:inherit}
+@keyframes drift{from{transform:translateX(-110px)}to{transform:translateX(calc(100vw + 40px))}}
+.lt .l1{font-size:14px}
+.lclk{font-size:36px;line-height:1.2}
+.lt .l3{font-size:14.5px}
+.dstrip{gap:6px;margin:0 -14px 8px;padding:2px 14px 4px}
+.dc{width:50px;padding:3px 0 4px;border-radius:14px;line-height:1.2}
+.dc b{font-size:19px}
+.dc small,.dc span{font-size:10.5px}
+header.hw .cl{background:rgba(255,255,255,.4)}
+header.hw.day .lclk,header.hw.dawn .lclk{color:#fff}
+header.hw.night .cl{background:rgba(190,200,240,.3)}
+
+/* v8: sun path arc, sunrise/sunset row, previous line + day progress */
+.arc{position:absolute;inset:0;width:100%;height:100%}
+.arc path{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5;stroke-dasharray:3 5;vector-effect:non-scaling-stroke}
+.sr{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin-top:8px;font-size:13px;font-weight:600;line-height:1.35}
+.sr span:first-child{text-align:left}.sr span:last-child{text-align:right}
+.sr b{display:block;font-size:15px;color:#fff}
+.sr .md{text-align:center;font-size:12.5px;background:rgba(0,0,0,.26);border-radius:12px;padding:3px 10px}
+.prevl{font-size:13.5px;color:var(--mute);margin:0 2px 6px}.prevl b{color:var(--ink)}
+.prog{margin:10px 2px 0;font-size:13.5px;color:var(--mute)}
+.prog i{display:block;height:8px;border-radius:6px;background:var(--line);margin-top:5px;overflow:hidden}
+.prog i u{display:block;height:100%;background:var(--saf);border-radius:6px;text-decoration:none}
+/* v9 */
+.dc{flex:1 0 50px;width:auto}
+/* v10: finished programmes go dark */
+.ev.past{opacity:.38;filter:grayscale(.9);background:color-mix(in srgb,var(--ink) 14%,var(--surf));border-style:solid;box-shadow:none}
+.ev.past .tm::before{content:"✓ "}
+/* v11: finished rows shrink to thin lines so the live one rises */
+.ev.past{padding:3px 10px;border-radius:10px;font-size:12.5px;grid-template-columns:86px 1fr auto;gap:6px}
+.ev.past .nt,.ev.past .tag{display:none}
+.ev.past .tm{white-space:nowrap;font-size:12px}
+.ev.past .tx{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.past:not(.ed) .acts{display:none}
+.ev.past .ib{width:30px;height:30px;font-size:13px}
+
+/* v14: list at bottom, big LIVE panel in the middle */
+#main.dayv{display:flex;flex-direction:column}
+#main.dayv>*{flex-shrink:0}
+.lvp{margin:auto 0;padding:18px 16px;border-radius:22px;text-align:center;background:linear-gradient(160deg,color-mix(in srgb,var(--saf) 22%,var(--surf)),var(--surf));border:1.5px solid color-mix(in srgb,var(--saf) 45%,transparent)}
+.lvh{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;letter-spacing:.06em;color:#fff;background:#d6332f;border-radius:20px;padding:3px 12px}
+.lvh i{width:8px;height:8px;border-radius:50%;background:#fff;animation:lvb 1.2s infinite}
+@keyframes lvb{50%{opacity:.2}}
+.lvt{font-size:24px;font-weight:800;line-height:1.3;margin:12px 0 6px;color:var(--ink)}
+.lvs{font-size:14px;color:var(--mute)}
+.lvbar{height:8px;border-radius:6px;background:var(--line);margin:14px 4px 10px;overflow:hidden}
+.lvbar u{display:block;height:100%;background:var(--saf);text-decoration:none;border-radius:6px}
+.lvn{font-size:14.5px;color:var(--ink)}.lvn b{color:var(--saf)}
+/* v15: day tab calendar shows the viewed date */
+.cal{display:inline-flex;flex-direction:column;width:30px;height:30px;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);vertical-align:middle}
+.cal s{background:#d6332f;color:#fff;font-size:8.5px;font-weight:800;line-height:11px;text-decoration:none;text-align:center}
+.cal b{flex:1;display:grid;place-items:center;color:#222;font-size:15px;font-weight:800;line-height:1}
+/* sheet */
+#shade{position:absolute;inset:0;background:rgba(20,6,12,.55);z-index:20}
+#sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;z-index:21;background:var(--bg);border-radius:24px 24px 0 0;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.35);border-top:4px solid var(--gold)}
+#sheet .sh{display:flex;align-items:center;gap:10px;padding-block:12px 6px}
+#sheet .sh h3{font-family:var(--f-disp);font-size:20px;color:var(--mar);flex:1;line-height:1.4}
+@media (prefers-color-scheme:dark){#sheet .sh h3{color:var(--gold)}}
+#sbody{overflow:auto;padding-bottom:max(16px,env(safe-area-inset-bottom,0px));padding-top:4px}
+.mah{background:var(--surf2);border-left:6px solid var(--saf);border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.75;margin-bottom:10px}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:14.5px}
+.kv span{background:var(--surf);border:1.5px solid var(--line);border-radius:12px;padding:4px 10px}
+label{display:block;font-size:13px;font-weight:700;color:var(--mute);margin:10px 0 3px}
+.in{width:100%;background:var(--surf);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;font-size:16px}
+textarea.in{min-height:96px;resize:vertical;line-height:1.6}
+.btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{flex:1;min-width:120px;text-align:center;background:linear-gradient(90deg,var(--mar),var(--mar2));color:var(--onmar);border-radius:14px;padding:11px;font-weight:800;text-decoration:none;display:block}
+.btn.o{background:var(--surf);color:var(--mar);border:2px solid var(--mar)}
+.btn.d{background:var(--surf);color:var(--bad);border:2px solid var(--bad)}
+@media (prefers-color-scheme:dark){.btn.o{color:var(--gold);border-color:var(--gold)}}
+.chk{display:flex;gap:10px;align-items:flex-start;background:var(--surf);border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:6px;font-size:16px;line-height:1.45}
+.chk input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--saf)}
+.chk.done span{text-decoration:line-through;color:var(--mute)}
+.chk .in{padding:6px 10px}
+.toast{position:absolute;left:50%;transform:translateX(-50%);bottom:84px;background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:20px;font-weight:700;font-size:14px;z-index:40;max-width:90%;text-align:center}
+.empty{text-align:center;color:var(--mute);padding:24px 10px}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.sum div{background:var(--surf);border:1.5px solid var(--line);border-radius:16px;padding:8px 6px;text-align:center;min-width:0}
+.sum small{display:block;font-size:12.5px;font-weight:700;color:var(--mute)}
+.sum b{font-family:var(--f-disp);font-size:19px;line-height:1.4;overflow-wrap:anywhere}
+.amt{font-size:16px;white-space:nowrap;align-self:center;padding-right:4px}
+.amt.cr,.sum .cr{color:var(--ok)}.amt.dr,.sum .dr{color:var(--bad)}
+.atabs{display:grid;grid-template-columns:.7fr 1fr 1fr 1fr;border-bottom:1.5px solid var(--line);margin:-12px -14px 10px;background:var(--surf)}
+.atabs button{padding:12px 0;font-weight:800;font-size:15px;color:var(--mute)}
+.atabs button.on{color:var(--mar);box-shadow:inset 0 -4px 0 var(--mar)}
+.dbar{display:flex;align-items:center;gap:8px;background:var(--surf2);border-radius:12px;padding:8px 8px;margin-bottom:8px}
+.dbar .ar{width:34px;height:40px;font-size:20px;font-weight:800;color:var(--mar);flex:none}
+.dbar .ar:disabled{opacity:.3}
+.dbox{border:2px solid var(--ink);border-radius:6px;min-width:46px;padding:2px 6px;text-align:center;font-size:26px;line-height:1.25;font-weight:600}
+.dmid{flex:1;min-width:0;font-weight:700;line-height:1.35}.dmid small{display:block;font-weight:600;color:var(--mute);font-size:13.5px}
+.dbal{text-align:right;font-size:13px;font-weight:700;color:var(--mute);line-height:1.35}.dbal b{display:block;font-size:17px;color:var(--ink)}
+.cf{display:flex;justify-content:space-between;font-weight:700;padding:2px 4px 6px;font-size:16px}
+.sec{display:flex;justify-content:space-between;align-items:center;background:var(--surf2);border-radius:6px;padding:9px 12px;font-weight:800;font-size:17px;margin-top:6px}
+.sec b.cr{color:var(--ok)}.sec b.dr{color:var(--bad)}
+.hint{text-align:center;color:var(--mute);font-size:14px;padding:12px 18px}
+.mrow{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;background:var(--surf);border:1.5px solid var(--line);border-radius:12px;padding:7px 10px;margin-bottom:4px;font-size:14px;font-weight:700;width:100%;text-align:left}
+.mrow span:not(:first-child){text-align:right}
+.qq{display:flex;gap:6px;overflow-x:auto;padding:0 0 8px;scrollbar-width:none}.qq .chip{white-space:nowrap;flex:none}
+.qp{position:sticky;bottom:-12px;margin:10px -14px -12px;background:var(--surf2);border-radius:22px 22px 0 0;padding:6px 14px 12px;box-shadow:0 -4px 14px rgba(0,0,0,.12)}
+.qp .tg{display:block;margin:0 auto;font-size:22px;color:var(--ink);width:44px;height:30px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--mute);border-radius:22px;overflow:hidden;margin:2px 0 8px}
+.seg button{padding:9px 4px;font-weight:700;font-size:15px}
+.seg button.on{background:var(--surf);color:var(--ink)}.seg button.on::before{content:"✓ "}
+.qrow{display:flex;gap:10px;align-items:flex-end}
+.qrow input{flex:1;min-width:0;background:none;border:0;border-bottom:2px solid var(--ink);padding:8px 2px;font-size:16px;border-radius:0}
+.qrow input.qa{flex:.8}
+.qok{width:54px;height:54px;border-radius:50%;background:var(--mar);color:#fff;font-size:26px;flex:none}
+#app.acv{background:var(--bg);--bg:#f1f8f4;--surf:#ffffff;--surf2:#cfe6db;--ink:#1d2b26;--mute:#5a6e66;--line:#c3d8cd;--mar:#0e6f5c;--mar2:#14806a;--saf:#0e6f5c;--gold:#8fcfb8;--ok:#1b7a4a;--bad:#c0392b;--onmar:#ffffff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #app.acv{--bg:#0f1a16;--surf:#17261f;--surf2:#223a30;--ink:#e4f2ea;--mute:#9db8ac;--line:#2e473c;--mar:#2aa58a;--mar2:#1d7f69;--saf:#2aa58a;--gold:#8fcfb8;--ok:#5ed39b;--bad:#ff8a80}}
+:root[data-theme="dark"] #app.acv{--bg:#0f1a16;--surf:#17261f;--surf2:#223a30;--ink:#e4f2ea;--mute:#9db8ac;--line:#2e473c;--mar:#2aa58a;--mar2:#1d7f69;--saf:#2aa58a;--gold:#8fcfb8;--ok:#5ed39b;--bad:#ff8a80}
+:focus-visible{outline:3px solid var(--saf);outline-offset:2px}
+</style>
+
+<div id="app">
+  <header class="pad" id="live"></header>
+  <div class="cloud" id="cloud" hidden></div>
+  <main class="pad" id="main"></main>
+  <nav id="nav">
+    <button data-v="day"><i>📅</i>દિવસ</button>
+    <button data-v="all"><i>🗓</i>બધા દિવસ</button>
+    <button data-v="places"><i>🛕</i>સ્થળો</button>
+    <button data-v="people"><i>👥</i>યાત્રિકો</button>
+    <button data-v="more"><i>☰</i>વધુ</button>
+  </nav>
+</div>
+
+<script>
+const DEF = {"cfg": {"name": "નીલકંઠ યાત્રા ૪", "sub": "દક્ષિણ ભારત", "start": "2027-01-06"}, "days": [{"id": "d01", "n": 1, "date": "2027-01-06", "title": "ભુજ → અમદાવાદ → ભુવનેશ્વર", "stay": "ભુવનેશ્વર", "city": "Bhubaneswar", "ev": [{"tm": "05:30", "lb": "", "x": "વંદે ભારત ટ્રેન, ભુજ → અમદાવાદ", "pl": "", "note": "", "id": "e011"}, {"tm": "", "lb": "બપોરે", "x": "ભોજન પ્રસાદ, સ્વામિનારાયણ વિશ્રાંતિ ભવન", "pl": "vishranti", "note": "", "id": "e012"}, {"tm": "", "lb": "પછી", "x": "અમદાવાદથી ભુવનેશ્વર ફ્લાઇટ", "pl": "", "note": "", "id": "e013"}, {"tm": "", "lb": "રાત્રે", "x": "ભુવનેશ્વરમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e014"}]}, {"id": "d02", "n": 2, "date": "2027-01-07", "title": "ભુવનેશ્વર → કોણાર્ક → પુરી", "stay": "પુરી ❓", "city": "Puri", "ev": [{"tm": "", "lb": "સવારે", "x": "કોણાર્ક સૂર્ય મંદિર દર્શન", "pl": "konark", "note": "", "id": "e021"}, {"tm": "", "lb": "બપોરે", "x": "જગન્નાથ પુરી દર્શન અને ભોજન પ્રસાદ", "pl": "puri", "note": "", "id": "e022"}, {"tm": "15:30", "lb": "", "x": "ચક્રતીર્થ", "pl": "chakratirth", "note": "", "id": "e023"}, {"tm": "", "lb": "પછી", "x": "ઇન્દ્રદ્યુમ્ન સરોવર", "pl": "indradyumna", "note": "", "id": "e024"}, {"tm": "", "lb": "સાંજે", "x": "સમુદ્ર સ્નાન", "pl": "", "note": "", "id": "e025"}, {"tm": "22:30", "lb": "", "x": "જગન્નાથ દર્શન", "pl": "puri", "note": "", "id": "e026"}]}, {"id": "d03", "n": 3, "date": "2027-01-08", "title": "સાક્ષી ગોપાલ • આદિકૂર્મ", "stay": "વિશાખાપટ્ટનમ", "city": "Visakhapatnam", "ev": [{"tm": "", "lb": "સવારે", "x": "સાક્ષી ગોપાલ દર્શન", "pl": "sakshi", "note": "", "id": "e031"}, {"tm": "", "lb": "પછી", "x": "આદિકૂર્મ (શ્રીકૂર્મમ) ભગવાનનાં દર્શન", "pl": "srikurmam", "note": "", "id": "e032"}, {"tm": "", "lb": "રાત્રે", "x": "વિશાખાપટ્ટનમમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e033"}]}, {"id": "d04", "n": 4, "date": "2027-01-09", "title": "સિંહાચલમ • મ્યુઝિયમ", "stay": "વિશાખાપટ્ટનમ", "city": "Visakhapatnam", "ev": [{"tm": "", "lb": "સવારે", "x": "સિંહાચલમ નૃસિંહ ભગવાનનાં દર્શન", "pl": "simhachalam", "note": "", "id": "e041"}, {"tm": "", "lb": "બપોરે", "x": "સબમરીન અને એરક્રાફ્ટ મ્યુઝિયમ", "pl": "submarine", "note": "", "id": "e042"}, {"tm": "", "lb": "રાત્રે", "x": "વિશાખાપટ્ટનમમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e043"}]}, {"id": "d05", "n": 5, "date": "2027-01-10", "title": "વિશાખાપટ્ટનમ → હૈદરાબાદ", "stay": "હૈદરાબાદ", "city": "Hyderabad", "ev": [{"tm": "", "lb": "સવારે", "x": "વિશાખાપટ્ટનમથી હૈદરાબાદ ફ્લાઇટ", "pl": "", "note": "", "id": "e051"}, {"tm": "", "lb": "બપોરે", "x": "સ્ટેચ્યુ ઓફ ઇક્વાલિટી (રામાનુજાચાર્ય) દર્શન", "pl": "equality", "note": "", "id": "e052"}, {"tm": "", "lb": "રાત્રે", "x": "હૈદરાબાદમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e053"}]}, {"id": "d06", "n": 6, "date": "2027-01-11", "title": "યાદગિરિગુટ્ટા → શ્રીશૈલમ", "stay": "શ્રીશૈલમ", "city": "Srisailam", "ev": [{"tm": "", "lb": "સવારે", "x": "યાદગિરિગુટ્ટા (યાદાદ્રિ) દર્શન", "pl": "yadagiri", "note": "", "id": "e061"}, {"tm": "", "lb": "બપોરે", "x": "શ્રીશૈલમ માટે પ્રસ્થાન ❓", "pl": "", "note": "", "id": "e062"}, {"tm": "", "lb": "રાત્રે", "x": "શ્રીશૈલમ દર્શન અને રાત્રિ રોકાણ", "pl": "srisailam", "note": "", "id": "e063"}]}, {"id": "d07", "n": 7, "date": "2027-01-12", "title": "તિરુપતિ", "stay": "તિરુપતિ", "city": "Tirupati", "ev": [{"tm": "", "lb": "સવારે", "x": "તિરુપતિ બાલાજી દર્શન", "pl": "tirupati", "note": "", "id": "e071"}, {"tm": "", "lb": "રાત્રે", "x": "તિરુપતિમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e072"}]}, {"id": "d08", "n": 8, "date": "2027-01-13", "title": "કાલહસ્તી • વેલ્લોર", "stay": "વેલ્લોર", "city": "Vellore", "ev": [{"tm": "", "lb": "સવારે", "x": "શ્રી કાલહસ્તી મંદિર દર્શન", "pl": "kalahasti", "note": "", "id": "e081"}, {"tm": "", "lb": "બપોરે", "x": "વેલ્લોર સુવર્ણ મંદિર (નારાયણી લક્ષ્મી મંદિર)", "pl": "vellore", "note": "", "id": "e082"}, {"tm": "", "lb": "રાત્રે", "x": "વેલ્લોરમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e083"}]}, {"id": "d09", "n": 9, "date": "2027-01-14", "title": "કાંચીપુરમ • ભૂતપુરી", "stay": "શિવ કાંચી", "city": "Kanchipuram", "ev": [{"tm": "", "lb": "સવારે", "x": "વિષ્ણુ કાંચી દર્શન", "pl": "vkanchi", "note": "", "id": "e091"}, {"tm": "", "lb": "બપોરે", "x": "શિવ કાંચી દર્શન", "pl": "skanchi", "note": "", "id": "e092"}, {"tm": "", "lb": "સાંજે", "x": "ભૂતપુરી દર્શન ❓", "pl": "bhutapuri", "note": "", "id": "e093"}, {"tm": "", "lb": "રાત્રે", "x": "શિવ કાંચીમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e094"}]}, {"id": "d10", "n": 10, "date": "2027-01-15", "title": "મધુરાંતકમ • ચિદંબરમ • તંજાવુર", "stay": "શ્રીરંગ ક્ષેત્ર (ત્રિચી)", "city": "Tiruchirappalli", "ev": [{"tm": "", "lb": "સવારે", "x": "મધુરાંતકમ દર્શન", "pl": "madhuran", "note": "", "id": "e101"}, {"tm": "", "lb": "પછી", "x": "કુંભકોણમ દર્શન", "pl": "kumbakonam", "note": "", "id": "e102"}, {"tm": "", "lb": "બપોરે", "x": "ચિદંબરમ દર્શન", "pl": "chidambaram", "note": "", "id": "e103"}, {"tm": "", "lb": "સાંજે", "x": "તંજાવુર દર્શન", "pl": "thanjavur", "note": "", "id": "e104"}, {"tm": "", "lb": "રાત્રે", "x": "શ્રીરંગ ક્ષેત્ર (ત્રિચી) રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e105"}]}, {"id": "d11", "n": 11, "date": "2027-01-16", "title": "શ્રીરંગ ક્ષેત્ર → રામેશ્વર", "stay": "રામેશ્વર", "city": "Rameswaram", "ev": [{"tm": "", "lb": "સવારે", "x": "શ્રીરંગ ક્ષેત્ર દર્શન", "pl": "srirangam", "note": "", "id": "e111"}, {"tm": "", "lb": "બપોરે", "x": "સુંદરરાજ દર્શન ❓", "pl": "sundararaja", "note": "", "id": "e112"}, {"tm": "", "lb": "સાંજે", "x": "તિરુકોષ્ટિયુર દર્શન", "pl": "tirukostiyur", "note": "", "id": "e113"}, {"tm": "", "lb": "રાત્રે", "x": "રામેશ્વરમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e114"}]}, {"id": "d12", "n": 12, "date": "2027-01-17", "title": "રામેશ્વર • મદુરાઈ", "stay": "મદુરાઈ", "city": "Madurai", "ev": [{"tm": "", "lb": "સવારે", "x": "રામેશ્વર દર્શન", "pl": "rameswaram", "note": "", "id": "e121"}, {"tm": "", "lb": "સાંજે", "x": "મદુરાઈ દર્શન", "pl": "madurai", "note": "", "id": "e122"}, {"tm": "", "lb": "રાત્રે", "x": "મદુરાઈમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e123"}]}, {"id": "d13", "n": 13, "date": "2027-01-18", "title": "તોતાદ્રી • કન્યાકુમારી", "stay": "કન્યાકુમારી", "city": "Kanyakumari", "ev": [{"tm": "", "lb": "સવારે", "x": "મદુરાઈથી તોતાદ્રી દર્શન ❓", "pl": "totadri", "note": "", "id": "e131"}, {"tm": "", "lb": "બપોરે", "x": "લંબેનારાયણ દર્શન ❓", "pl": "lambenarayan", "note": "", "id": "e132"}, {"tm": "", "lb": "સાંજે", "x": "કન્યાકુમારી ભોજન પ્રસાદ અને દર્શન", "pl": "kanyakumari", "note": "", "id": "e133"}, {"tm": "", "lb": "રાત્રે", "x": "કન્યાકુમારીમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e134"}]}, {"id": "d14", "n": 14, "date": "2027-01-19", "title": "સુચિંદ્રમ • તિરુવત્તર • ત્રિવેન્દ્રમ", "stay": "ત્રિવેન્દ્રમ", "city": "Thiruvananthapuram", "ev": [{"tm": "", "lb": "સવારે", "x": "સુચિંદ્રમ દર્શન", "pl": "suchindram", "note": "", "id": "e141"}, {"tm": "", "lb": "બપોરે", "x": "આદિકેશવ (તિરુવત્તર) દર્શન", "pl": "adikeshava", "note": "", "id": "e142"}, {"tm": "", "lb": "રાત્રે", "x": "ત્રિવેન્દ્રમમાં રાત્રિ રોકાણ", "pl": "trivandrum", "note": "", "id": "e143"}]}, {"id": "d15", "n": 15, "date": "2027-01-20", "title": "પદ્મનાભ • જનાર્દન • કોચીન", "stay": "કોચીન", "city": "Kochi", "ev": [{"tm": "03:30", "lb": "", "x": "પદ્મનાભ મંદિર દર્શન", "pl": "padmanabha", "note": "", "id": "e151"}, {"tm": "", "lb": "બપોરે", "x": "જનાર્દન દર્શન ❓", "pl": "janardana", "note": "", "id": "e152"}, {"tm": "", "lb": "રાત્રે", "x": "કોચીનમાં રાત્રિ રોકાણ", "pl": "kochi", "note": "", "id": "e153"}]}, {"id": "d16", "n": 16, "date": "2027-01-21", "title": "કોચીન સાઇડ વિઝિટ", "stay": "કોચીન", "city": "Kochi", "ev": [{"tm": "", "lb": "દિવસે", "x": "કોચીન સાઇડ વિઝિટ", "pl": "kochi", "note": "", "id": "e161"}, {"tm": "", "lb": "રાત્રે", "x": "કોચીનમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e162"}]}, {"id": "d17", "n": 17, "date": "2027-01-22", "title": "ગુરુવાયુર • મૈસુર", "stay": "મૈસુર", "city": "Mysore", "ev": [{"tm": "", "lb": "સવારે", "x": "કોચીનથી ગુરુવાયુર દર્શન", "pl": "guruvayur", "note": "", "id": "e171"}, {"tm": "", "lb": "બપોરે", "x": "મૈસુર દર્શન", "pl": "mysore", "note": "", "id": "e172"}, {"tm": "", "lb": "સાંજે", "x": "શ્રીરંગપટ્ટણમ દર્શન", "pl": "srirangapatna", "note": "", "id": "e173"}, {"tm": "", "lb": "પછી", "x": "મેલકોટે દર્શન", "pl": "melkote", "note": "", "id": "e174"}, {"tm": "", "lb": "રાત્રે", "x": "મૈસુરમાં રાત્રિ રોકાણ", "pl": "", "note": "", "id": "e175"}]}, {"id": "d18", "n": 18, "date": "2027-01-23", "title": "મૈસુર → બેંગલોર → અમદાવાદ", "stay": "અમદાવાદ", "city": "Bengaluru", "ev": [{"tm": "", "lb": "સવારે", "x": "મૈસુરથી બેંગલોર કારમાં", "pl": "", "note": "", "id": "e181"}, {"tm": "", "lb": "બપોરે", "x": "બેંગલોરથી અમદાવાદ ફ્લાઇટ", "pl": "", "note": "", "id": "e182"}]}], "places": {"konark": {"name": "કોણાર્ક સૂર્ય મંદિર", "mahima": "૧૩મી સદીનું સૂર્યદેવનું રથ આકારનું મંદિર, પથ્થરનાં ૨૪ ચક્રો અને સાત અશ્વો સાથે. યુનેસ્કો વિશ્વ ધરોહર.", "pin": "752111", "q": "Konark Sun Temple Odisha", "timing": ""}, "puri": {"name": "જગન્નાથ મંદિર, પુરી", "mahima": "ચાર ધામમાંનું એક. ભગવાન જગન્નાથ, બળભદ્રજી અને સુભદ્રાજીનાં દર્શન, અને મહાપ્રસાદનો વિશેષ મહિમા.", "pin": "752001", "q": "Jagannath Temple Puri", "timing": ""}, "chakratirth": {"name": "ચક્રતીર્થ, પુરી", "mahima": "પુરીના સમુદ્રકિનારે આવેલું પવિત્ર સ્થાન, ચક્ર નારાયણનું મંદિર.", "pin": "752001", "q": "Chakra Tirtha Puri", "timing": ""}, "indradyumna": {"name": "ઇન્દ્રદ્યુમ્ન સરોવર", "mahima": "જગન્નાથ મંદિર સ્થાપનાર રાજા ઇન્દ્રદ્યુમ્નના નામનું પવિત્ર સરોવર, ગુંડિચા મંદિર પાસે.", "pin": "752001", "q": "Indradyumna Tank Puri", "timing": ""}, "sakshi": {"name": "સાક્ષી ગોપાલ મંદિર", "mahima": "પુરી પાસે. ભગવાન શ્રીકૃષ્ણ ભક્તના સાક્ષી બન્યા તે કથા સાથે જોડાયેલું તીર્થ.", "pin": "", "q": "Sakshi Gopal Temple Odisha", "timing": ""}, "srikurmam": {"name": "શ્રીકૂર્મમ (આદિકૂર્મ)", "mahima": "ભગવાન વિષ્ણુના કૂર્મ (કાચબા) અવતારનું પ્રસિદ્ધ મંદિર, આંધ્રપ્રદેશ.", "pin": "", "q": "Srikurmam Temple Srikakulam", "timing": ""}, "simhachalam": {"name": "સિંહાચલમ નૃસિંહ મંદિર", "mahima": "ભગવાન વરાહ લક્ષ્મી નૃસિંહ સ્વામીનું મંદિર, ટેકરી પર. પ્રહ્લાદ ભક્તના રક્ષણની કથા સાથે જોડાયેલું.", "pin": "530028", "q": "Simhachalam Temple Visakhapatnam", "timing": ""}, "submarine": {"name": "સબમરીન અને એરક્રાફ્ટ મ્યુઝિયમ", "mahima": "વિશાખાપટ્ટનમ બીચ પાસેનું INS કુરુસુરા સબમરીન અને વિમાન મ્યુઝિયમ.", "pin": "", "q": "Kursura Submarine Museum Visakhapatnam", "timing": ""}, "equality": {"name": "સ્ટેચ્યુ ઓફ ઇક્વાલિટી (રામાનુજાચાર્ય)", "mahima": "સંત શ્રી રામાનુજાચાર્યની ૨૧૬ ફૂટ ઊંચી પ્રતિમા, હૈદરાબાદ પાસે.", "pin": "", "q": "Statue of Equality Hyderabad", "timing": ""}, "yadagiri": {"name": "યાદગિરિગુટ્ટા (યાદાદ્રિ) નૃસિંહ મંદિર", "mahima": "ટેકરી પર આવેલું લક્ષ્મી નૃસિંહ સ્વામીનું પ્રસિદ્ધ મંદિર, તેલંગાણા.", "pin": "508115", "q": "Yadagirigutta Temple", "timing": ""}, "srisailam": {"name": "શ્રીશૈલમ મલ્લિકાર્જુન", "mahima": "બાર જ્યોતિર્લિંગમાંનું એક અને શક્તિપીઠ, બંનેનો મહિમા.", "pin": "518101", "q": "Srisailam Mallikarjuna Temple", "timing": ""}, "tirupati": {"name": "તિરુપતિ બાલાજી", "mahima": "ભગવાન વેંકટેશ્વરનું તિરુમલા ધામ, દેશના સૌથી વધુ દર્શનાર્થી આવતાં મંદિરોમાંનું એક.", "pin": "517501", "q": "Tirumala Tirupati Balaji Temple", "timing": ""}, "kalahasti": {"name": "શ્રી કાલહસ્તી મંદિર", "mahima": "પંચભૂત શિવ ક્ષેત્રોમાં વાયુ તત્ત્વનું લિંગ. રાહુ-કેતુ પૂજા માટે પ્રસિદ્ધ.", "pin": "517644", "q": "Srikalahasti Temple", "timing": ""}, "vellore": {"name": "સુવર્ણ મંદિર (શ્રીપુરમ), વેલ્લોર", "mahima": "નારાયણી લક્ષ્મી મંદિર, સોનાથી મઢેલું ભવ્ય મંદિર.", "pin": "632055", "q": "Sripuram Golden Temple Vellore", "timing": ""}, "vkanchi": {"name": "વિષ્ણુ કાંચી (વરદરાજ પેરુમાળ)", "mahima": "કાંચીપુરમનું પ્રસિદ્ધ વૈષ્ણવ ક્ષેત્ર.", "pin": "631501", "q": "Varadharaja Perumal Temple Kanchipuram", "timing": ""}, "skanchi": {"name": "શિવ કાંચી (એકામ્બરેશ્વર)", "mahima": "પંચભૂત શિવ ક્ષેત્રોમાં પૃથ્વી તત્ત્વનું લિંગ.", "pin": "631502", "q": "Ekambareswarar Temple Kanchipuram", "timing": ""}, "bhutapuri": {"name": "ભૂતપુરી (શ્રીપેરુમ્બુદૂર) ❓", "mahima": "શ્રી રામાનુજાચાર્યનું જન્મસ્થાન. નામ ચકાસી લેવું.", "pin": "602105", "q": "Sriperumbudur Ramanuja Temple", "timing": ""}, "madhuran": {"name": "મધુરાંતકમ", "mahima": "પરંપરા પ્રમાણે શ્રી રામાનુજાચાર્યને અહીં પેરિયા નંબિએ દીક્ષા આપી. એરી કાથા રામર મંદિર.", "pin": "603306", "q": "Madurantakam Eri Katha Ramar Temple", "timing": ""}, "kumbakonam": {"name": "કુંભકોણમ", "mahima": "મંદિરોનું નગર. સારંગપાણિ અને કુંભેશ્વર જેવાં પ્રસિદ્ધ મંદિરો.", "pin": "612001", "q": "Kumbakonam Sarangapani Temple", "timing": ""}, "chidambaram": {"name": "ચિદંબરમ નટરાજ મંદિર", "mahima": "પંચભૂત શિવ ક્ષેત્રોમાં આકાશ તત્ત્વ. ભગવાન શિવનું નટરાજ સ્વરૂપ.", "pin": "608001", "q": "Chidambaram Nataraja Temple", "timing": ""}, "thanjavur": {"name": "તંજાવુર બૃહદેશ્વર મંદિર", "mahima": "ચોલ કાળનું ભવ્ય મંદિર, યુનેસ્કો વિશ્વ ધરોહર.", "pin": "613007", "q": "Brihadisvara Temple Thanjavur", "timing": ""}, "srirangam": {"name": "શ્રીરંગમ રંગનાથસ્વામી મંદિર", "mahima": "૧૦૮ દિવ્યદેશમાં પ્રથમ ગણાય. ભારતનાં સૌથી મોટાં મંદિર સંકુલોમાંનું એક.", "pin": "620006", "q": "Srirangam Ranganathaswamy Temple", "timing": ""}, "sundararaja": {"name": "સુંદરરાજ પેરુમાળ ❓", "mahima": "મદુરાઈ પાસેનું વૈષ્ણવ ક્ષેત્ર (અલગર કોઇલ હોય તો ચકાસવું).", "pin": "", "q": "Alagar Kovil Madurai", "timing": ""}, "tirukostiyur": {"name": "તિરુકોષ્ટિયુર", "mahima": "સૌમ્ય નારાયણ પેરુમાળ. પરંપરા પ્રમાણે રામાનુજાચાર્યે અહીં મંત્રનો ઉપદેશ સૌને જાહેર કર્યો.", "pin": "630210", "q": "Tirukoshtiyur Sowmya Narayana Perumal Temple", "timing": ""}, "rameswaram": {"name": "રામેશ્વરમ", "mahima": "ચાર ધામ અને બાર જ્યોતિર્લિંગમાંનું એક. ભગવાન શ્રીરામે શિવલિંગની સ્થાપના કરી.", "pin": "623526", "q": "Ramanathaswamy Temple Rameswaram", "timing": ""}, "madurai": {"name": "મીનાક્ષી અમ્મન મંદિર, મદુરાઈ", "mahima": "દેવી મીનાક્ષી અને સુંદરેશ્વરનું ભવ્ય મંદિર, ઊંચાં ગોપુરમ.", "pin": "625001", "q": "Meenakshi Amman Temple Madurai", "timing": ""}, "totadri": {"name": "તોતાદ્રી (વાનમામલાઈ) ❓", "mahima": "નાંગુનેરીનું વૈષ્ણવ ક્ષેત્ર. નામ અને સ્થળ ચકાસવું.", "pin": "", "q": "Vanamamalai Perumal Temple Nanguneri", "timing": ""}, "lambenarayan": {"name": "લંબેનારાયણ ❓", "mahima": "નોંધમાં નામ સ્પષ્ટ નથી. સાચું મંદિર નક્કી કરી અહીં મહિમા લખો.", "pin": "", "q": "", "timing": ""}, "kanyakumari": {"name": "કન્યાકુમારી", "mahima": "ભારતનો દક્ષિણ છેડો. દેવી કન્યાકુમારી મંદિર અને ત્રણ સમુદ્રનો સંગમ.", "pin": "629702", "q": "Kanyakumari Amman Temple", "timing": ""}, "suchindram": {"name": "સુચિંદ્રમ થાણુમાલયન મંદિર", "mahima": "શિવ, વિષ્ણુ અને બ્રહ્મા ત્રણેનું સ્વરૂપ એક જ મંદિરમાં.", "pin": "629704", "q": "Suchindram Thanumalayan Temple", "timing": ""}, "adikeshava": {"name": "આદિકેશવ પેરુમાળ, તિરુવત્તર", "mahima": "૧૦૮ દિવ્યદેશમાંનું. ભગવાન શયન મુદ્રામાં બિરાજે છે.", "pin": "", "q": "Thiruvattar Adikesava Perumal Temple", "timing": ""}, "trivandrum": {"name": "ત્રિવેન્દ્રમ (તિરુવનંતપુરમ)", "mahima": "કેરળની રાજધાની.", "pin": "695001", "q": "Thiruvananthapuram", "timing": ""}, "padmanabha": {"name": "પદ્મનાભસ્વામી મંદિર", "mahima": "અનંત શય્યા પર શયન કરતા ભગવાન વિષ્ણુ. ૧૦૮ દિવ્યદેશમાંનું.", "pin": "695023", "q": "Padmanabhaswamy Temple Thiruvananthapuram", "timing": ""}, "janardana": {"name": "જનાર્દન સ્વામી મંદિર ❓", "mahima": "વર્કલાનું સમુદ્રકિનારે આવેલું મંદિર. નામ ચકાસવું.", "pin": "695141", "q": "Varkala Janardhana Swamy Temple", "timing": ""}, "kochi": {"name": "કોચીન", "mahima": "કેરળનું બંદર નગર, ફોર્ટ કોચી.", "pin": "682001", "q": "Fort Kochi", "timing": ""}, "guruvayur": {"name": "ગુરુવાયુર શ્રીકૃષ્ણ મંદિર", "mahima": "બાળ કૃષ્ણનું પ્રસિદ્ધ મંદિર, દક્ષિણની દ્વારકા ગણાય.", "pin": "680101", "q": "Guruvayur Temple", "timing": ""}, "mysore": {"name": "મૈસુર", "mahima": "મહેલો અને ચામુંડેશ્વરી મંદિર માટે પ્રસિદ્ધ.", "pin": "570001", "q": "Mysore Palace", "timing": ""}, "srirangapatna": {"name": "શ્રીરંગપટ્ટણમ રંગનાથસ્વામી", "mahima": "કાવેરી નદીના ટાપુ પરનું શ્રી રંગનાથસ્વામીનું મંદિર.", "pin": "571438", "q": "Srirangapatna Ranganathaswamy Temple", "timing": ""}, "melkote": {"name": "મેલકોટે ચેલુવનારાયણ", "mahima": "શ્રી રામાનુજાચાર્યે અહીં વર્ષો વિતાવ્યાં. તિરુનારાયણપુરમ તરીકે ઓળખાય.", "pin": "571431", "q": "Melkote Cheluvanarayana Temple", "timing": ""}, "vishranti": {"name": "સ્વામિનારાયણ વિશ્રાંતિ ભવન, અમદાવાદ", "mahima": "ભોજન પ્રસાદ અને વિશ્રામ માટેનું સ્થાન.", "pin": "", "q": "Swaminarayan Vishranti Bhavan Ahmedabad", "timing": ""}}, "people": [{"id": "p001", "no": 1, "n": "પ્રવીણભાઈ હીરાણી", "age": 39, "mob": "90000 00001", "st": "ok", "sant": false}, {"id": "p002", "no": 2, "n": "જેન્તીભાઈ પટેલ", "age": 43, "mob": "90000 00002", "st": "ok", "sant": false}, {"id": "p003", "no": 3, "n": "દીપકભાઈ દવે", "age": 30, "mob": "90000 00003", "st": "ok", "sant": false}, {"id": "p004", "no": 4, "n": "હિતેશ ઠક્કર", "age": 49, "mob": "90000 00004", "st": "ok", "sant": false}, {"id": "p005", "no": 5, "n": "પીયૂષભાઈ ત્રિપાઠી", "age": 54, "mob": "90000 00005", "st": "ok", "sant": false}, {"id": "p006", "no": 6, "n": "સમજીભાઈ ત્રાસ્ટી", "age": 33, "mob": "90000 00006", "st": "ok", "sant": false}, {"id": "p007", "no": 7, "n": "વિશાલ સોમૈયા", "age": 29, "mob": "90000 00007", "st": "ok", "sant": false}, {"id": "p008", "no": 8, "n": "કાંતિભાઈ વરસાણી", "age": 28, "mob": "90000 00008", "st": "ok", "sant": false}, {"id": "p009", "no": 9, "n": "ચેતન પિંડોરિયા", "age": 25, "mob": "90000 00009", "st": "ok", "sant": false}, {"id": "p010", "no": 10, "n": "અનિલ લક્ષ્મ", "age": 49, "mob": "90000 00010", "st": "ok", "sant": false}, {"id": "p011", "no": 11, "n": "મુકુંદ હીરાણી", "age": 59, "mob": "90000 00011", "st": "ok", "sant": false}, {"id": "p012", "no": 12, "n": "વિશાલ રાજગોર", "age": 42, "mob": "90000 00012", "st": "ok", "sant": false}, {"id": "p013", "no": 13, "n": "અશોક પારલા", "age": 27, "mob": "90000 00013", "st": "ok", "sant": false}, {"id": "p014", "no": 14, "n": "અજય પંડ્યા", "age": 38, "mob": "90000 00014", "st": "ok", "sant": false}, {"id": "p015", "no": 15, "n": "હરજીભાઈ કેરી", "age": 57, "mob": "90000 00015", "st": "ok", "sant": false}, {"id": "p016", "no": 16, "n": "સમજીભાઈ સ્વસ્તિક", "age": 58, "mob": "90000 00016", "st": "ok", "sant": false}, {"id": "p017", "no": 17, "n": "ઉમેશ પટેલ", "age": 47, "mob": "90000 00017", "st": "ok", "sant": false}, {"id": "p018", "no": 18, "n": "વિનોદ સ્વસ્તિક", "age": 41, "mob": "90000 00018", "st": "ok", "sant": false}, {"id": "p019", "no": 19, "n": "દેવશી પિંડોરિયા", "age": 35, "mob": "90000 00019", "st": "ok", "sant": false}, {"id": "p020", "no": 20, "n": "ધનજી રાઘવાણી", "age": 30, "mob": "90000 00020", "st": "ok", "sant": false}, {"id": "p021", "no": 21, "n": "હરીશ કેરાઈ", "age": 40, "mob": "90000 00021", "st": "ok", "sant": false}, {"id": "p022", "no": 22, "n": "હર્ષિલ રાઘવાણી", "age": 37, "mob": "90000 00022", "st": "ok", "sant": false}, {"id": "p023", "no": 23, "n": "જાદુભાઈ કેરાઈ", "age": 25, "mob": "90000 00023", "st": "ok", "sant": false}, {"id": "p024", "no": 24, "n": "કિશન રાઘવાણી", "age": 65, "mob": "90000 00024", "st": "ok", "sant": false}, {"id": "p025", "no": 25, "n": "પ્રવીણ પિંડોરિયા", "age": 40, "mob": "90000 00025", "st": "ok", "sant": false}, {"id": "p026", "no": 26, "n": "રવજી પિંડોરિયા", "age": 41, "mob": "90000 00026", "st": "ok", "sant": false}, {"id": "p027", "no": 27, "n": "જગદીશભાઈ વાઘાણી", "age": 36, "mob": "90000 00027", "st": "ok", "sant": false}, {"id": "p028", "no": 28, "n": "ઉતમ છાભડિયા", "age": 34, "mob": "90000 00028", "st": "ok", "sant": false}, {"id": "p029", "no": 29, "n": "ભીમજીભાઈ હીરાણી", "age": 43, "mob": "90000 00029", "st": "ok", "sant": false}, {"id": "p030", "no": 30, "n": "ધનજીભાઈ ભુડિયા", "age": 42, "mob": "90000 00030", "st": "ok", "sant": false}, {"id": "p031", "no": 31, "n": "કુરજીભાઈ", "age": 64, "mob": "90000 00031", "st": "ok", "sant": false}, {"id": "s001", "no": 1, "n": "સૌનક મુનિ દાસજી", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s002", "no": 2, "n": "સુકદેવ સ્વરૂપ દાસજી", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s003", "no": 3, "n": "નિર્દોષ મુનિ", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s004", "no": 4, "n": "સદ્ગુણ સ્વરૂપ દાસજી", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s005", "no": 5, "n": "સત્ય સ્વરૂપ", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s006", "no": 6, "n": "શ્રી વેદ સ્વરૂપ", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s007", "no": 7, "n": "સૂર્ય પ્રકાશ", "age": 0, "mob": "", "st": "ok", "sant": true}, {"id": "s008", "no": 8, "n": "પરબ્રહ્મ સ્વામી", "age": 0, "mob": "", "st": "ok", "sant": true}], "take": ["આધાર કાર્ડ / ઓળખપત્ર", "ટ્રેન અને ફ્લાઇટની ટિકિટની નકલ", "સુતરાઉ અને ગરમ કપડાં", "રોજની દવાઓ", "પાણીની બોટલ", "સહેલાઈથી ઉતરે તેવાં ચંપલ", "છત્રી / રેઇનકોટ", "પાવર બેંક અને ચાર્જર", "મંદિર માટે મર્યાદિત વસ્ત્રો (ઘણાં દક્ષિણ મંદિરોમાં ધોતી/સાડી)"], "rules": ["સમયસર બસ કે ગાડીમાં હાજર રહેવું", "સંતો અને વડીલોની આજ્ઞા માનવી", "મંદિરમાં મોબાઈલ સાયલન્ટ રાખવો", "ફોટા ફક્ત જ્યાં મંજૂરી હોય ત્યાં", "ગ્રુપ સાથે જ રહેવું, એકલા ન જવું", "કચરો ફેંકવો નહીં, સ્વચ્છતા રાખવી"]};
+const $ = s => document.querySelector(s);
+const clone = o => JSON.parse(JSON.stringify(o));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gu = n => String(n).replace(/\d/g, d => '૦૧૨૩૪૫૬૭૮૯'[d]);
+const WD = ['રવિ','સોમ','મંગળ','બુધ','ગુરુ','શુક્ર','શનિ'];
+const MO = ['જાન્યુ','ફેબ્રુ','માર્ચ','એપ્રિલ','મે','જૂન','જુલાઈ','ઑગસ્ટ','સપ્ટે','ઑક્ટો','નવે','ડિસે'];
+const LB = {'સવારે':360,'દિવસે':600,'બપોરે':780,'સાંજે':1020,'રાત્રે':1260};
+
+let S = clone(DEF);
+let db = null, canW = null, seeded = false, daysLoaded = false, edit = false, cloudState = 'load';
+let view = 'day', dayIdx = 0, dayTouched = false, pPage = 0, plPage = 0, pFilter = 'all';
+let ticks = {}, stripX = null, lastCentered = -1;
+S.acc = [];
+let accTab = 'day', accDate = '', accPage = 0, accT = 'out', accC = '', accQ = true, payFilter = 'all', dlc = null;
+try { ticks = JSON.parse(localStorage.getItem('nk_ticks') || '{}'); } catch (e) {}
+
+/* ---------- time ---------- */
+function nowIST() {
+  const p = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Kolkata', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false}).formatToParts(new Date());
+  const g = t => p.find(x => x.type === t).value; let h = +g('hour'); if (h === 24) h = 0;
+  return {date: g('year') + '-' + g('month') + '-' + g('day'), min: h * 60 + +g('minute'), sec: +g('second')};
+}
+const dObj = iso => new Date(iso + 'T00:00:00Z');
+function fmtDate(iso) { const d = dObj(iso); return gu(d.getUTCDate()) + ' ' + MO[d.getUTCMonth()] + ' ' + gu(d.getUTCFullYear()) + ', ' + WD[d.getUTCDay()]; }
+function fmtShort(iso) { const d = dObj(iso); return gu(d.getUTCDate()) + ' ' + MO[d.getUTCMonth()]; }
+function addDays(iso, n) { const d = dObj(iso); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
+function diffDays(a, b) { return Math.round((dObj(b) - dObj(a)) / 864e5); }
+function fmtTm(tm) { const [h, m] = tm.split(':').map(Number); const ap = h >= 12 ? 'PM' : 'AM'; const hh = h % 12 || 12; return hh + ':' + String(m).padStart(2, '0') + ' ' + ap; }
+
+/* ---------- test mode: 5 dummy days from tomorrow (display only, cloud data untouched) ---------- */
+let testMode = true, testStart = '';
+try { testMode = localStorage.getItem('nk_test') !== '0'; testStart = localStorage.getItem('nk_test_start') || ''; } catch (e) {}
+testStart = '2026-11-01'; /* test: 1–7 Nov */
+const vdays = () => testMode ? S.days.slice(0, 7) : S.days;
+const dateAt = i => testMode ? addDays(testStart, i) : (S.days[i] || {}).date;
+function evMin(e) { if (e.tm) { const [a, b] = e.tm.split(':'); return +a * 60 + +b; } return LB[e.lb] ?? null; }
+function evLabel(e) { return e.tm ? fmtTm(e.tm) : (e.lb || '•'); }
+
+/* ---------- storage ---------- */
+function sortEv(d) { let last = -1; const k = d.ev.map((e, i) => { const m = evMin(e); if (m != null) last = m; return {e, i, k: last}; }); k.sort((a, b) => a.k - b.k || a.i - b.i); d.ev = k.map(x => x.e); }
+const COLL = ['cfg', 'days', 'places', 'people', 'lists'];
+async function writeAll() {
+  const jobs = [];
+  jobs.push(['cfg/main', S.cfg]);
+  S.days.forEach(d => jobs.push(['days/' + d.id, d]));
+  Object.entries(S.places).forEach(([id, p]) => jobs.push(['places/' + id, p]));
+  S.people.forEach(p => jobs.push(['people/' + p.id, p]));
+  jobs.push(['lists/take', {items: S.take}], ['lists/rules', {items: S.rules}]);
+  for (let i = 0; i < jobs.length; i += 4)
+    await Promise.all(jobs.slice(i, i + 4).map(([path, obj]) => db.doc(path).set(obj)));
+}
+let seeding = null;
+async function ensureSeeded() { if (seeded) return; if (!seeding) seeding = writeAll().then(() => { seeded = true; }); await seeding; }
+async function put(path, obj) {
+  if (!db) { toast('ક્લાઉડ ઉપલબ્ધ નથી, ફેરફાર સાચવાયો નથી'); return false; }
+  if (!daysLoaded) { toast('ક્લાઉડ લોડ થવા દો, પછી ફરી સાચવો'); return false; }
+  try { await ensureSeeded(); await db.doc(path).set(obj); return true; }
+  catch (e) { seeding = null; toast('સાચવી શક્યા નહીં (' + (e.code || 'error') + ')'); return false; }
+}
+async function del(path) { if (!db) return; try { await ensureSeeded(); await db.doc(path).delete(); } catch (e) { toast('કાઢી શક્યા નહીં'); } }
+function subscribe() {
+  let timer = setTimeout(() => { cloudState = 'slow'; hdr(); }, 10000);
+  const fin = () => { clearTimeout(timer); };
+  const ok = () => { fin(); cloudState = seeded ? 'ok' : 'new'; hdr(); render(); };
+  const err = e => { fin(); cloudState = 'err'; hdr(); };
+  db.collection('cfg').onSnapshot(s => { const d = s.docs.find(x => x.id === 'main'); if (d) S.cfg = {...S.cfg, ...d.data()}; ok(); }, err);
+  db.collection('days').onSnapshot(s => { daysLoaded = true; if (!s.empty) { seeded = true; S.days = s.docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => a.n - b.n); } ok(); }, err);
+  db.collection('places').onSnapshot(s => { if (!s.empty) { S.places = {}; s.docs.forEach(d => S.places[d.id] = d.data()); } ok(); }, err);
+  db.collection('people').onSnapshot(s => { if (!s.empty) S.people = s.docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => (a.sant - b.sant) || (a.no - b.no)); ok(); }, err);
+  db.collection('acc').onSnapshot(s => { S.acc = s.docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => (b.date || '').localeCompare(a.date || '')); ok(); }, err);
+  db.collection('lists').onSnapshot(s => { s.docs.forEach(d => { if (d.id === 'take') S.take = d.data().items || []; if (d.id === 'rules') S.rules = d.data().items || []; }); ok(); }, err);
+}
+
+/* ---------- helpers ---------- */
+function toast(t) { const el = document.createElement('div'); el.className = 'toast'; el.textContent = t; $('#app').appendChild(el); setTimeout(() => el.remove(), 2600); }
+function todayIdx() { const t = nowIST().date; return vdays().findIndex((d, i) => dateAt(i) === t); }
+const mapQ = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+const dirQ = q => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
+const wxQ = c => 'https://www.google.com/search?q=' + encodeURIComponent(c + ' weather');
+const canEdit = () => canW !== false;
+
+/* ---------- header ---------- */
+const cloudText = () => {
+  const m = {load: 'લોડ થાય છે…', ok: '☁ ક્લાઉડમાં સાચવેલું', new: '☁ હજી ક્લાઉડમાં નથી. પ્રથમ ફેરફાર કરતાં બધું આપમેળે સાચવાશે', slow: '⚠ ક્લાઉડ સુધી પહોંચાતું નથી, જૂનો ડેટા બતાવાય છે', err: '⚠ ક્લાઉડ ભૂલ'};
+  let t = db ? m[cloudState] : '⚠ ક્લાઉડ બંધ: ફેરફાર સાચવાશે નહીં';
+  if (canW === false) t = 'ફક્ત જોવા માટે';
+  return t;
+};
+function hdr() {
+  const c = $('#cloud'), warn = !db || cloudState === 'slow' || cloudState === 'err';
+  c.textContent = cloudText(); c.classList.toggle('warn', warn); c.hidden = true;
+  renderLive();
+}
+const COORD = {'Bhubaneswar': [20.30, 85.82], 'Puri': [19.81, 85.83], 'Visakhapatnam': [17.69, 83.22], 'Hyderabad': [17.39, 78.49], 'Srisailam': [16.07, 78.87], 'Tirupati': [13.63, 79.42], 'Vellore': [12.92, 79.13], 'Kanchipuram': [12.83, 79.70], 'Tiruchirappalli': [10.80, 78.69], 'Rameswaram': [9.29, 79.31], 'Madurai': [9.92, 78.12], 'Kanyakumari': [8.09, 77.54], 'Thiruvananthapuram': [8.52, 76.94], 'Kochi': [9.93, 76.27], 'Mysore': [12.30, 76.64], 'Bengaluru': [12.97, 77.59]};
+function sunTimes(iso, lat, lon) {
+  const d = dObj(iso), N = Math.floor((d - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5), rad = Math.PI / 180, g = 2 * Math.PI / 365 * (N - 1);
+  const eqt = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+  const dec = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+  const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(dec)) - Math.tan(lat * rad) * Math.tan(dec)) / rad;
+  return {rise: Math.round(720 - 4 * (lon + ha) - eqt + 330), set: Math.round(720 - 4 * (lon - ha) - eqt + 330)};
+}
+const hm = m => fmtTm(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
+const phaseOf = (m, st) => m >= st.rise - 30 && m < st.rise + 60 ? 'dawn' : m >= st.rise + 60 && m < st.set - 45 ? 'day' : m >= st.set - 45 && m < st.set + 30 ? 'dusk' : 'night';
+const arcY = t => 64 - 200 * t * (1 - t);
+function srHtml(min, st) {
+  let md;
+  if (min >= st.rise && min < st.set) { const l = st.set - min; md = 'સૂર્યાસ્તમાં ' + Math.floor(l / 60) + ' કલાક ' + l % 60 + ' મિનિટ'; }
+  else { const l = min < st.rise ? st.rise - min : 1440 - min + st.rise; md = 'સૂર્યોદયમાં ' + Math.floor(l / 60) + ' કલાક ' + l % 60 + ' મિનિટ'; }
+  return '<div class="sr"><span>🌅 સૂર્યોદય<b>' + hm(st.rise) + '</b></span><span></span><span>🌇 સૂર્યાસ્ત<b>' + hm(st.set) + '</b></span></div>';
+}
+function wxScene(min, st) {
+  const sec = Math.floor(Date.now() / 1000);
+  const dl = d => 'animation-delay:-' + (sec % d) + 's;animation-duration:' + d + 's';
+  let body = '<svg class="arc" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8 64 Q50 -36 92 64"/></svg>';
+  if (min >= st.rise && min < st.set) {
+    const t = (min - st.rise) / (st.set - st.rise), x = 8 + 84 * t, y = arcY(t);
+    body += '<div class="sun" style="left:calc(' + x.toFixed(1) + '% - 32px);top:calc(' + y.toFixed(1) + '% - 32px)"></div>';
+  } else {
+    const nm = min >= st.set ? min - st.set : min + 1440 - st.set, t = Math.min(1, nm / (1440 - st.set + st.rise)), x = 8 + 84 * t, y = arcY(t);
+    body += '<div class="moon" style="left:calc(' + x.toFixed(1) + '% - 25px);top:calc(' + y.toFixed(1) + '% - 25px)"></div>';
+    [[6, 8, 0], [14, 52, .6], [23, 20, 1.1], [33, 70, 1.6], [41, 10, .3], [52, 60, 1.9], [60, 24, .8], [68, 74, 1.4], [76, 12, .2], [84, 44, 1.7], [92, 18, 1], [96, 66, .5]].forEach(a => { body += '<span class="star" style="left:' + a[0] + '%;top:' + a[1] + '%;animation-delay:' + a[2] + 's"></span>'; });
+  }
+  body += '<div class="cl" style="top:34%;' + dl(70) + '"></div><div class="cl" style="top:62%;width:58px;' + dl(100) + '"></div><div class="cl" style="top:14%;width:50px;' + dl(85) + '"></div>';
+  return '<div class="sky" aria-hidden="true">' + body + '</div>';
+}
+function clockHtml(n) {
+  const h = Math.floor(n.min / 60), m = n.min % 60, ap = h >= 12 ? 'PM' : 'AM', hh = h % 12 || 12, p2 = x => String(x).padStart(2, '0');
+  return String(hh).padStart(2, '0') + ':' + p2(m) + ':' + p2(n.sec) + ' <small>' + ap + ' • IST</small>';
+}
+let liveSig = '';
+function renderLive() {
+  const el = $('#live'); if (!el) return;
+  const n = nowIST(), vd = vdays(), ti = todayIdx();
+  let l1 = '', l3 = '', now = '', city = '';
+  if (ti >= 0) {
+    const d = vd[ti], evs = d.ev.map(e => [e, evMin(e)]).filter(x => x[1] != null);
+    const cur = evs.filter(x => x[1] <= n.min).pop(), nxt = evs.find(x => x[1] > n.min);
+    city = d.city;
+    l1 = '<span class="dot"></span>લાઈવ • દિવસ ' + gu(ti + 1) + ' / ' + gu(vd.length);
+    l3 = esc(d.city) + ' • ' + fmtShort(n.date);
+    now = (cur ? '<div>▶ અત્યારે: <b>' + esc(cur[0].x) + '</b></div>' : '<div>આજના કાર્યક્રમ હજી શરૂ થયા નથી</div>') +
+      (nxt ? '<div class="nx">⏭ આગળ: ' + esc(evLabel(nxt[0])) + ' • ' + esc(nxt[0].x) + '</div>' : '');
+  } else if (vd.length && n.date < dateAt(0)) {
+    const left = diffDays(n.date, dateAt(0)) * 1440 - n.min, dd = Math.floor(left / 1440), hh = Math.floor(left % 1440 / 60), mm = left % 60;
+    city = vd[0].city;
+    l1 = '🗓 યાત્રા શરૂ થવાને';
+    l3 = '<b>' + dd + '</b> દિવસ <b>' + hh + '</b> કલાક <b>' + mm + '</b> મિનિટ';
+    now = '';
+  } else { l1 = '🙏 યાત્રા પૂર્ણ'; }
+  const co = COORD[city] || COORD.Hyderabad, st = sunTimes(n.date, co[0], co[1]);
+  const html = '<div class="lt"><div class="lclk" id="lclk"></div><div class="l3">' + l3 + '</div></div>' +
+    srHtml(n.min, st) +
+    (city ? '<a class="lq" target="_blank" rel="noopener" href="' + wxQ(city) + '">🌦 ' + esc(city) + ' • લાઈવ હવામાન આંકડા</a>' : '');
+  const full = wxScene(n.min, st) + '<div class="lc">' + html + '</div>';
+  el.className = 'pad hw ' + phaseOf(n.min, st);
+  if (full !== liveSig) { liveSig = full; el.innerHTML = full; }
+  const ck = $('#lclk'); if (ck) ck.innerHTML = clockHtml(n);
+}
+setInterval(() => { const ck = $('#lclk'); if (!ck) return; const n = nowIST(); ck.innerHTML = clockHtml(n); if (n.sec === 0) renderLive(); }, 1000);
+
+/* ---------- views ---------- */
+function livePanel(d, isToday, curI, nxtI, n) {
+  const dur = m => (m >= 60 ? gu(Math.floor(m / 60)) + ' કલાક ' : '') + gu(m % 60) + ' મિનિટ';
+  if (!isToday) return '<div class="lvp"><span class="lvh" style="background:var(--mute)">દિવસ ' + gu(dayIdx + 1) + ' • ' + fmtDate(dateAt(dayIdx)) + '</span><div class="lvt">' + esc(d.title) + '</div><div class="lvs">🛏 રાત્રિ રોકાણ: ' + esc(d.stay) + '</div></div>';
+  const cur = curI >= 0 ? d.ev[curI] : null, nx = nxtI >= 0 ? d.ev[nxtI] : null;
+  let h = '<div class="lvp"><span class="lvh"><i></i>LIVE • અત્યારે</span>';
+  if (!cur) h += '<div class="lvt">આજનો પહેલો કાર્યક્રમ</div>';
+  else h += '<div class="lvt">' + esc(cur.x) + '</div><div class="lvs">' + esc(evLabel(cur)) + ' થી • ' + dur(Math.max(0, n.min - evMin(cur))) + ' થઈ</div>';
+  if (nx) {
+    const a = cur ? evMin(cur) : n.min, b = evMin(nx), left = Math.max(0, b - n.min), pc = b > a ? Math.min(100, Math.round(100 * (n.min - a) / (b - a))) : 0;
+    h += (cur ? '<div class="lvbar"><u style="width:' + pc + '%"></u></div>' : '') + '<div class="lvn">⏭ આગળ: <b>' + esc(nx.x) + '</b><br>' + esc(evLabel(nx)) + ' • ' + dur(left) + ' પછી</div>';
+  } else if (cur) h += '<div class="lvn" style="margin-top:12px">આજનો છેલ્લો કાર્યક્રમ • જય સ્વામિનારાયણ</div>';
+  return h + '</div>';
+}
+function vDay() {
+  const vd = vdays(); dayIdx = Math.min(dayIdx, vd.length - 1); const d = vd[dayIdx]; if (!d) return '<div class="empty">કોઈ દિવસ નથી</div>';
+  const n = nowIST(), isToday = dateAt(dayIdx) === n.date, ti = todayIdx(), pastDay = dateAt(dayIdx) < n.date;
+  let curI = -1, nxtI = -1;
+  if (isToday) { d.ev.forEach((e, i) => { const m = evMin(e); if (m != null && m <= n.min) curI = i; }); for (let i = curI + 1; i < d.ev.length; i++) if (evMin(d.ev[i]) != null) { nxtI = i; break; } }
+  const evs = d.ev.map((e, i) => {
+    const cls = i === curI ? ' cur' : i === nxtI ? ' nxt' : (pastDay || (isToday && i < curI)) ? ' past' : '';
+    const tag = i === curI ? '<span class="tag c">અત્યારે</span>' : i === nxtI ? '<span class="tag n">આગળ</span>' : '';
+    const hasPl = e.pl && S.places[e.pl];
+    return '<div class="ev' + cls + (edit ? ' ed' : '') + '"><div class="tm">' + esc(evLabel(e)) + '</div><div class="tx">' + tag + esc(e.x) + (e.note ? '<span class="nt">📝 ' + esc(e.note) + '</span>' : '') + '</div><div class="acts">' +
+      (hasPl ? '<button class="ib pri" data-a="place" data-id="' + esc(e.pl) + '" aria-label="મહિમા">🛕</button>' : '') +
+      '<button class="ib" data-a="note" data-id="' + esc(e.id) + '" aria-label="નોંધ">✏️</button>' +
+      (edit ? '<button class="ib" data-a="ev" data-id="' + esc(e.id) + '" aria-label="કાર્યક્રમ બદલો">⚙</button>' : '') + '</div></div>';
+  }).join('');
+  const q = (S.places[d.ev.find(e => e.pl && S.places[e.pl])?.pl]?.q) || d.city;
+  const pv = isToday && curI > 0 ? d.ev[curI - 1] : null;
+  const prevL = pv ? '<div class="prevl">↑ પહેલાં હતો: <b>' + esc(pv.x) + '</b>, ' + esc(evLabel(pv)) + '</div>' : '';
+  const prog = isToday ? '<div class="prog">આજે ' + gu(d.ev.length) + ' માંથી ' + gu(Math.max(0, curI)) + ' કાર્યક્રમ પૂર્ણ<i><u style="width:' + Math.round(100 * Math.max(0, curI) / Math.max(1, d.ev.length)) + '%"></u></i></div>' : '';
+  const strip = '<div class="dstrip" id="dstrip">' + vd.map((x, k) => { const o = dObj(dateAt(k)); return '<button class="dc' + (k === dayIdx ? ' sel' : '') + (k === ti ? ' now' : '') + '" data-a="goday" data-i="' + k + '" aria-label="દિવસ ' + gu(k + 1) + '"><small>' + WD[o.getUTCDay()] + '</small><b>' + gu(o.getUTCDate()) + '</b><span>' + MO[o.getUTCMonth()] + '</span></button>'; }).join('') + '</div>';
+  return livePanel(d, isToday, curI, nxtI, n) + (edit ? '<div class="qrow"><button class="q" data-a="dayedit">⚙ દિવસ</button></div>' : '') +
+    '<div class="tl">' + evs + '</div>' + prog + (edit ? '<button class="add" data-a="evadd">➕ કાર્યક્રમ ઉમેરો</button>' : '');
+}
+function vAll() {
+  const ti = todayIdx(), vd = vdays();
+  return '<div class="sec">🗓 ' + gu(vd.length) + ' દિવસ' + (testMode ? ' <span class="chip">🧪 ટેસ્ટ</span>' : '') + '</div><div class="grid">' + vd.map((d, i) =>
+    '<button class="tile' + (i === ti ? ' now' : '') + (i === dayIdx ? ' sel' : '') + '" data-a="goday" data-i="' + i + '"><b>' + gu(d.n) + '</b><small>' + fmtShort(dateAt(i)) + '</small><span>' + esc(d.stay) + '</span></button>').join('') + '</div>' +
+    '<p class="note">કોઈ પણ દિવસ પર ટેપ કરો એટલે તે દિવસનો કાર્યક્રમ ખૂલશે. નીચે "વધુ" માં યાત્રાની શરૂઆતની તારીખ બદલી શકાય, આખી યાત્રા આપોઆપ ખસશે.</p>';
+}
+function vPlaces() {
+  const ids = Object.keys(S.places), per = 8, pages = Math.max(1, Math.ceil(ids.length / per)); plPage = Math.min(plPage, pages - 1);
+  const slice = ids.slice(plPage * per, plPage * per + per);
+  return '<div class="sec">🛕 સ્થળો અને મહિમા <span class="chip">' + gu(ids.length) + '</span></div><div class="list">' + slice.map(id => {
+    const p = S.places[id];
+    return '<button class="row" data-a="place" data-id="' + esc(id) + '" style="text-align:left"><div class="num s">🛕</div><div class="nm">' + esc(p.name) + (p.pin ? '<small>પિન ' + esc(gu(p.pin)) + '</small>' : '') + '</div><span>›</span></button>'; }).join('') + '</div>' +
+    pager('pl', plPage, pages) + (edit ? '<button class="add" data-a="placeadd">➕ નવું સ્થળ ઉમેરો</button>' : '');
+}
+function pager(k, p, pages) { return '<div class="pager"><button class="arrow" data-a="pg" data-k="' + k + '" data-d="-1"' + (p === 0 ? ' disabled' : '') + ' aria-label="પાછળ">◀</button><span>પાનું ' + gu(p + 1) + ' / ' + gu(pages) + '</span><button class="arrow" data-a="pg" data-k="' + k + '" data-d="1"' + (p >= pages - 1 ? ' disabled' : '') + ' aria-label="આગળ">▶</button></div>'; }
+function vPeople() {
+  const all = S.people, act = all.filter(p => p.st !== 'x'), can = all.filter(p => p.st === 'x');
+  const f = {all: all, bh: all.filter(p => !p.sant), sa: all.filter(p => p.sant), x: can}[pFilter];
+  const per = 8, pages = Math.max(1, Math.ceil(f.length / per)); pPage = Math.min(pPage, pages - 1);
+  const CH = (k, t) => '<button class="chip' + (pFilter === k ? ' on' : '') + '" data-a="pf" data-k="' + k + '">' + t + '</button>';
+  return '<div class="sec">👥 યાત્રિકો</div><div class="chips"><span class="chip">કુલ ' + gu(all.length) + '</span><span class="chip">ચાલુ ' + gu(act.length) + '</span><span class="chip">રદ ' + gu(can.length) + '</span></div>' +
+    '<div class="chips">' + CH('all', 'બધા') + CH('bh', 'હરિભક્તો') + CH('sa', 'સંતો') + CH('x', 'રદ') + '</div><div class="list">' +
+    (f.slice(pPage * per, pPage * per + per).map(p => '<div class="row' + (p.st === 'x' ? ' x' : '') + '"><div class="num' + (p.sant ? ' s' : '') + '">' + (p.sant ? '🙏' : p.no) + '</div><div class="nm">' + esc(p.n) + '<small>' + (p.age ? 'ઉંમર ' + esc(gu(p.age)) : '') + (p.mob ? ' • 📞 ' + esc(p.mob) : '') + (p.st === 'x' ? ' • રદ' : '') + payTxt(p) + '</small></div><div class="acts">' +
+      (!p.sant && p.st !== 'x' && fundOf(p) ? '<button class="ib" data-a="pay" data-id="' + esc(p.id) + '" aria-label="ફાળો">💰</button>' : '') + (p.mob ? '<button class="ib" data-a="copy" data-id="' + esc(p.id) + '" aria-label="નંબર કોપી">📋</button>' : '') + (edit ? '<button class="ib" data-a="person" data-id="' + esc(p.id) + '" aria-label="ફેરફાર">✏️</button><button class="ib" data-a="cancel" data-id="' + esc(p.id) + '" aria-label="રદ">' + (p.st === 'x' ? '↩' : '❌') + '</button>' : '') + '</div></div>').join('') || '<div class="empty">કોઈ નથી</div>') + '</div>' +
+    pager('pp', pPage, pages) + (edit ? '<button class="add" data-a="personadd">➕ યાત્રિક ઉમેરો</button>' : '');
+}
+function vMore() {
+  return '<div class="sec">☰ વધુ</div><div class="menu">' +
+    '<button class="mbtn" data-a="take"><i>🎒</i>શું લેવું</button><button class="mbtn" data-a="rules"><i>📜</i>નિયમો</button>' +
+    '<button class="mbtn" data-a="acc"><i>💰</i>હિસાબ</button><button class="mbtn" data-a="settings"><i>⚙️</i>તારીખ અને નામ</button><button class="mbtn" data-a="today"><i>📍</i>આજના દિવસે જાઓ</button>' +
+    (canEdit() ? '<button class="mbtn" data-a="edtog"><i>' + (edit ? '✔' : '✏️') + '</i>' + (edit ? 'ફેરફાર પૂરો' : 'ફેરફાર ચાલુ કરો') + '</button>' : '') +
+    '<button class="mbtn" data-a="tstog"><i>🧪</i>' + (testMode ? 'ટેસ્ટ બંધ કરો (૬ જાન્યુ થી)' : 'ટેસ્ટ ચાલુ (૫ દિવસ, કાલથી)') + '</button></div><p class="note">' + esc(cloudText()) + (testMode ? ' • અત્યારે ટેસ્ટ મોડ ચાલુ છે: ફક્ત પહેલા ૫ દિવસ, ' + fmtShort(dateAt(0)) + ' થી. અસલી તારીખો અને ડેટા બદલાયા નથી.' : '') + '</p>' +
+    '<p class="note">લાઈવ સમય ભારતના સમય (IST) પ્રમાણે ચાલે છે. હવામાન અને માર્ગ માટેના બટન ખુલ્લા વેબ પેજ/Google Maps માં ખૂલે છે, જેથી તે તમારા ફોનના લોકેશન પ્રમાણે ચાલે.</p>';
+}
+function render() {
+  $('#nav').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === (view === 'acc' ? 'more' : view)));
+  $('#app').classList.toggle('acv', view === 'acc');
+  const m = $('#main'); const st = m.scrollTop;
+  m.classList.toggle('dayv', view === 'day');
+  { const o = dObj(nowIST().date), ci = document.querySelector('[data-v="day"] i'); if (ci) ci.innerHTML = '<span class="cal"><s>' + MO[o.getUTCMonth()] + '</s><b>' + gu(o.getUTCDate()) + '</b></span>'; }
+  m.innerHTML = {day: vDay, all: vAll, places: vPlaces, people: vPeople, more: vMore, acc: vAcc}[view]();
+  m.scrollTop = st; hdr();
+  const ds = $('#dstrip');
+  if (ds) { const c = ds.querySelector('.dc.sel'); if (c) ds.scrollLeft = (lastCentered !== dayIdx || stripX == null) ? c.offsetLeft - (ds.clientWidth - c.offsetWidth) / 2 : stripX; lastCentered = dayIdx; stripX = ds.scrollLeft; ds.addEventListener('scroll', () => { stripX = ds.scrollLeft; }, {passive: true}); }
+}
+
+/* ---------- accounts ---------- */
+const rs = n => { const v = +n || 0; return (v < 0 ? '−' : '') + '₹' + gu(Math.abs(v).toLocaleString('en-IN')); };
+const fundOf = p => p.sant ? 0 : (+p.fund > 0 ? +p.fund : (+S.cfg.fund || 0));
+const paidOf = id => S.acc.filter(e => e.t === 'in' && e.who === id).reduce((s, e) => s + (+e.amt || 0), 0);
+const whoName = id => S.people.find(p => p.id === id)?.n || '';
+function payTxt(p) { const f = fundOf(p); if (!f || p.st === 'x') return ''; const pd = paidOf(p.id); return ' • ' + (pd >= f ? '✅ ફાળો ભર્યો' : '⏳ ભર્યા ' + rs(pd) + ' / ' + rs(f)); }
+function accTot(list) { let i = 0, o = 0; (list || S.acc).forEach(e => { if (e.t === 'in') i += +e.amt || 0; else o += +e.amt || 0; }); return {i, o}; }
+function accRow(e) {
+  return '<div class="row" style="grid-template-columns:34px 1fr auto"><div class="num' + (e.t === 'in' ? '' : ' s') + '">' + (e.t === 'in' ? '⬇' : '⬆') + '</div><div class="nm">' + esc(e.txt || (e.t === 'in' ? 'આવક' : 'ખર્ચ')) + '<small>' + (CATS[e.c] ? CATS[e.c] + ' • ' : '') + fmtShort(e.date) + (e.who ? ' • ' + esc(whoName(e.who)) : '') + (e.d ? ' • ' + esc(e.d) : '') + '</small></div><div class="acts"><b class="amt ' + (e.t === 'in' ? 'cr' : 'dr') + '">' + (e.t === 'in' ? '+' : '−') + rs(e.amt) + '</b>' + (canEdit() ? '<button class="ib" data-a="aedit" data-id="' + esc(e.id) + '" aria-label="ફેરફાર">✏️</button>' : '') + '</div></div>';
+}
+const PRE = ['ટિકિટ', 'જમવાનું', 'ચા નાસ્તો', 'રહેવાનું', 'વાહન ભાડું', 'દર્શન', 'દાન', 'પૂજા સામગ્રી', 'દવા', 'પાણી'];
+const quickTxt = () => { const seen = new Set(), r = []; S.acc.forEach(e => { const t = (e.txt || '').trim(); if (t && !seen.has(t)) { seen.add(t); r.push(t); } }); PRE.forEach(t => { if (!seen.has(t)) { seen.add(t); r.push(t); } }); return r.slice(0, 18); };
+const CATS = {bhet: '🎁 ભેટ', vastu: '🛍 વસ્તુ'};
+const gMonth = d => new Intl.DateTimeFormat('gu-IN', {month: 'long', year: 'numeric', timeZone: 'UTC'}).format(new Date(d + 'T00:00:00Z'));
+const gWeek = d => new Intl.DateTimeFormat('gu-IN', {weekday: 'long', timeZone: 'UTC'}).format(new Date(d + 'T00:00:00Z'));
+const balBefore = d => { const t = accTot(S.acc.filter(e => (e.date || '') < d)); return t.i - t.o; };
+function accSecs(es, withCF, cf) {
+  const T = accTot(es), edit = canEdit();
+  const sec = (title, cls, amt, list, t) => '<div class="sec"><span>' + title + '</span><b class="' + cls + '">' + rs(amt) + '</b></div>' +
+    (list.length ? '<div class="list">' + list.map(accRow).join('') + '</div>' : '<div class="hint">' + (edit ? "નવી એન્ટ્રી માટે નીચેથી લખો અથવા ✏️ દબાવો" : 'કોઈ એન્ટ્રી નથી') + '</div>');
+  const ct = Object.keys(CATS).map(k => { const l = es.filter(e => e.c === k); return l.length ? '<span class="chip">' + CATS[k] + ' ' + rs(l.reduce((a, e) => a + (e.t === 'in' ? 1 : -1) * (+e.amt || 0), 0)) + '</span>' : ''; }).join('');
+  return '<div class="cf"><span>આગળથી (C/F)</span><span>' + rs(cf) + '</span></div>' + (ct ? '<div class="chips">' + ct + '</div>' : '') +
+    sec('આવક (જમા)', 'cr', T.i, es.filter(e => e.t === 'in')) + sec('ખર્ચ (ઉધાર)', 'dr', T.o, es.filter(e => e.t !== 'in'));
+}
+function vAcc() {
+  if (!accDate) accDate = nowIST().date;
+  const TB = (k, t) => '<button class="' + (accTab === k ? 'on' : '') + '" data-a="atab" data-k="' + k + '">' + t + '</button>';
+  const tabs = '<div class="atabs">' + (canEdit() ? '<button data-a="aadd" data-d="' + accDate + '" aria-label="નવી એન્ટ્રી">✏️</button>' : '<button disabled></button>') + TB('day', 'દૈનિક') + TB('mon', 'માસિક') + TB('yr', 'વાર્ષિક') + '</div>';
+  const top = '<div class="chips"><button class="chip" data-a="accback">◀ વધુ</button><button class="chip' + (accTab === 'fund' ? ' on' : '') + '" data-a="atab" data-k="fund">👥 ફાળો</button>' + (dlc ? '<button class="chip" data-a="aexport">⬇ Excel / CSV</button>' : '') + '</div>';
+  const bar = (big, l1, l2, bal, pk, nk) => '<div class="dbar"><button class="ar" data-a="' + pk + '" aria-label="પાછળ">‹</button>' + (big ? '<div class="dbox">' + gu(big) + '</div>' : '') + '<div class="dmid">' + l1 + '<small>' + l2 + '</small></div><div class="dbal">બાકી<b>' + rs(bal) + '</b></div><button class="ar" data-a="' + nk + '" aria-label="આગળ">›</button></div>';
+  let body = '';
+  if (accTab === 'day') {
+    const es = S.acc.filter(e => e.date === accDate), cf = balBefore(accDate), T = accTot(es), dd = S.days.find(x => x.date === accDate);
+    body = bar(+accDate.slice(8), gMonth(accDate), gWeek(accDate) + (dd ? ' • દિવસ ' + gu(dd.n) : ''), cf + T.i - T.o, 'adprev', 'adnext') + accSecs(es, true, cf) +
+      (canEdit() ? '<div class="qp"><button class="tg" data-a="qtog" aria-label="ખોલો/બંધ">' + (accQ ? '⌄' : '⌃') + '</button>' + (accQ ? '<div class="seg"><button data-a="qt" data-k="in" class="' + (accT === 'in' ? 'on' : '') + '">આવક (જમા)</button><button data-a="qt" data-k="out" class="' + (accT === 'out' ? 'on' : '') + '">ખર્ચ (ઉધાર)</button></div><div class="chips qc">' + Object.keys(CATS).map(k => '<button class="chip' + (accC === k ? ' on' : '') + '" data-a="qc" data-k="' + k + '">' + CATS[k] + '</button>').join('') + '</div><div class="qrow"><input id="qx" placeholder="વિગત લખો" aria-label="વિગત"><input id="qa" class="qa" type="number" inputmode="decimal" placeholder="રકમ" aria-label="રકમ"><button class="qok" data-a="qsave" aria-label="સાચવો">✓</button></div><div class="qrow" style="margin-top:6px"><input id="qd" placeholder="વર્ણન (ઈચ્છા મુજબ)" aria-label="વર્ણન"></div>' : '') + '</div>' : '');
+  } else if (accTab === 'mon') {
+    const m = accDate.slice(0, 7), es = S.acc.filter(e => (e.date || '').slice(0, 7) === m).sort((a, b) => (a.date || '').localeCompare(b.date || '')), cf = balBefore(m + '-01'), T = accTot(es);
+    body = bar(0, gMonth(accDate), 'આખા મહિનાનો હિસાબ', cf + T.i - T.o, 'amprev', 'amnext') + accSecs(es, true, cf);
+  } else if (accTab === 'yr') {
+    const y = accDate.slice(0, 4); let run = balBefore(y + '-01-01'); const cf = run, rows = [];
+    for (let i = 1; i <= 12; i++) { const m = y + '-' + String(i).padStart(2, '0'), T = accTot(S.acc.filter(e => (e.date || '').slice(0, 7) === m)); run += T.i - T.o; rows.push('<button class="mrow" data-a="ymon" data-m="' + m + '"><span>' + gMonth(m + '-01').split(' ')[0] + '</span><span class="amt cr">' + (T.i ? rs(T.i) : '–') + '</span><span class="amt dr">' + (T.o ? rs(T.o) : '–') + '</span><span>' + rs(run) + '</span></button>'); }
+    const YT = accTot(S.acc.filter(e => (e.date || '').slice(0, 4) === y));
+    body = bar(0, gu(y), 'આવક • ખર્ચ • બાકી', cf + YT.i - YT.o, 'ayprev', 'aynext') + '<div class="mrow" style="background:none;border:0;color:var(--mute)"><span>મહિનો</span><span>આવક</span><span>ખર્ચ</span><span>બાકી</span></div>' + rows.join('');
+  } else {
+    const ppl = S.people.filter(p => !p.sant && p.st !== 'x' && fundOf(p) > 0);
+    let exp = 0, got = 0; ppl.forEach(p => { exp += fundOf(p); got += Math.min(paidOf(p.id), fundOf(p)); });
+    const f = ppl.filter(p => payFilter === 'all' || (payFilter === 'paid') === (paidOf(p.id) >= fundOf(p)));
+    const per = 8, pages = Math.max(1, Math.ceil(f.length / per)); accPage = Math.min(accPage, pages - 1);
+    const FC = (k, t) => '<button class="chip' + (payFilter === k ? ' on' : '') + '" data-a="pf2" data-k="' + k + '">' + t + '</button>';
+    body = (S.cfg.fund || ppl.length ? '<div class="chips"><span class="chip">અપેક્ષિત ' + rs(exp) + '</span><span class="chip">ભર્યા ' + rs(got) + '</span><span class="chip">બાકી ' + rs(exp - got) + '</span></div>' : '') +
+      '<div class="chips">' + FC('all', 'બધા') + FC('due', '⏳ બાકી') + FC('paid', '✅ ભર્યા') + '</div><div class="list">' +
+      (f.slice(accPage * per, accPage * per + per).map(p => { const pd = paidOf(p.id), fd = fundOf(p); return '<div class="row"><div class="num">' + p.no + '</div><div class="nm">' + esc(p.n) + '<small>' + (pd >= fd ? '✅ ભર્યા ' + rs(pd) : '⏳ ભર્યા ' + rs(pd) + ' / ' + rs(fd)) + '</small></div>' + (canEdit() ? '<button class="ib" data-a="pay" data-id="' + esc(p.id) + '" aria-label="ફાળો નોંધો">💰</button>' : '<span></span>') + '</div>'; }).join('') || '<div class="empty">' + (ppl.length ? 'કોઈ નથી' : '"વધુ → તારીખ અને નામ" માં દરેકનો ફાળો લખો') + '</div>') + '</div>' + pager('ac', accPage, pages);
+  }
+  return tabs + top + body;
+}
+function entrySheet(id, o) {
+  o = o || {};
+  const e = id ? S.acc.find(x => x.id === id) : {t: o.t || 'out', amt: o.amt || '', txt: o.txt || '', date: o.date || nowIST().date, who: o.who || ''};
+  sheet(id ? '✏️ હિસાબ બદલો' : '➕ નવી એન્ટ્રી', '<label for="at">પ્રકાર</label><select class="in" id="at"><option value="in"' + (e.t === 'in' ? ' selected' : '') + '>આવક (જમા)</option><option value="out"' + (e.t === 'out' ? ' selected' : '') + '>ખર્ચ (ઉધાર)</option></select>' +
+    F('aa', 'રકમ (₹)', e.amt, 'number') + F('ax', 'વિગત (દા.ત. ટ્રેન ટિકિટ, ફાળો)', e.txt) + F('ad', 'તારીખ', e.date, 'date') + '<label for="ac">વર્ગ</label><select class="in" id="ac"><option value="">— સામાન્ય —</option>' + Object.keys(CATS).map(k => '<option value="' + k + '"' + (e.c === k ? ' selected' : '') + '>' + CATS[k] + '</option>').join('') + '</select>' + F('ae', 'વર્ણન (ઈચ્છા મુજબ)', e.d) + (e.who ? '<div class="kv"><span>👤 ' + esc(whoName(e.who)) + '</span></div>' : '') +
+    '<div class="btns"><button class="btn" data-a="asave" data-id="' + esc(id || '') + '" data-w="' + esc(e.who || '') + '">સાચવો</button>' + (id ? '<button class="btn d" data-a="adel" data-id="' + esc(id) + '">કાઢી નાખો</button>' : '') + '</div>');
+}
+async function exportCsv() {
+  if (!dlc) return toast('ડાઉનલોડ અહીં ઉપલબ્ધ નથી');
+  const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const rows = [['તારીખ', 'પ્રકાર', 'વિગત', 'યાત્રિક', 'રકમ', 'વર્ગ', 'વર્ણન']];
+  [...S.acc].sort((a, b) => (a.date || '').localeCompare(b.date || '')).forEach(e => rows.push([e.date, e.t === 'in' ? 'આવક' : 'ખર્ચ', e.txt, whoName(e.who), e.amt, (CATS[e.c] || '').replace(/^\S+\s/, ''), e.d || '']));
+  const T = accTot(); rows.push([], ['', '', 'કુલ આવક', '', T.i], ['', '', 'કુલ ખર્ચ', '', T.o], ['', '', 'બાકી રકમ', '', T.i - T.o], [], ['યાત્રિક', '', 'ફાળો', 'ભર્યા', 'બાકી']);
+  S.people.filter(p => !p.sant && p.st !== 'x' && fundOf(p) > 0).forEach(p => { const f = fundOf(p), pd = paidOf(p.id); rows.push([p.n, '', f, pd, Math.max(0, f - pd)]); });
+  const data = '﻿' + rows.map(r => r.map(q).join(',')).join('\n');
+  try { await dlc.save({filename: 'neelkanth-yatra-hisab.csv', data}); toast('ફાઇલ તૈયાર'); } catch (e) { if (e.code !== 'declined') toast('ડાઉનલોડ ન થયું'); }
+}
+
+/* ---------- sheets ---------- */
+function sheet(title, body) {
+  closeSheet();
+  const sh = document.createElement('div'); sh.id = 'shade'; sh.onclick = closeSheet;
+  const s = document.createElement('div'); s.id = 'sheet'; s.setAttribute('role', 'dialog'); s.setAttribute('aria-label', title);
+  s.innerHTML = '<div class="sh pad"><h3>' + esc(title) + '</h3><button class="ib" data-a="close" aria-label="બંધ">✕</button></div><div id="sbody" class="pad">' + body + '</div>';
+  $('#app').append(sh, s);
+}
+function closeSheet() { ['#shade', '#sheet'].forEach(s => $(s)?.remove()); }
+const F = (id, label, val, type) => '<label for="' + id + '">' + label + '</label><input class="in" id="' + id + '" type="' + (type || 'text') + '" value="' + esc(val ?? '') + '">';
+const TA = (id, label, val) => '<label for="' + id + '">' + label + '</label><textarea class="in" id="' + id + '">' + esc(val ?? '') + '</textarea>';
+const V = id => $('#' + id).value.trim();
+const curDay = () => S.days[dayIdx];
+
+function placeSheet(id) {
+  const p = S.places[id]; if (!p) return;
+  if (edit) { sheet('✏️ ' + p.name, F('pn', 'સ્થળનું નામ', p.name) + TA('pm', 'મહિમા', p.mahima) + F('pp', 'પિન કોડ', p.pin) + F('pt', 'દર્શન / આરતી સમય', p.timing) + F('pq', 'નકશા માટે અંગ્રેજી નામ (Google Maps)', p.q) +
+    '<div class="btns"><button class="btn" data-a="placesave" data-id="' + esc(id) + '">સાચવો</button><button class="btn d" data-a="placedel" data-id="' + esc(id) + '">કાઢી નાખો</button></div>'); return; }
+  sheet('🛕 ' + p.name, '<div class="mah">' + esc(p.mahima || 'મહિમા હજી લખ્યો નથી. ✏️ ફેરફાર દબાવી લખો.') + '</div><div class="kv">' +
+    (p.pin ? '<span>📌 પિન કોડ: ' + esc(gu(p.pin)) + '</span>' : '<span>📌 પિન કોડ: ઉમેરવો</span>') + '<span>🕒 ' + esc(p.timing || 'દર્શન સમય: ઉમેરવો') + '</span></div>' +
+    '<div class="btns">' + (p.q ? '<a class="btn" target="_blank" rel="noopener" href="' + mapQ(p.q) + '">📍 Google Maps</a><a class="btn o" target="_blank" rel="noopener" href="' + dirQ(p.q) + '">🧭 માર્ગ</a><a class="btn o" target="_blank" rel="noopener" href="' + wxQ(p.q) + '">🌦 હવામાન</a>' : '') + '</div><p class="note">પિન કોડ અને સમય યાત્રા પહેલાં ચકાસી લેવા. ❓ વાળાં નામ નક્કી કરવાનાં બાકી છે.</p>');
+}
+function noteSheet(eid) {
+  const d = curDay(), e = d.ev.find(x => x.id === eid); if (!e) return;
+  sheet('✏️ નોંધ • ' + evLabel(e), '<p class="note" style="margin:0 0 4px">' + esc(e.x) + '</p>' + TA('nt', 'નોંધ (દા.ત. મોડું થયું, ફેરફાર, સૂચના)', e.note) +
+    '<div class="btns"><button class="btn" data-a="notesave" data-id="' + esc(eid) + '">સાચવો</button></div>');
+}
+function evSheet(eid) {
+  const d = curDay(), e = eid ? d.ev.find(x => x.id === eid) : {tm: '', lb: '', x: '', pl: '', note: ''};
+  const opts = '<option value="">— કોઈ નહીં —</option>' + Object.entries(S.places).map(([id, p]) => '<option value="' + esc(id) + '"' + (e.pl === id ? ' selected' : '') + '>' + esc(p.name) + '</option>').join('');
+  sheet(eid ? '⚙ કાર્યક્રમ બદલો' : '➕ નવો કાર્યક્રમ', F('etm', 'ચોક્કસ સમય (ભારતનો સમય)', e.tm, 'time') + F('elb', 'અથવા શબ્દ (સવારે, બપોરે, સાંજે, રાત્રે)', e.lb) + TA('ex', 'કાર્યક્રમ', e.x) +
+    '<label for="epl">સ્થળ (મહિમા માટે)</label><select class="in" id="epl">' + opts + '</select>' +
+    '<div class="btns"><button class="btn" data-a="evsave" data-id="' + esc(eid || '') + '">સાચવો</button>' + (eid ? '<button class="btn d" data-a="evdel" data-id="' + esc(eid) + '">કાઢી નાખો</button>' : '') + '</div>');
+}
+function daySheet() {
+  const d = curDay();
+  sheet('⚙ દિવસ ' + gu(d.n), F('dd', 'તારીખ', d.date, 'date') + F('dt', 'દિવસનું શીર્ષક', d.title) + F('ds', 'રાત્રિ રોકાણ', d.stay) + F('dc', 'શહેર (હવામાન માટે, અંગ્રેજીમાં)', d.city) +
+    '<div class="btns"><button class="btn" data-a="daysave">સાચવો</button></div><p class="note">ફક્ત આ એક દિવસની તારીખ બદલાશે. આખી યાત્રા ખસેડવા "વધુ" → "તારીખ અને નામ" વાપરો.</p>');
+}
+function personSheet(id) {
+  const p = id ? S.people.find(x => x.id === id) : {n: '', age: '', mob: '', sant: false};
+  sheet(id ? '✏️ ' + p.n : '➕ નવા યાત્રિક', F('pn', 'નામ', p.n) + F('pa', 'ઉંમર', p.age || '', 'number') + F('pm', 'મોબાઈલ નંબર', p.mob, 'tel') + F('pfd', 'આ યાત્રિકનો ફાળો ₹ (ખાલી = સામાન્ય ફાળો)', p.fund || '', 'number') +
+    '<label for="ps">પ્રકાર</label><select class="in" id="ps"><option value="0"' + (!p.sant ? ' selected' : '') + '>હરિભક્ત</option><option value="1"' + (p.sant ? ' selected' : '') + '>સંત</option></select>' +
+    '<div class="btns"><button class="btn" data-a="personsave" data-id="' + esc(id || '') + '">સાચવો</button>' + (id ? '<button class="btn d" data-a="persondel" data-id="' + esc(id) + '">કાયમ માટે કાઢો</button>' : '') + '</div>');
+}
+function listSheet(kind) {
+  const arr = S[kind], title = kind === 'take' ? '🎒 શું લેવું' : '📜 નિયમો';
+  if (edit) { sheet('✏️ ' + title, arr.map((t, i) => '<div class="chk"><input class="in li" data-i="' + i + '" value="' + esc(t) + '" aria-label="મુદ્દો ' + (i + 1) + '"><button class="ib" data-a="lidel" data-k="' + kind + '" data-i="' + i + '" aria-label="કાઢો">❌</button></div>').join('') +
+    '<button class="add" data-a="liadd" data-k="' + kind + '">➕ મુદ્દો ઉમેરો</button><div class="btns"><button class="btn" data-a="lisave" data-k="' + kind + '">સાચવો</button></div>'); return; }
+  sheet(title, arr.map((t, i) => kind === 'take' ? '<label class="chk' + (ticks[t] ? ' done' : '') + '"><input type="checkbox" data-a="tick" data-t="' + esc(t) + '"' + (ticks[t] ? ' checked' : '') + '><span>' + esc(t) + '</span></label>' : '<div class="chk"><span>✦ ' + esc(t) + '</span></div>').join('') + (arr.length ? '' : '<div class="empty">કંઈ નથી</div>') + (kind === 'take' ? '<p class="note">ટિક ફક્ત આ ફોનમાં યાદ રહે છે.</p>' : ''));
+}
+function settingsSheet() {
+  const first = S.days[0]?.date || S.cfg.start;
+  sheet('⚙️ તારીખ અને નામ', F('cn', 'યાત્રાનું નામ', S.cfg.name) + F('cs', 'પેટા શીર્ષક', S.cfg.sub) + F('c0', 'યાત્રા શરૂ થવાની તારીખ (દિવસ ૧)', first, 'date') + F('cf', 'દરેક હરિભક્તનો ફાળો (₹)', S.cfg.fund || '', 'number') +
+    '<div class="btns"><button class="btn" data-a="cfgsave">સાચવો અને બધા દિવસ ખસેડો</button></div><p class="note">તારીખ બદલશો તો ૧૮ એ દિવસની તારીખ સળંગ ગોઠવાઈ જશે. કોઈ એક દિવસ અલગ કરવો હોય તો તે દિવસમાં ⚙ દબાવી તારીખ બદલો.</p>');
+}
+
+/* ---------- actions ---------- */
+async function saveDay(d) { await put('days/' + d.id, d); }
+document.addEventListener('click', async ev => {
+  const t = ev.target.closest('[data-a],[data-v]'); if (!t) return;
+  if (t.dataset.v) { view = t.dataset.v; if (view === 'day') { const ti = todayIdx(); dayIdx = ti >= 0 ? ti : 0; dayTouched = false; lastCentered = -1; $('#main').scrollTop = 0; } closeSheet(); render(); return; }
+  const a = t.dataset.a, id = t.dataset.id;
+  if (a === 'tick') return;
+  if (a === 'close') return closeSheet();
+  if (a === 'edtog') { edit = !edit; closeSheet(); render(); return toast(edit ? 'ફેરફાર ચાલુ: ✏️ ⚙ ➕ ❌ બટન દેખાશે' : 'ફેરફાર બંધ'); }
+  if (a === 'tstog') { testMode = !testMode; try { localStorage.setItem('nk_test', testMode ? '1' : '0'); if (testMode) { testStart = '2026-11-01'; } } catch (e) {} dayIdx = 0; const ti2 = todayIdx(); if (ti2 >= 0) dayIdx = ti2; lastCentered = -1; liveSig = ''; render(); return toast(testMode ? 'ટેસ્ટ ચાલુ: ૫ દિવસ, કાલથી' : 'ટેસ્ટ બંધ: અસલી તારીખો'); }
+  if (a === 'prev') { dayIdx = Math.max(0, dayIdx - 1); dayTouched = true; return render(); }
+  if (a === 'next') { dayIdx = Math.min(S.days.length - 1, dayIdx + 1); dayTouched = true; return render(); }
+  if (a === 'goday') { dayIdx = +t.dataset.i; dayTouched = true; view = 'day'; lastCentered = -1; return render(); }
+  if (a === 'today') { const i = todayIdx(); dayIdx = i >= 0 ? i : 0; view = 'day'; dayTouched = true; lastCentered = -1; if (i < 0) toast('આજે યાત્રાનો દિવસ નથી'); return render(); }
+  if (a === 'pg') { const k = t.dataset.k, dl = +t.dataset.d; if (k === 'pl') plPage += dl; else if (k === 'ac') accPage += dl; else pPage += dl; return render(); }
+  if (a === 'pf') { pFilter = t.dataset.k; pPage = 0; return render(); }
+  if (a === 'place') return placeSheet(id);
+  if (a === 'note') return noteSheet(id);
+  if (a === 'ev') return evSheet(id);
+  if (a === 'evadd') return evSheet('');
+  if (a === 'dayedit') return daySheet();
+  if (a === 'person') return personSheet(id);
+  if (a === 'personadd') return personSheet('');
+  if (a === 'take' || a === 'rules') return listSheet(a);
+  if (a === 'settings') return settingsSheet();
+  if (a === 'acc') { view = 'acc'; closeSheet(); return render(); }
+  if (a === 'accback') { view = 'more'; return render(); }
+  if (a === 'atab') { accTab = t.dataset.k; accPage = 0; return render(); }
+  if (a === 'pf2') { payFilter = t.dataset.k; accPage = 0; return render(); }
+  const shiftM = (d, n) => { const x = new Date(d.slice(0, 7) + '-01T00:00:00Z'); x.setUTCMonth(x.getUTCMonth() + n); return x.toISOString().slice(0, 10); };
+  if (a === 'adprev') { accDate = addDays(accDate, -1); return render(); }
+  if (a === 'adnext') { accDate = addDays(accDate, 1); return render(); }
+  if (a === 'amprev') { accDate = shiftM(accDate, -1); return render(); }
+  if (a === 'amnext') { accDate = shiftM(accDate, 1); return render(); }
+  if (a === 'ayprev') { accDate = shiftM(accDate, -12); return render(); }
+  if (a === 'aynext') { accDate = shiftM(accDate, 12); return render(); }
+  if (a === 'ymon') { accDate = t.dataset.m + '-01'; accTab = 'mon'; return render(); }
+  if (a === 'qtog') { accQ = !accQ; return render(); }
+  if (a === 'qt') { accT = t.dataset.k; document.querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.k === accT)); return; }
+  if (a === 'qp') { $('#qx').value = t.dataset.t; $('#qa').focus(); return; }
+  if (a === 'qc') { accC = accC === t.dataset.k ? '' : t.dataset.k; document.querySelectorAll('.qc .chip').forEach(b => b.classList.toggle('on', b.dataset.k === accC)); return; }
+  if (a === 'qsave') {
+    const amt = +$('#qa').value; if (!(amt > 0)) return toast('રકમ લખો');
+    const e = {id: 'a' + Date.now().toString(36), t: accT, amt, txt: $('#qx').value.trim(), date: accDate, who: '', c: accC, d: $('#qd').value.trim()};
+    S.acc.push(e); S.acc.sort((x, y) => (y.date || '').localeCompare(x.date || '')); render(); await put('acc/' + e.id, e); return toast('સાચવ્યું');
+  }
+  if (a === 'aadd') return entrySheet('', {date: t.dataset.d});
+  if (a === 'aedit') return entrySheet(id);
+  if (a === 'pay') { const p = S.people.find(x => x.id === id); return entrySheet('', {t: 'in', who: id, amt: Math.max(0, fundOf(p) - paidOf(id)) || '', txt: 'ફાળો', date: nowIST().date}); }
+  if (a === 'aexport') return exportCsv();
+  if (a === 'asave') {
+    const amt = +V('aa'); if (!(amt > 0)) return toast('રકમ લખો');
+    let e = id ? S.acc.find(x => x.id === id) : null; const isNew = !e; if (isNew) e = {id: 'a' + Date.now().toString(36)};
+    e.t = $('#at').value; e.amt = amt; e.txt = V('ax'); e.date = V('ad') || nowIST().date; e.who = t.dataset.w || e.who || ''; e.c = $('#ac').value; e.d = V('ae');
+    if (isNew) S.acc.push(e); S.acc.sort((a, b) => (b.date || '').localeCompare(a.date || '')); closeSheet(); render(); await put('acc/' + e.id, e); return toast('સાચવ્યું');
+  }
+  if (a === 'adel') { S.acc = S.acc.filter(x => x.id !== id); closeSheet(); render(); await del('acc/' + id); return toast('કાઢી નાખ્યું'); }
+  if (a === 'copy') { const p = S.people.find(x => x.id === id); try { await navigator.clipboard.writeText(p.mob); toast('નંબર કોપી થયો: ' + p.mob); } catch (e) { toast('નંબર: ' + p.mob); } return; }
+  if (a === 'cancel') { const p = S.people.find(x => x.id === id); p.st = p.st === 'x' ? 'ok' : 'x'; render(); await put('people/' + id, p); toast(p.st === 'x' ? p.n + ' રદ થયા' : p.n + ' પાછા ચાલુ'); return; }
+  if (a === 'notesave') { const e = curDay().ev.find(x => x.id === id); e.note = V('nt'); closeSheet(); render(); await saveDay(curDay()); return toast('નોંધ સાચવી'); }
+  if (a === 'evsave') {
+    const d = curDay(); let e = id ? d.ev.find(x => x.id === id) : null; const isNew = !e; if (isNew) e = {id: 'e' + Date.now().toString(36), note: ''};
+    e.tm = V('etm'); e.lb = V('elb'); e.x = V('ex'); e.pl = $('#epl').value; if (!e.x) return toast('કાર્યક્રમ લખો');
+    if (isNew) d.ev.push(e); sortEv(d);
+    closeSheet(); render(); await saveDay(d); return toast('સાચવ્યું');
+  }
+  if (a === 'evdel') { const d = curDay(); d.ev = d.ev.filter(x => x.id !== id); closeSheet(); render(); await saveDay(d); return toast('કાઢી નાખ્યું'); }
+  if (a === 'daysave') { const d = curDay(); d.date = V('dd') || d.date; d.title = V('dt'); d.stay = V('ds'); d.city = V('dc'); closeSheet(); render(); await saveDay(d); return toast('સાચવ્યું'); }
+  if (a === 'cfgsave') {
+    S.cfg.name = V('cn'); S.cfg.sub = V('cs'); S.cfg.fund = +V('cf') || 0; const s0 = V('c0'); const old = S.days[0].date; const shift = s0 ? diffDays(old, s0) : 0;
+    if (shift) S.days.forEach(d => d.date = addDays(d.date, shift)); S.cfg.start = s0 || S.cfg.start;
+    closeSheet(); render(); const ok = await put('cfg/main', S.cfg); if (ok && shift) for (const d of S.days) await saveDay(d); return toast('સાચવ્યું');
+  }
+  if (a === 'placesave') { const p = S.places[id]; p.name = V('pn'); p.mahima = $('#pm').value.trim(); p.pin = V('pp').replace(/[^0-9]/g, ''); p.timing = V('pt'); p.q = V('pq'); closeSheet(); render(); await put('places/' + id, p); return toast('સાચવ્યું'); }
+  if (a === 'placedel') { delete S.places[id]; S.days.forEach(d => d.ev.forEach(e => { if (e.pl === id) e.pl = ''; })); closeSheet(); render(); await del('places/' + id); for (const d of S.days) await saveDay(d); return toast('કાઢી નાખ્યું'); }
+  if (a === 'placeadd') { const nid = 'x' + Date.now().toString(36); S.places[nid] = {name: 'નવું સ્થળ', mahima: '', pin: '', q: '', timing: ''}; render(); await put('places/' + nid, S.places[nid]); return placeSheet(nid); }
+  if (a === 'personsave') {
+    let p = id ? S.people.find(x => x.id === id) : null; const isNew = !p;
+    const sant = $('#ps').value === '1';
+    if (isNew) { p = {id: 'p' + Date.now().toString(36), st: 'ok'}; }
+    p.n = V('pn'); if (!p.n) return toast('નામ લખો'); p.age = +V('pa') || 0; p.mob = V('pm'); p.fund = +V('pfd') || 0;
+    if (isNew || p.sant !== sant) { p.sant = sant; p.no = 1 + Math.max(0, ...S.people.filter(x => x.sant === sant && x.id !== p.id).map(x => x.no)); }
+    if (isNew) S.people.push(p); S.people.sort((a, b) => (a.sant - b.sant) || (a.no - b.no)); closeSheet(); render(); await put('people/' + p.id, p); return toast('સાચવ્યું');
+  }
+  if (a === 'persondel') { S.people = S.people.filter(x => x.id !== id); closeSheet(); render(); await del('people/' + id); return toast('કાયમ માટે કાઢ્યું'); }
+  if (a === 'liadd') { collectList(t.dataset.k); S[t.dataset.k].push(''); return listSheet(t.dataset.k); }
+  if (a === 'lidel') { collectList(t.dataset.k); S[t.dataset.k].splice(+t.dataset.i, 1); return listSheet(t.dataset.k); }
+  if (a === 'lisave') { const k = t.dataset.k; collectList(k); S[k] = S[k].filter(Boolean); closeSheet(); await put('lists/' + k, {items: S[k]}); return toast('સાચવ્યું'); }
+});
+function collectList(k) { const els = document.querySelectorAll('#sheet .li'); if (els.length) S[k] = [...els].map(e => e.value.trim()); }
+document.addEventListener('change', e => { const t = e.target; if (t.dataset?.a === 'tick') { ticks[t.dataset.t] = t.checked; try { localStorage.setItem('nk_ticks', JSON.stringify(ticks)); } catch (x) {} t.closest('.chk').classList.toggle('done', t.checked); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+/* swipe on the day view */
+let sx = null;
+$('#main').addEventListener('touchstart', e => { sx = e.target.closest('.dstrip') ? null : e.touches[0].clientX; }, {passive: true});
+$('#main').addEventListener('touchend', e => { if (sx == null || view !== 'day') return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 70) { dayIdx = Math.min(vdays().length - 1, Math.max(0, dayIdx + (dx < 0 ? 1 : -1))); dayTouched = true; lastCentered = -1; render(); } }, {passive: true});
+
+/* ---------- start ---------- */
+(function init() { const i = todayIdx(); dayIdx = i >= 0 ? i : 0; render(); })();
+setInterval(() => { if (!$('#sheet')) { if (!dayTouched) { const i = todayIdx(); if (i >= 0) dayIdx = i; } render(); } }, 60000);
+(async () => {
+  try { const u = await claude.use('user'); canW = u ? await u.can('data.write') : null; } catch (e) {}
+  try { db = await claude.use('db'); } catch (e) { db = null; }
+  try { dlc = await claude.use('downloads'); } catch (e) { dlc = null; }
+  hdr(); if (db) subscribe(); else { cloudState = 'err'; hdr(); }
+})();
+</script>
+
+</body></html>

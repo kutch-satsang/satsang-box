@@ -107,7 +107,7 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 /* V71: મંદિર (Play) પાનું = તમારું આખું ચિત્ર, ઉપર અદૃશ્ય બટન */
 .mand.mfull{position:fixed;inset:0;padding:0;display:grid;place-items:center;overflow:hidden;background:linear-gradient(#f4e6d2,#efdcc2)}
 .mbx{position:relative;container-type:inline-size;width:min(100vw,calc(100dvh * 3456 / 6144));aspect-ratio:3456/6144}
-.mbx::before{content:"";position:absolute;left:-15%;right:-15%;top:-8%;bottom:-8%;background:url(themes/adhyatmik/mandir-full.webp) center/100% 100% no-repeat;pointer-events:none}
+.mbx::before{content:"";position:absolute;left:-15%;right:-15%;top:-8%;bottom:-8%;background:url(themes/adhyatmik/mati/mandir-full.webp) center/100% 100% no-repeat;pointer-events:none}
 .mhit{position:absolute;border:0;padding:0;margin:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s}
 .mhit:active{background:rgba(255,255,255,.22)}
 .mback{left:4.4%;top:5.75%;width:11.6%;height:6.25%;border-radius:22%}
@@ -177,22 +177,24 @@ html.cl{--ink:#2b3445;--deep:#2b3445;--muted:#6a768a;--accent:#f07b52;color-sche
 html.cl body{color:#2b3445}
 .clg{background:linear-gradient(150deg,rgba(255,255,255,.62),rgba(255,255,255,.28))!important;border:1px solid rgba(255,255,255,.85)!important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 14px 30px rgba(70,90,120,.16),0 2px 6px rgba(70,90,120,.08),inset 0 1px 0 rgba(255,255,255,.95)!important}
 .clh{height:100dvh;max-width:560px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 16px;display:flex;flex-direction:column;gap:12px;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;animation:sfade .22s ease-out both}
-.cltop{display:flex;justify-content:space-between;align-items:flex-start}
+.cltop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex:none}
 .cldate{font-size:13px;color:#5d6a7e;font-weight:700;line-height:1.25}.cldate b{display:block;font-size:26px;color:#2b3445}
 .clrb{display:flex;gap:8px}
-.clbtn{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;align-content:center;padding:0;cursor:pointer;color:#5b6b85;font:800 9px/1 'Baloo Bhai 2',sans-serif}
+.clbtn{min-width:44px;height:48px;padding:0 6px!important;border-radius:15px;display:grid;place-items:center;align-content:center;padding:0;cursor:pointer;color:#5b6b85;font:800 9px/1 'Baloo Bhai 2',sans-serif}
 .clbtn svg{width:22px;height:22px}.clbtn small{margin-top:1px}
 .clbtn:active,.clt:active{transform:scale(.97)}
-.clhero{border-radius:30px;padding:10px;display:flex;flex-direction:column;gap:8px}
-.clscene{width:100%;height:150px;object-fit:cover;border-radius:22px;display:block}
+.clhero{border-radius:30px;padding:10px;display:flex;flex-direction:column;gap:8px;flex:none}
+.clscene{width:100%;height:clamp(110px,22dvh,210px);object-fit:cover;border-radius:22px;display:block}
 .clhrow{display:flex;align-items:center;justify-content:space-between;padding:2px 8px 4px}
 .clhrow h1{margin:0;font-size:28px;font-weight:800;line-height:1.1}.clhrow small{display:block;font-size:13px;color:#6a768a;font-weight:700}
 .clom{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:28px;font-weight:800;color:#e0762f}
-.clgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.clt{border-radius:24px;padding:12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;min-height:70px;text-decoration:none;color:#2b3445;white-space:nowrap;transition:transform .15s}
-.clt.clwide{grid-column:1/-1;min-height:62px}
+.clgrid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:12px;max-height:520px}
+.clt{border-radius:24px;padding:12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;min-height:58px;min-width:0;text-decoration:none;color:#2b3445;line-height:1.2;overflow-wrap:anywhere;transition:transform .15s}
+.cln{min-width:0}
+.clt.clwide{grid-column:1/-1}
 .clic{width:46px;height:46px;flex:0 0 46px;border-radius:16px;display:grid;place-items:center}.clic svg{width:26px;height:26px}
-@media(max-height:700px){.clh{gap:9px}.clscene{height:112px}.clt{min-height:58px;padding:8px 10px;font-size:15px}.clt.clwide{min-height:54px}.clic{width:40px;height:40px;flex-basis:40px}.cldate b{font-size:22px}.clhrow h1{font-size:25px}.clom{width:44px;height:44px;font-size:24px}}
+@media(min-height:760px){.clt:not(.clwide){flex-direction:column;justify-content:center;text-align:center;gap:12px;font-size:18px}.clt:not(.clwide) .clic{width:62px;height:62px;flex-basis:62px;border-radius:20px}.clt:not(.clwide) .clic svg{width:32px;height:32px}.clt.clwide{justify-content:center;font-size:18px}}
+@media(max-height:700px){.clh{gap:9px}.clt{padding:8px 10px;font-size:15px}.clic{width:40px;height:40px;flex-basis:40px}.cldate b{font-size:22px}.clhrow h1{font-size:25px}.clom{width:44px;height:44px;font-size:24px}}
 /* અંદરનાં પાનાં + Settings */
 html.cl .inner{background:transparent!important}
 html.cl .ztitle{color:#2b3445!important}
@@ -212,19 +214,19 @@ html.cl .lng3d:active{transform:scale(.96)}
 (function(){
 var K="satsangLang",O=["g","e","r"],LB={g:"G",e:"E",r:"G.a"};
 /* ---- થીમ: LIVE = બધાને દેખાતી થીમ. ખાનગી પ્રિવ્યૂ: ?t=નામ (સેવ થતી નથી) ---- */
-var LIVE="adhyatmik";
+var LIVE="mati";
 var TH={
- adhyatmik:{
+ mati:{
   v:{"--page":"#f4e3cc","--deep":"#5a3524","--muted":"#8a6a52","--card":"#fbf1e2","--line":"#e3c9a4","--accent":"#e8845f","--lab":"#5a3524","--tc":"#5a3524","--tsh":"none","--pillbg":"#fbf1e2","--pillbd":"0","--pillc":"#8a6a52","--cardbd":"0","--cardsh":"0 .5rem 1.1rem rgba(120,80,40,.22),inset 0 2px 3px #fff","--ibg":"linear-gradient(#f7e9d3,#efd7b6)","--isz":"cover","--ztc":"#5a3524","--fc":"#8a6a52","--drop":"drop-shadow(0 8px 10px rgba(120,80,40,.28))","--ink":"#4a2c1c"},
   col:"#f08a24",
   om:[326,80,201,204],ti:[318,68],ban:[52,1256,750,302,1346,46,[430,330]],
   t:[[85,454,309,300],[458,454,310,300],[85,854,309,300],[458,854,310,300]],lab:[310,42,764,1164]
  },
- classic:{v:{"--page":"#e6f2ef"},col:"#e6f2ef"}
+ kaach:{v:{"--page":"#e6f2ef"},col:"#e6f2ef"}
 };
 var Q=(location.search.match(/[?&]t=([a-z0-9-]+)/)||[])[1];
-["mandir-full","bg","om","banner","t1","t2","t3","t4"].forEach(function(n){var i=new Image();i.src="themes/adhyatmik/"+n+".webp";if(i.decode)i.decode().catch(function(){})});
-var SBT=(window.SatsangBox&&SatsangBox.theme())||LIVE;var TN=TH[Q]?Q:(TH[SBT]?SBT:LIVE),T0=TH[TN];document.documentElement.classList.toggle("cl",TN==="classic");
+["mandir-full","bg","om","banner","t1","t2","t3","t4"].forEach(function(n){var i=new Image();i.src="themes/adhyatmik/mati/"+n+".webp";if(i.decode)i.decode().catch(function(){})});
+var SBT=(window.SatsangBox&&SatsangBox.theme())||LIVE;var TN=TH[Q]?Q:(TH[SBT]?SBT:LIVE),T0=TH[TN];var TG={mati:"adhyatmik",kaach:"classic"};function TD(){return TG[TN]+"/"+TN}function CLS(){return TG[TN]==="classic"}document.documentElement.classList.toggle("cl",CLS());
 var Z=[{id:"m1"},{id:"z1"},{id:"z2"},{id:"z3"},{id:"z4"},{id:"z5"},{id:"stats"},{id:"set"}];
 var ZG={z1:["prashn-leela","ekadashi"],z2:["dhyan-murti"],z3:["fal-ful-memory"],z4:["antahshatru-vijay"]};
 var G={"ekadashi":{n:"n5",t:"t5"},"prashn-leela":{n:"n1",t:"t1"},"dhyan-murti":{n:"n2",t:"t2"},"antahshatru-vijay":{n:"n3",t:"t3"},"fal-ful-memory":{n:"n4",t:"t4"}};
@@ -253,25 +255,25 @@ function mkLang(cls){
 function mkGear(){
   var b=el("button","lng3d hm gr");b.type="button";b.setAttribute("aria-label","Settings");b.innerHTML='<span class="le">\u2699\uFE0F</span>';
   b.addEventListener("click",function(){go("set")});return b}
-function themeVars(n){for(var k in T0.v)n.style.setProperty(k,T0.v[k]);n.style.setProperty("--bg","url(themes/"+TN+"/bg.webp)")}
+function themeVars(n){for(var k in T0.v)n.style.setProperty(k,T0.v[k]);n.style.setProperty("--bg","url(themes/"+TD()+"/bg.webp)")}
 function img(src){var i=new Image();i.src=src;i.alt="";i.decoding="async";i.draggable=false;return i}
 function lab(txt,top,size,left,w){var s=el("span","st",txt);s.style.top=px(top);s.style.fontSize=px(size);if(left!=null){s.style.left=px(left);s.style.width=px(w)}return s}
 function home(t){
-  if(TN==="classic")return homeClassic(t);
+  if(CLS())return homeClassic(t);
   var st=el("div","stage");themeVars(st);
   st.appendChild(mkLang("hm"));st.appendChild(mkGear());
   var sc=el("div","sc");st.appendChild(sc);var stm=st;st=sc;
-  var om=el("div","el om");box(om,T0.om);om.appendChild(img("themes/"+TN+"/om.webp"));st.appendChild(om);
+  var om=el("div","el om");box(om,T0.om);om.appendChild(img("themes/"+TD()+"/om.webp"));st.appendChild(om);
   var ti=lab(t.h1,T0.ti[0],T0.ti[1]);ti.className="st ti";st.appendChild(ti);
   ["z1","z2","z3","z4"].forEach(function(z,i){
     var zz=z==="z1"?"m1":z;var a=el("a","el");a.href="#"+zz;hook(a,zz);a.setAttribute("aria-label",t[z]);box(a,T0.t[i]);
-    a.appendChild(img("themes/"+TN+"/t"+(i+1)+".webp"));
+    a.appendChild(img("themes/"+TD()+"/t"+(i+1)+".webp"));
     var lt=i<2?T0.lab[2]:T0.lab[3];
     var s=lab(t[z],lt,T0.lab[1]);
-    if(TN==="adhyatmik"){s.style.top=px(T0.t[i][3]+10);}else{s.style.top=px(T0.lab[i<2?2:3])}
+    if(TN==="mati"){s.style.top=px(T0.t[i][3]+10);}else{s.style.top=px(T0.lab[i<2?2:3])}
     s.style.left="0";s.style.width="100%";a.appendChild(s);st.appendChild(a)});
   var bn=el("a","el");bn.href="#z5";hook(bn,"z5");bn.setAttribute("aria-label",t.z5);box(bn,[T0.ban[0],T0.ban[1],T0.ban[2],T0.ban[3]]);
-  bn.appendChild(img("themes/"+TN+"/banner.webp"));
+  bn.appendChild(img("themes/"+TD()+"/banner.webp"));
   var bs=lab(t.z5,T0.ban[4]-T0.ban[1],T0.ban[5]);bs.style.left=px(T0.ban[6][0]-T0.ban[0]);bs.style.width=px(T0.ban[6][1]);bn.appendChild(bs);
   st.appendChild(bn);
   return stm;
@@ -280,7 +282,7 @@ function homeClay(t){
   var st=el("div","stage");themeVars(st);
   st.appendChild(mkLang("hm"));st.appendChild(mkGear());
   var sc=el("div","sc");st.appendChild(sc);
-  var bg=img("themes/adhyatmik/home.webp");bg.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none";sc.appendChild(bg);
+  var bg=img("themes/adhyatmik/mati/home.webp");bg.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none";sc.appendChild(bg);
   var cv=el("div","cov");box(cv,[284,165,286,307]);cv.style.borderRadius=px(44);sc.appendChild(cv);
   var om=el("div","el om");box(om,[284,165,286,307]);om.appendChild(el("span","omg","\u0AD0"));sc.appendChild(om);
   var ti=lab(t.h1,474,52);ti.className="st ti";sc.appendChild(ti);
@@ -308,10 +310,10 @@ function homeClassic(t){
   var rb=el("div","clrb");
   var lg=el("button","clbtn clg");lg.type="button";lg.setAttribute("aria-label","Language");lg.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#5b6b85" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>';lg.appendChild(el("small",null,LAB[L]));
   lg.addEventListener("click",function(){setLang(O[(O.indexOf(L)+1)%3])});
-  var gr=el("button","clbtn clg");gr.type="button";gr.setAttribute("aria-label","Settings");gr.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#5b6b85" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+  var gr=el("button","clbtn clg");gr.type="button";gr.setAttribute("aria-label","Settings");gr.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#5b6b85" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';gr.appendChild(el("small",null,{g:"સેટિંગ",e:"Settings",r:"Setting"}[L]));
   gr.addEventListener("click",function(){go("set")});
   rb.appendChild(lg);rb.appendChild(gr);tp.appendChild(rb);w.appendChild(tp);
-  var hr=el("div","clhero clg"),sc=img("themes/classic/scene.svg");sc.className="clscene";hr.appendChild(sc);
+  var hr=el("div","clhero clg"),sc=img("themes/classic/kaach/scene.svg");sc.className="clscene";hr.appendChild(sc);
   var hw=el("div","clhrow"),hx=el("div");hx.appendChild(el("h1",null,t.h1));hx.appendChild(el("small",null,{g:"રમતાં રમતાં શીખો",e:"Learn while you play",r:"Ramta ramta shikho"}[L]));hw.appendChild(hx);hw.appendChild(el("span","clom clg","ૐ"));hr.appendChild(hw);w.appendChild(hr);
   var g=el("nav","clgrid");g.setAttribute("aria-label","Menu");
   ["z1","z2","z3","z4","z5"].forEach(function(z){var a=el("a","clt clg"+(z==="z5"?" clwide":""));a.href="#"+z;hook(a,z);
@@ -338,7 +340,10 @@ function special(w,t,zid){
       bts.push(b);row.appendChild(b)});
     bx.appendChild(row);if(note)bx.appendChild(el("p","shint",note));w.appendChild(bx);return bx}
   seg("🌐 "+t.lgT,null,"c3",[{v:"g",l:"ગુજરાતી"},{v:"e",l:"English"},{v:"r",l:"ABC"}],L,function(v){setLang(v);return false});
-  seg("🎨 "+t.thT,null,"c2",[{v:"adhyatmik",l:THL[L][0]},{v:"classic",l:THL[L][1]}],TN,function(v){if(!SB.set("theme",v))return false;TN=v;T0=TH[v];document.documentElement.classList.toggle("cl",v==="classic");render("lang");return false});
+  var TL={adhyatmik:[["mati",{g:"🏺 માટી",e:"🏺 Clay",r:"🏺 Mati"}]],classic:[["kaach",{g:"🔮 કાચ",e:"🔮 Glass",r:"🔮 Kaach"}]]};
+  function pickT(v){if(!SB.set("theme",v))return;TN=v;T0=TH[v];document.documentElement.classList.toggle("cl",CLS());render("lang")}
+  seg("🎨 "+t.thT,null,"c2",[{v:"adhyatmik",l:THL[L][0]},{v:"classic",l:THL[L][1]}],TG[TN],function(g){if(g!==TG[TN])pickT(TL[g][0][0]);return false});
+  seg("🖌 "+{g:"થીમ પસંદ કરો",e:"Choose a theme",r:"Theme pasand karo"}[L],null,"c3",TL[TG[TN]].map(function(x){return {v:x[0],l:x[1][L]}}),TN,function(v){if(v!==TN)pickT(v);return false});
   var ob=el("div","sbox");ob.appendChild(el("h3",null,"📶 "+t.ofT));var os=el("p","shint",t.ofC);os.style.margin="0";ob.appendChild(os);w.appendChild(ob);
   (function(){
     if(!window.caches){os.textContent=t.ofN;return}
@@ -431,14 +436,14 @@ function render(force){
   if(!force&&key===curKey)return;
   var first=curKey===null,quick=first||force==="lang";curKey=key;
   var olds=Array.prototype.slice.call(app.children);
-  var nv=zid==="m1"?(TN==="classic"?inner(t,"z1"):mandir(t)):zid?inner(t,zid):home(t);
+  var nv=zid==="m1"?(CLS()?inner(t,"z1"):mandir(t)):zid?inner(t,zid):home(t);
   if(quick){app.innerHTML="";nv.style.animation="none"}
   else olds.forEach(function(o){o.classList.add("xold");setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o)},300)});
   if(first)nv.style.animation="";
   app.appendChild(nv);
   var pg=T0.v["--page"];
-  var bgv=zid?"linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/adhyatmik/bg.webp) center top/cover fixed":pg+" url(themes/"+TN+"/bg.webp) center top/cover no-repeat fixed";
-  if(TN==="classic")bgv=CLBG;
+  var bgv=zid?"linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/adhyatmik/mati/bg.webp) center top/cover fixed":pg+" url(themes/"+TD()+"/bg.webp) center top/cover no-repeat fixed";
+  if(CLS())bgv=CLBG;
   if(quick)document.body.style.background=bgv;
   else{var tk=++bgT;setTimeout(function(){if(tk===bgT)document.body.style.background=bgv},110)}
   app.classList.toggle("home",!zid);document.documentElement.classList.toggle("nosc",zid==="m1");document.documentElement.classList.toggle("homef",!zid);

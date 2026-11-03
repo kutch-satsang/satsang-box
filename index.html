@@ -186,12 +186,6 @@ var TH={
   col:"#f08a24",
   om:[326,80,201,204],ti:[318,68],ban:[52,1256,750,302,1346,46,[430,330]],
   t:[[85,454,309,300],[458,454,310,300],[85,854,309,300],[458,854,310,300]],lab:[310,42,764,1164]
- },
- embroidery:{
-  v:{"--page":"#1f4f8f","--deep":"#1f3f86","--muted":"#4c5f8d","--card":"#f7edd8","--line":"#e0a860","--accent":"#e8782f","--lab":"#1f3f86","--tc":"#f7edd8","--tsh":"0 2px 0 #cdbd9a,0 5px 8px rgba(0,0,0,.45)","--pillbg":"#f3e8d0","--pillbd":"2px dashed #e0a860","--pillc":"#1f3f86","--cardbd":"2px dashed #e0a860","--cardsh":"0 4px 12px rgba(0,0,0,.35)","--ibg":"url(themes/embroidery/fabric.webp) repeat","--isz":"288px 72px","--ztc":"#f7edd8","--fc":"#d7e0f2","--drop":"drop-shadow(0 6px 8px rgba(0,0,0,.4))","--ink":"#1f3f86"},
-  col:"#1f4f8f",
-  om:[314,68,223,230],ti:[328,70],ban:[40,1240,772,316,1348,46,[430,330]],
-  t:[[62,440,350,371],[444,440,346,371],[62,835,348,371],[444,835,346,371]],lab:[350,38,728-440,1124-835]
  }
 };
 var Q=(location.search.match(/[?&]t=([a-z0-9-]+)/)||[])[1];
@@ -281,7 +275,6 @@ function special(w,t,zid){
       bts.push(b);row.appendChild(b)});
     bx.appendChild(row);if(note)bx.appendChild(el("p","shint",note));w.appendChild(bx);return bx}
   seg("🌐 "+t.lgT,null,"c3",[{v:"g",l:"ગુજરાતી"},{v:"e",l:"English"},{v:"r",l:"ABC"}],L,function(v){setLang(v);return false});
-  seg("🎨 "+t.thT,null,"c2",[{v:"clay",l:t.thC},{v:"emb",l:t.thE,dis:true}],SB.get("theme"),function(v){return SB.set("theme",v)});
   var ob=el("div","sbox");ob.appendChild(el("h3",null,"📶 "+t.ofT));var os=el("p","shint",t.ofC);os.style.margin="0";ob.appendChild(os);w.appendChild(ob);
   (function(){
     if(!window.caches){os.textContent=t.ofN;return}

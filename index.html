@@ -288,7 +288,7 @@ function special(w,t,zid){
           var n=h.filter(Boolean).length;os.textContent=n>=pre.length?t.ofY:t.ofW+" ("+n+"/"+pre.length+")"})})
     }).catch(function(){os.textContent=t.ofN})
   })();
-  var ar=el("div","sset c2 act");
+  var ar=el("div","sset act");
   var ub=el("button",null,t.upB);ub.type="button";
   ub.addEventListener("click",function(){
     if(!navigator.onLine){ub.textContent=t.upO;return}
@@ -296,9 +296,7 @@ function special(w,t,zid){
     var rs=[];if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)rs.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));
     if(window.caches)rs.push(caches.keys().then(function(a){return Promise.all(a.map(function(k){return caches.delete(k)}))}));
     Promise.all(rs).catch(function(){}).then(function(){location.reload()})});
-  var rb=el("button",null,t.rsB);rb.type="button";
-  rb.addEventListener("click",function(){SB.reset();rb.textContent=t.rsD});
-  ar.appendChild(ub);ar.appendChild(rb);w.appendChild(ar);
+  ar.appendChild(ub);w.appendChild(ar);
   var b3=el("div","sbox abt");b3.appendChild(el("h3",null,t.abT));b3.appendChild(el("p",null,t.abN));w.appendChild(b3);
   w.appendChild(el("div","sver",t.ver+" · "+SB.version));
   return w}

@@ -107,7 +107,7 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 /* V71: મંદિર (Play) પાનું = તમારું આખું ચિત્ર, ઉપર અદૃશ્ય બટન */
 .mand.mfull{position:fixed;inset:0;padding:0;display:grid;place-items:center;overflow:hidden;background:linear-gradient(#f4e6d2,#efdcc2)}
 .mbx{position:relative;container-type:inline-size;width:min(100vw,calc(100dvh * 3456 / 6144));aspect-ratio:3456/6144}
-.mbx::before{content:"";position:absolute;left:-15%;right:-15%;top:-8%;bottom:-8%;background:url(themes/clay/mandir-full.webp) center/100% 100% no-repeat;pointer-events:none}
+.mbx::before{content:"";position:absolute;left:-15%;right:-15%;top:-8%;bottom:-8%;background:url(themes/adhyatmik/mandir-full.webp) center/100% 100% no-repeat;pointer-events:none}
 .mhit{position:absolute;border:0;padding:0;margin:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s}
 .mhit:active{background:rgba(255,255,255,.22)}
 .mback{left:4.4%;top:5.75%;width:11.6%;height:6.25%;border-radius:22%}
@@ -172,6 +172,39 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 .setp .abt h3{display:none}.setp .abt p{font-size:11.5px;line-height:1.45}
 .setp .sver{margin:8px 0 0;font-size:11px}
 </style>
+<style>/* ✨ ક્લાસિક થીમ (કાચ) — html.cl */
+html.cl{--ink:#2b3445;--deep:#2b3445;--muted:#6a768a;--accent:#f07b52;color-scheme:light}
+html.cl body{color:#2b3445}
+.clg{background:linear-gradient(150deg,rgba(255,255,255,.62),rgba(255,255,255,.28))!important;border:1px solid rgba(255,255,255,.85)!important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 14px 30px rgba(70,90,120,.16),0 2px 6px rgba(70,90,120,.08),inset 0 1px 0 rgba(255,255,255,.95)!important}
+.clh{height:100dvh;max-width:560px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 16px;display:flex;flex-direction:column;gap:12px;font-family:'Baloo Bhai 2','Noto Sans Gujarati',sans-serif;animation:sfade .22s ease-out both}
+.cltop{display:flex;justify-content:space-between;align-items:flex-start}
+.cldate{font-size:13px;color:#5d6a7e;font-weight:700;line-height:1.25}.cldate b{display:block;font-size:26px;color:#2b3445}
+.clrb{display:flex;gap:8px}
+.clbtn{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;align-content:center;padding:0;cursor:pointer;color:#5b6b85;font:800 9px/1 'Baloo Bhai 2',sans-serif}
+.clbtn svg{width:22px;height:22px}.clbtn small{margin-top:1px}
+.clbtn:active,.clt:active{transform:scale(.97)}
+.clhero{border-radius:30px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.clscene{width:100%;height:150px;object-fit:cover;border-radius:22px;display:block}
+.clhrow{display:flex;align-items:center;justify-content:space-between;padding:2px 8px 4px}
+.clhrow h1{margin:0;font-size:28px;font-weight:800;line-height:1.1}.clhrow small{display:block;font-size:13px;color:#6a768a;font-weight:700}
+.clom{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:28px;font-weight:800;color:#e0762f}
+.clgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.clt{border-radius:24px;padding:12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;min-height:70px;text-decoration:none;color:#2b3445;white-space:nowrap;transition:transform .15s}
+.clt.clwide{grid-column:1/-1;min-height:62px}
+.clic{width:46px;height:46px;flex:0 0 46px;border-radius:16px;display:grid;place-items:center}.clic svg{width:26px;height:26px}
+@media(max-height:700px){.clh{gap:9px}.clscene{height:112px}.clt{min-height:58px;padding:8px 10px;font-size:15px}.clt.clwide{min-height:54px}.clic{width:40px;height:40px;flex-basis:40px}.cldate b{font-size:22px}.clhrow h1{font-size:25px}.clom{width:44px;height:44px;font-size:24px}}
+/* અંદરનાં પાનાં + Settings */
+html.cl .inner{background:transparent!important}
+html.cl .ztitle{color:#2b3445!important}
+html.cl .back,html.cl .grid .game,html.cl .sbox{background:linear-gradient(150deg,rgba(255,255,255,.62),rgba(255,255,255,.28))!important;border:1px solid rgba(255,255,255,.85)!important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 14px 30px rgba(70,90,120,.16),0 2px 6px rgba(70,90,120,.08),inset 0 1px 0 rgba(255,255,255,.95)!important;color:#2b3445!important}
+html.cl .name{color:#2b3445!important}html.cl .note,html.cl .shint,html.cl .sver{color:#6a768a!important}
+html.cl .no{background:linear-gradient(140deg,#ffb38a,#f07b52)!important;box-shadow:0 6px 14px rgba(240,123,82,.35),inset 0 1px 0 rgba(255,255,255,.5)!important}
+html.cl .play{background:linear-gradient(140deg,#5fd3b0,#2fb39a)!important;box-shadow:0 6px 14px rgba(47,179,154,.35),inset 0 1px 0 rgba(255,255,255,.45)!important}
+html.cl .sset button{background:rgba(255,255,255,.55)!important;color:#4a5568!important;box-shadow:inset 0 1px 0 #fff,0 4px 10px rgba(70,90,120,.12)!important;border:1px solid rgba(255,255,255,.8)!important}
+html.cl .sset button.on{background:linear-gradient(140deg,#ffb38a,#f07b52)!important;color:#fff!important;box-shadow:0 6px 14px rgba(240,123,82,.38)!important}
+html.cl .lng3d{background:linear-gradient(150deg,rgba(255,255,255,.62),rgba(255,255,255,.28))!important;border:1px solid rgba(255,255,255,.85)!important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 14px 30px rgba(70,90,120,.16),0 2px 6px rgba(70,90,120,.08),inset 0 1px 0 rgba(255,255,255,.95)!important;color:#5b6b85!important;border-radius:15px!important}
+html.cl .lng3d:active{transform:scale(.96)}
+</style>
 </head>
 <body>
 <main class="wrap" id="app"></main>
@@ -179,18 +212,19 @@ html.homef,html.homef body{overflow:hidden;height:100%}
 (function(){
 var K="satsangLang",O=["g","e","r"],LB={g:"G",e:"E",r:"G.a"};
 /* ---- થીમ: LIVE = બધાને દેખાતી થીમ. ખાનગી પ્રિવ્યૂ: ?t=નામ (સેવ થતી નથી) ---- */
-var LIVE="clay";
+var LIVE="adhyatmik";
 var TH={
- clay:{
+ adhyatmik:{
   v:{"--page":"#f4e3cc","--deep":"#5a3524","--muted":"#8a6a52","--card":"#fbf1e2","--line":"#e3c9a4","--accent":"#e8845f","--lab":"#5a3524","--tc":"#5a3524","--tsh":"none","--pillbg":"#fbf1e2","--pillbd":"0","--pillc":"#8a6a52","--cardbd":"0","--cardsh":"0 .5rem 1.1rem rgba(120,80,40,.22),inset 0 2px 3px #fff","--ibg":"linear-gradient(#f7e9d3,#efd7b6)","--isz":"cover","--ztc":"#5a3524","--fc":"#8a6a52","--drop":"drop-shadow(0 8px 10px rgba(120,80,40,.28))","--ink":"#4a2c1c"},
   col:"#f08a24",
   om:[326,80,201,204],ti:[318,68],ban:[52,1256,750,302,1346,46,[430,330]],
   t:[[85,454,309,300],[458,454,310,300],[85,854,309,300],[458,854,310,300]],lab:[310,42,764,1164]
- }
+ },
+ classic:{v:{"--page":"#e6f2ef"},col:"#e6f2ef"}
 };
 var Q=(location.search.match(/[?&]t=([a-z0-9-]+)/)||[])[1];
-["mandir-full","bg","om","banner","t1","t2","t3","t4"].forEach(function(n){var i=new Image();i.src="themes/clay/"+n+".webp";if(i.decode)i.decode().catch(function(){})});
-var TN=TH[Q]?Q:LIVE,T0=TH[TN];
+["mandir-full","bg","om","banner","t1","t2","t3","t4"].forEach(function(n){var i=new Image();i.src="themes/adhyatmik/"+n+".webp";if(i.decode)i.decode().catch(function(){})});
+var SBT=(window.SatsangBox&&SatsangBox.theme())||LIVE;var TN=TH[Q]?Q:(TH[SBT]?SBT:LIVE),T0=TH[TN];document.documentElement.classList.toggle("cl",TN==="classic");
 var Z=[{id:"m1"},{id:"z1"},{id:"z2"},{id:"z3"},{id:"z4"},{id:"z5"},{id:"stats"},{id:"set"}];
 var ZG={z1:["prashn-leela","ekadashi"],z2:["dhyan-murti"],z3:["fal-ful-memory"],z4:["antahshatru-vijay"]};
 var G={"ekadashi":{n:"n5",t:"t5"},"prashn-leela":{n:"n1",t:"t1"},"dhyan-murti":{n:"n2",t:"t2"},"antahshatru-vijay":{n:"n3",t:"t3"},"fal-ful-memory":{n:"n4",t:"t4"}};
@@ -223,6 +257,7 @@ function themeVars(n){for(var k in T0.v)n.style.setProperty(k,T0.v[k]);n.style.s
 function img(src){var i=new Image();i.src=src;i.alt="";i.decoding="async";i.draggable=false;return i}
 function lab(txt,top,size,left,w){var s=el("span","st",txt);s.style.top=px(top);s.style.fontSize=px(size);if(left!=null){s.style.left=px(left);s.style.width=px(w)}return s}
 function home(t){
+  if(TN==="classic")return homeClassic(t);
   var st=el("div","stage");themeVars(st);
   st.appendChild(mkLang("hm"));st.appendChild(mkGear());
   var sc=el("div","sc");st.appendChild(sc);var stm=st;st=sc;
@@ -233,7 +268,7 @@ function home(t){
     a.appendChild(img("themes/"+TN+"/t"+(i+1)+".webp"));
     var lt=i<2?T0.lab[2]:T0.lab[3];
     var s=lab(t[z],lt,T0.lab[1]);
-    if(TN==="clay"){s.style.top=px(T0.t[i][3]+10);}else{s.style.top=px(T0.lab[i<2?2:3])}
+    if(TN==="adhyatmik"){s.style.top=px(T0.t[i][3]+10);}else{s.style.top=px(T0.lab[i<2?2:3])}
     s.style.left="0";s.style.width="100%";a.appendChild(s);st.appendChild(a)});
   var bn=el("a","el");bn.href="#z5";hook(bn,"z5");bn.setAttribute("aria-label",t.z5);box(bn,[T0.ban[0],T0.ban[1],T0.ban[2],T0.ban[3]]);
   bn.appendChild(img("themes/"+TN+"/banner.webp"));
@@ -245,7 +280,7 @@ function homeClay(t){
   var st=el("div","stage");themeVars(st);
   st.appendChild(mkLang("hm"));st.appendChild(mkGear());
   var sc=el("div","sc");st.appendChild(sc);
-  var bg=img("themes/clay/home.webp");bg.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none";sc.appendChild(bg);
+  var bg=img("themes/adhyatmik/home.webp");bg.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none";sc.appendChild(bg);
   var cv=el("div","cov");box(cv,[284,165,286,307]);cv.style.borderRadius=px(44);sc.appendChild(cv);
   var om=el("div","el om");box(om,[284,165,286,307]);om.appendChild(el("span","omg","\u0AD0"));sc.appendChild(om);
   var ti=lab(t.h1,474,52);ti.className="st ti";sc.appendChild(ti);
@@ -254,6 +289,34 @@ function homeClay(t){
   var bn=el("a","el");bn.href="#z5";hook(bn,"z5");bn.setAttribute("aria-label",t.z5);box(bn,[44,1310,764,304]);var bs=lab(t.z5,126,44,336,400);bs.style.textAlign="center";bn.appendChild(bs);sc.appendChild(bn);
   return st;
 }
+/* ---- ✨ ક્લાસિક થીમ (કાચ) — ઘર ---- */
+var CLBG="radial-gradient(70% 40% at 0% 0%,#a9ecd4 0,rgba(169,236,212,0) 70%),radial-gradient(60% 40% at 100% 35%,#d4c4fa 0,rgba(212,196,250,0) 70%),radial-gradient(60% 35% at 0% 85%,#ffd3c4 0,rgba(255,211,196,0) 70%),radial-gradient(60% 35% at 100% 100%,#c4e6ff 0,rgba(196,230,255,0) 70%),#e8f3f0 fixed";
+var THL={g:["🪔 આધ્યાત્મિક","✨ ક્લાસિક"],e:["🪔 Spiritual","✨ Classic"],r:["🪔 Adhyatmik","✨ Classic"]};
+var CLI={
+ z1:['#f08a3c','<path d="M3 5.5c3-1.5 6-1.5 9 .8 3-2.3 6-2.3 9-.8V19c-3-1.5-6-1.5-9 .8-3-2.3-6-2.3-9-.8z"/><path d="M12 6.3v13.5"/>'],
+ z2:['#e8628f','<path d="M12 20c-4 0-8-2.5-9-6 3 0 5 1 6 2.5C8.5 12 10 8 12 5c2 3 3.5 7 3 11.5 1-1.5 3-2.5 6-2.5-1 3.5-5 6-9 6z"/>'],
+ z3:['#2fb39a','<path d="M5 5h5v1.5a2 2 0 1 0 4 0V5h5v5h-1.5a2 2 0 1 0 0 4H19v5h-5v-1.5a2 2 0 1 0-4 0V19H5v-5h1.5a2 2 0 1 0 0-4H5z"/>'],
+ z4:['#7b6cf0','<path d="M7 8h10a4 4 0 0 1 4 4v2.5a2.5 2.5 0 0 1-4.6 1.3L15 14H9l-1.4 1.8A2.5 2.5 0 0 1 3 14.5V12a4 4 0 0 1 4-4z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="16" cy="11" r=".6"/><circle cx="17.5" cy="13" r=".6"/>'],
+ z5:['#e0762f','<path d="M3 14c2 3 5 4.5 9 4.5s7-1.5 9-4.5z"/><path d="M12 13.5c-1.6-1.4-1.8-3.3 0-6 1.8 2.7 1.6 4.6 0 6z"/>']};
+function clSvg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="'+CLI[k][0]+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+CLI[k][1]+'</svg>'}
+function clDate(){var d=new Date(),gd=function(n){return String(n).replace(/[0-9]/g,function(c){return "૦૧૨૩૪૫૬૭૮૯"[c]})};
+  if(L==="g")return [["રવિવાર","સોમવાર","મંગળવાર","બુધવાર","ગુરુવાર","શુક્રવાર","શનિવાર"][d.getDay()],gd(d.getDate())+" "+["જાન્યુઆરી","ફેબ્રુઆરી","માર્ચ","એપ્રિલ","મે","જૂન","જુલાઈ","ઑગસ્ટ","સપ્ટેમ્બર","ઑક્ટોબર","નવેમ્બર","ડિસેમ્બર"][d.getMonth()]];
+  return [d.toLocaleDateString("en-GB",{weekday:"long"}),d.getDate()+" "+d.toLocaleDateString("en-GB",{month:"long"})]}
+function homeClassic(t){
+  var w=el("div","clh");
+  var tp=el("div","cltop"),dt=el("div","cldate"),dd=clDate();dt.appendChild(el("span",null,dd[0]));dt.appendChild(el("b",null,dd[1]));tp.appendChild(dt);
+  var rb=el("div","clrb");
+  var lg=el("button","clbtn clg");lg.type="button";lg.setAttribute("aria-label","Language");lg.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#5b6b85" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>';lg.appendChild(el("small",null,LAB[L]));
+  lg.addEventListener("click",function(){setLang(O[(O.indexOf(L)+1)%3])});
+  var gr=el("button","clbtn clg");gr.type="button";gr.setAttribute("aria-label","Settings");gr.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#5b6b85" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+  gr.addEventListener("click",function(){go("set")});
+  rb.appendChild(lg);rb.appendChild(gr);tp.appendChild(rb);w.appendChild(tp);
+  var hr=el("div","clhero clg"),sc=img("themes/classic/scene.svg");sc.className="clscene";hr.appendChild(sc);
+  var hw=el("div","clhrow"),hx=el("div");hx.appendChild(el("h1",null,t.h1));hx.appendChild(el("small",null,{g:"રમતાં રમતાં શીખો",e:"Learn while you play",r:"Ramta ramta shikho"}[L]));hw.appendChild(hx);hw.appendChild(el("span","clom clg","ૐ"));hr.appendChild(hw);w.appendChild(hr);
+  var g=el("nav","clgrid");g.setAttribute("aria-label","Menu");
+  ["z1","z2","z3","z4","z5"].forEach(function(z){var a=el("a","clt clg"+(z==="z5"?" clwide":""));a.href="#"+z;hook(a,z);
+    var ic=el("span","clic clg");ic.innerHTML=clSvg(z);a.appendChild(ic);a.appendChild(el("span","cln",t[z]));g.appendChild(a)});
+  w.appendChild(g);return w}
 function card(href,noTxt,name,note,playTxt,soon){
   var a=el(href?"a":"div","game");if(href)a.href=href;
   a.appendChild(el("span","no",noTxt));
@@ -275,6 +338,7 @@ function special(w,t,zid){
       bts.push(b);row.appendChild(b)});
     bx.appendChild(row);if(note)bx.appendChild(el("p","shint",note));w.appendChild(bx);return bx}
   seg("🌐 "+t.lgT,null,"c3",[{v:"g",l:"ગુજરાતી"},{v:"e",l:"English"},{v:"r",l:"ABC"}],L,function(v){setLang(v);return false});
+  seg("🎨 "+t.thT,null,"c2",[{v:"adhyatmik",l:THL[L][0]},{v:"classic",l:THL[L][1]}],TN,function(v){if(!SB.set("theme",v))return false;TN=v;T0=TH[v];document.documentElement.classList.toggle("cl",v==="classic");render("lang");return false});
   var ob=el("div","sbox");ob.appendChild(el("h3",null,"📶 "+t.ofT));var os=el("p","shint",t.ofC);os.style.margin="0";ob.appendChild(os);w.appendChild(ob);
   (function(){
     if(!window.caches){os.textContent=t.ofN;return}
@@ -367,13 +431,14 @@ function render(force){
   if(!force&&key===curKey)return;
   var first=curKey===null,quick=first||force==="lang";curKey=key;
   var olds=Array.prototype.slice.call(app.children);
-  var nv=zid==="m1"?mandir(t):zid?inner(t,zid):home(t);
+  var nv=zid==="m1"?(TN==="classic"?inner(t,"z1"):mandir(t)):zid?inner(t,zid):home(t);
   if(quick){app.innerHTML="";nv.style.animation="none"}
   else olds.forEach(function(o){o.classList.add("xold");setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o)},300)});
   if(first)nv.style.animation="";
   app.appendChild(nv);
   var pg=T0.v["--page"];
-  var bgv=zid?"linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/clay/bg.webp) center top/cover fixed":pg+" url(themes/"+TN+"/bg.webp) center top/cover no-repeat fixed";
+  var bgv=zid?"linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/adhyatmik/bg.webp) center top/cover fixed":pg+" url(themes/"+TN+"/bg.webp) center top/cover no-repeat fixed";
+  if(TN==="classic")bgv=CLBG;
   if(quick)document.body.style.background=bgv;
   else{var tk=++bgT;setTimeout(function(){if(tk===bgT)document.body.style.background=bgv},110)}
   app.classList.toggle("home",!zid);document.documentElement.classList.toggle("nosc",zid==="m1");document.documentElement.classList.toggle("homef",!zid);

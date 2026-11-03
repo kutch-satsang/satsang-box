@@ -9,4 +9,4 @@
   --cl-olive:linear-gradient(180deg,#a3b374,#7d8f4f);
   --cl-btn-sh:inset 0 -3px 6px rgba(0,0,0,.15),0 4px 8px rgba(120,80,40,.3);
 }
-body.clay{background:linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/clay/bg.webp) center top/cover fixed;color:var(--cl-ink)}
+body.clay{background:linear-gradient(rgba(248,235,214,.86),rgba(240,218,186,.9)),#f4e3cc url(themes/adhyatmik/bg.webp) center top/cover fixed;color:var(--cl-ink)}

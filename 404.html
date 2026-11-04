@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="gu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>સત્સંગ બોક્સ</title>
+<meta name="robots" content="noindex">
+<script>
+/* જૂની લિંક બંધ: એ જ પાનું નવી લિંક પર ખોલે */
+(function(){
+  var NEW="https://kutch-satsang.github.io/box/";
+  var p=location.pathname.replace(/^\/satsang-box\/?/,"");
+  if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)navigator.serviceWorker.getRegistrations().then(function(a){a.forEach(function(r){r.unregister()})}).catch(function(){});
+  if(window.caches&&caches.keys)caches.keys().then(function(k){k.forEach(function(n){caches.delete(n)})}).catch(function(){});
+  location.replace(NEW+p+location.search+location.hash);
+})();
+</script>
+<meta http-equiv="refresh" content="2;url=https://kutch-satsang.github.io/box/">
+<style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:#f4e3cc;color:#4a2c1c;font:600 17px/1.5 "Noto Sans Gujarati",sans-serif;text-align:center}a{color:#c0582f}</style>
+</head><body><p>સત્સંગ બોક્સ નવી લિંક પર છે…<br><a href="https://kutch-satsang.github.io/box/">kutch-satsang.github.io/box</a></p></body></html>
